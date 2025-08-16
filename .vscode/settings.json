@@ -1,0 +1,69 @@
+{
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.workingDirectories": ["."],
+    "tailwindCSS.includeLanguages": {
+        "javascript": "javascript",
+        "javascriptreact": "javascriptreact"
+    },
+    "editor.formatOnSave": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "javascript.preferences.importModuleSpecifier": "shortest",
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "always",
+        "source.removeUnusedImports": "always",
+        "source.organizeLinkDefinitions": "always"
+    },
+    "search.exclude": {
+        ".buildx-cache": true,
+        ".next": true,
+        ".rollup.cache": true,
+        "node_modules": true
+    },
+    "cSpell.enabled": false,
+    "i18n-ally.localesPaths": ["lib/i18n/messages"],
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.extract.parsers.html": {
+        "attributes": [
+            "text",
+            "title",
+            "alt",
+            "placeholder",
+            "label",
+            "aria-label"
+        ],
+        "ignoredTags": ["script", "style"],
+        "vBind": true,
+        "inlineText": true
+    },
+    "i18n-ally.extract.autoDetect": true,
+    "i18n-ally.refactor.templates": [
+        {
+            "source": "html-attribute",
+            "templates": [
+                "i18n.t(\"{key}\"{args})",
+                "custom.t(\"{key}\"{args})"
+            ],
+            "include": ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+            "exclude": ["components/ui/**"]
+        }
+    ],
+    "i18n-ally.sourceLanguage": "ko",
+    "i18n-ally.displayLanguage": "ko",
+    "i18n-ally.regex.usageMatchAppend": [
+        "title\\s*:\\s*[\"'`]([\\w\\d\\-_.]+)[\"'`]",
+        "description\\s*:\\s*[\"'`]([\\w\\d\\-_.]+)[\"'`]",
+        "(?:message|header)\\s*:\\s*[\"'`]([\\w\\d\\-_.]+)[\"'`]",
+        "(?:message|header)\\s*:\\s*['\"][\\w\\d\\-_.]+:([\\w\\d\\-_.]+):[\\w\\d\\-_.]+['\"]",
+        "(?:message|header)\\s*:\\s*['\"][\\w\\d\\-_.]+:[\\w\\d\\-_.]+:([\\w\\d\\-_.]+)['\"]",
+        "(?:message|header)\\s*:\\s*['\"][\\w\\d\\-_.]+:([\\w\\d\\-_.]+)['\"]",
+        "tp\\.[a-zA-Z_][\\w\\d_]*\\(\\s*['\"]([\\w\\d\\-_.]+)['\"]\\s*\\)",
+        "tp\\.[a-zA-Z_][\\w\\d_]*\\(\\s*['\"]([\\w\\d\\-_.]+)['\"]\\s*,\\s*['\"][\\w\\d\\-_.]+['\"]\\s*\\)",
+        "tp\\.[a-zA-Z_][\\w\\d_]*\\(\\s*[^,]+,\\s*['\"]([\\w\\d\\-_.]+)['\"]\\s*\\)"
+    ]
+}

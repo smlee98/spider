@@ -1,0 +1,10 @@
+.buildx-cache
+.next
+.yarn
+**/.cache
+**/.tmp
+*.log
+components/ui
+next-env.d.ts
+yarn.lock
+env.d.ts
