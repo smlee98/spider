@@ -8,8 +8,9 @@ import { CustomOverlayMap, Map, MapTypeControl, useKakaoLoader, ZoomControl } fr
 
 export default function AboutPage() {
   const [loading, error] = useKakaoLoader({
-    appkey: "4c04c5e17153756f0697b42de80feae3"
+    appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY!
   });
+
   return (
     <>
       <Container>
