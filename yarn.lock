@@ -22,6 +22,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.22.15":
+  version: 7.28.3
+  resolution: "@babel/runtime@npm:7.28.3"
+  checksum: 10c0/b360f82c2c5114f2a062d4d143d7b4ec690094764853937110585a9497977aed66c102166d0e404766c274e02a50ffb8f6d77fef7251ecf3f607f0e03e6397bc
+  languageName: node
+  linkType: hard
+
 "@emnapi/core@npm:^1.4.3":
   version: 1.4.5
   resolution: "@emnapi/core@npm:1.4.5"
@@ -467,74 +474,74 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/env@npm:15.4.6"
-  checksum: 10c0/039a757f5e083f44bd71268d804e86064233b023c72930ab45a3a46ba651c5bd474096550ca140b9ec00338c4013afbba7972c09eba23082005d7e9086a4eb67
+"@next/env@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/env@npm:15.5.0"
+  checksum: 10c0/13ed931688c26b764499840022c9855763fb583e728cf30933b2ff71d3ca681eb71611ec4d7580ecb45197c18a1a4498ba5a61cb60edc6e18966103620d11bad
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/eslint-plugin-next@npm:15.4.6"
+"@next/eslint-plugin-next@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/eslint-plugin-next@npm:15.5.0"
   dependencies:
     fast-glob: "npm:3.3.1"
-  checksum: 10c0/5a1a216474882bdeedf2033e6cae52c3add92436a9f781e3b68dccc7b9f2d24373536d8fd2d934cc5535352d7ca17529281fb6f61859cec5bed6366ee9c372cc
+  checksum: 10c0/87009afd39817f69b6b0f8afb8220c08f934ea7280630e77015ae56fe24ad06a1569417288280e9a8a18358e41de55a92efb6502e75b5b134180496701f85707
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-darwin-arm64@npm:15.4.6"
+"@next/swc-darwin-arm64@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-darwin-arm64@npm:15.5.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-darwin-x64@npm:15.4.6"
+"@next/swc-darwin-x64@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-darwin-x64@npm:15.5.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-linux-arm64-gnu@npm:15.4.6"
+"@next/swc-linux-arm64-gnu@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-linux-arm64-gnu@npm:15.5.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-linux-arm64-musl@npm:15.4.6"
+"@next/swc-linux-arm64-musl@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-linux-arm64-musl@npm:15.5.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-linux-x64-gnu@npm:15.4.6"
+"@next/swc-linux-x64-gnu@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-linux-x64-gnu@npm:15.5.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-linux-x64-musl@npm:15.4.6"
+"@next/swc-linux-x64-musl@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-linux-x64-musl@npm:15.5.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-win32-arm64-msvc@npm:15.4.6"
+"@next/swc-win32-arm64-msvc@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-win32-arm64-msvc@npm:15.5.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:15.4.6":
-  version: 15.4.6
-  resolution: "@next/swc-win32-x64-msvc@npm:15.4.6"
+"@next/swc-win32-x64-msvc@npm:15.5.0":
+  version: 15.5.0
+  resolution: "@next/swc-win32-x64-msvc@npm:15.5.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1098,6 +1105,25 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 10c0/34b2492589c3a4b118a03900d622640033630f30ac93c4a69b3701513117607f4ac3a0d9dd3cad39caa8b6495660f71f3aa9d0074d4eb4dac6804dc0b8408deb
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-separator@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "@radix-ui/react-separator@npm:1.1.7"
+  dependencies:
+    "@radix-ui/react-primitive": "npm:2.1.3"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 10c0/32c0eb4fe018397efbe580542e6e33fdc09b76b96395b2bb4c55da7b6d49224b18f46143bdaf9eb6cb01e166c459fb77508a81d20a591a9034949acee5d171d9
   languageName: node
   linkType: hard
 
@@ -2506,11 +2532,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:15.4.6":
-  version: 15.4.6
-  resolution: "eslint-config-next@npm:15.4.6"
+"eslint-config-next@npm:^15.5.0":
+  version: 15.5.0
+  resolution: "eslint-config-next@npm:15.5.0"
   dependencies:
-    "@next/eslint-plugin-next": "npm:15.4.6"
+    "@next/eslint-plugin-next": "npm:15.5.0"
     "@rushstack/eslint-patch": "npm:^1.10.3"
     "@typescript-eslint/eslint-plugin": "npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
     "@typescript-eslint/parser": "npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
@@ -2526,7 +2552,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/06d139af13a03d196509a905375730280f928e9609d79934d8be49126899739580117a28473ba4fbaad47a3dfd6b0623c1cd5b73c9f3be910bcae4ff03d5a340
+  checksum: 10c0/f7f021ea1b2aec4ca642abc1c1ad6d1961bd2581cf3f7e3b6bb6d17a208271a124489d213d3d21fc36221dc0190c8d8f5572470c00c6d353c0dc0b56a05b2a8a
   languageName: node
   linkType: hard
 
@@ -2904,6 +2930,28 @@ __metadata:
   dependencies:
     is-callable: "npm:^1.2.7"
   checksum: 10c0/0e0b50f6a843a282637d43674d1fb278dda1dd85f4f99b640024cfb10b85058aac0cc781bf689d5fe50b4b7f638e91e548560723a4e76e04fe96ae35ef039cee
+  languageName: node
+  linkType: hard
+
+"framer-motion@npm:^12.23.12":
+  version: 12.23.12
+  resolution: "framer-motion@npm:12.23.12"
+  dependencies:
+    motion-dom: "npm:^12.23.12"
+    motion-utils: "npm:^12.23.6"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/40dfb57bf714075c4f6dd0bbe5b84dd11310114474ebf603846ef9b888ed475fa653271c1fd98ec57a6a1d0b781cdf8b3ebcd5e2c6a3620e934b46304ae0fd39
   languageName: node
   linkType: hard
 
@@ -3492,6 +3540,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kakao.maps.d.ts@npm:^0.1.39":
+  version: 0.1.40
+  resolution: "kakao.maps.d.ts@npm:0.1.40"
+  checksum: 10c0/16eef0d9846311921ae3c5c020a8769ab8d1f894b2a6f1aef869a83648462982c2891bc8ea174665345290483bf73feb6ae264273cee38a40a1adbb17aa6862f
+  languageName: node
+  linkType: hard
+
 "keyv@npm:^4.5.4":
   version: 4.5.4
   resolution: "keyv@npm:4.5.4"
@@ -3756,6 +3811,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^12.23.12":
+  version: 12.23.12
+  resolution: "motion-dom@npm:12.23.12"
+  dependencies:
+    motion-utils: "npm:^12.23.6"
+  checksum: 10c0/1b6a4b86c1aed5b5da7b8a5d1f8310ad169125235bdc1953b8c41cf9f4e2c460ee90bb48ffdae54daecb8db1d7006566ceb5f5c9ccdc82606d548c527cb2631e
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.23.6":
+  version: 12.23.6
+  resolution: "motion-utils@npm:12.23.6"
+  checksum: 10c0/c058e8ba6423b3baa63e985bcc669877ee7d9579d938f5348b4e60c5ea1b4b33dd7f4877434436a4a5807f3cf00370d3fd4079a6fdd6309c5c87aa62b311a897
+  languageName: node
+  linkType: hard
+
+"motion@npm:^12.23.12":
+  version: 12.23.12
+  resolution: "motion@npm:12.23.12"
+  dependencies:
+    framer-motion: "npm:^12.23.12"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/48137c82b4fc8e55e06031f17219b2eb4385f028e77717aa6b2e87238c1e42d4222fb4b59b6527ebb66f98ea5f1234edd17c15682985e690b8cf48a5f3e44e67
+  languageName: node
+  linkType: hard
+
 "ms@npm:^2.1.1, ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
@@ -3798,19 +3890,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:15.4.6":
-  version: 15.4.6
-  resolution: "next@npm:15.4.6"
+"next@npm:^15.5.0":
+  version: 15.5.0
+  resolution: "next@npm:15.5.0"
   dependencies:
-    "@next/env": "npm:15.4.6"
-    "@next/swc-darwin-arm64": "npm:15.4.6"
-    "@next/swc-darwin-x64": "npm:15.4.6"
-    "@next/swc-linux-arm64-gnu": "npm:15.4.6"
-    "@next/swc-linux-arm64-musl": "npm:15.4.6"
-    "@next/swc-linux-x64-gnu": "npm:15.4.6"
-    "@next/swc-linux-x64-musl": "npm:15.4.6"
-    "@next/swc-win32-arm64-msvc": "npm:15.4.6"
-    "@next/swc-win32-x64-msvc": "npm:15.4.6"
+    "@next/env": "npm:15.5.0"
+    "@next/swc-darwin-arm64": "npm:15.5.0"
+    "@next/swc-darwin-x64": "npm:15.5.0"
+    "@next/swc-linux-arm64-gnu": "npm:15.5.0"
+    "@next/swc-linux-arm64-musl": "npm:15.5.0"
+    "@next/swc-linux-x64-gnu": "npm:15.5.0"
+    "@next/swc-linux-x64-musl": "npm:15.5.0"
+    "@next/swc-win32-arm64-msvc": "npm:15.5.0"
+    "@next/swc-win32-x64-msvc": "npm:15.5.0"
     "@swc/helpers": "npm:0.5.15"
     caniuse-lite: "npm:^1.0.30001579"
     postcss: "npm:8.4.31"
@@ -3853,7 +3945,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 10c0/d0cf35100cb0903e6828f9279d5d0ac637e181427845dd2afa224b42db09f3de805522c2b9bbc3b0f630d60e4c26c79b4c1a99d434500968591b864bf341b1d5
+  checksum: 10c0/8691787562666713e9ee8bc3edad646328d9cea85d5c4c10bd05a978afa25bc9927bbfd50acc69ceb268296741b5f71e78fa0213fe65b731a55e73b0f5807c24
   languageName: node
   linkType: hard
 
@@ -4069,6 +4161,79 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier-plugin-tailwindcss@npm:^0.6.14":
+  version: 0.6.14
+  resolution: "prettier-plugin-tailwindcss@npm:0.6.14"
+  peerDependencies:
+    "@ianvs/prettier-plugin-sort-imports": "*"
+    "@prettier/plugin-hermes": "*"
+    "@prettier/plugin-oxc": "*"
+    "@prettier/plugin-pug": "*"
+    "@shopify/prettier-plugin-liquid": "*"
+    "@trivago/prettier-plugin-sort-imports": "*"
+    "@zackad/prettier-plugin-twig": "*"
+    prettier: ^3.0
+    prettier-plugin-astro: "*"
+    prettier-plugin-css-order: "*"
+    prettier-plugin-import-sort: "*"
+    prettier-plugin-jsdoc: "*"
+    prettier-plugin-marko: "*"
+    prettier-plugin-multiline-arrays: "*"
+    prettier-plugin-organize-attributes: "*"
+    prettier-plugin-organize-imports: "*"
+    prettier-plugin-sort-imports: "*"
+    prettier-plugin-style-order: "*"
+    prettier-plugin-svelte: "*"
+  peerDependenciesMeta:
+    "@ianvs/prettier-plugin-sort-imports":
+      optional: true
+    "@prettier/plugin-hermes":
+      optional: true
+    "@prettier/plugin-oxc":
+      optional: true
+    "@prettier/plugin-pug":
+      optional: true
+    "@shopify/prettier-plugin-liquid":
+      optional: true
+    "@trivago/prettier-plugin-sort-imports":
+      optional: true
+    "@zackad/prettier-plugin-twig":
+      optional: true
+    prettier-plugin-astro:
+      optional: true
+    prettier-plugin-css-order:
+      optional: true
+    prettier-plugin-import-sort:
+      optional: true
+    prettier-plugin-jsdoc:
+      optional: true
+    prettier-plugin-marko:
+      optional: true
+    prettier-plugin-multiline-arrays:
+      optional: true
+    prettier-plugin-organize-attributes:
+      optional: true
+    prettier-plugin-organize-imports:
+      optional: true
+    prettier-plugin-sort-imports:
+      optional: true
+    prettier-plugin-style-order:
+      optional: true
+    prettier-plugin-svelte:
+      optional: true
+  checksum: 10c0/1bf635be28b30b3f171a184497eecf512601d19328e402dd2eb1ede52aa57b4f5b605eae2929f4916de9ba22526f3d730d9afa90334db09d17c59f463f7b26d8
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.6.2":
+  version: 3.6.2
+  resolution: "prettier@npm:3.6.2"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/488cb2f2b99ec13da1e50074912870217c11edaddedeadc649b1244c749d15ba94e846423d062e2c4c9ae683e2d65f754de28889ba06e697ac4f988d44f45812
+  languageName: node
+  linkType: hard
+
 "prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
@@ -4109,6 +4274,19 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
+  languageName: node
+  linkType: hard
+
+"react-kakao-maps-sdk@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "react-kakao-maps-sdk@npm:1.2.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.22.15"
+    kakao.maps.d.ts: "npm:^0.1.39"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10c0/b76ad477684559b7b4e25e895a62fa111ff9553ea5f08ebf300453f035981fce7544798a3e2eb63e4e31a2f399aee5ee46dbc0fc618d20c1242697bd15712213
   languageName: node
   linkType: hard
 
@@ -4560,6 +4738,7 @@ __metadata:
     "@radix-ui/react-progress": "npm:^1.1.7"
     "@radix-ui/react-scroll-area": "npm:^1.2.10"
     "@radix-ui/react-select": "npm:^2.2.6"
+    "@radix-ui/react-separator": "npm:^1.1.7"
     "@radix-ui/react-slot": "npm:^1.2.3"
     "@radix-ui/react-tabs": "npm:^1.1.13"
     "@tailwindcss/postcss": "npm:^4"
@@ -4570,12 +4749,16 @@ __metadata:
     clsx: "npm:^2.1.1"
     embla-carousel-react: "npm:^8.6.0"
     eslint: "npm:^9"
-    eslint-config-next: "npm:15.4.6"
+    eslint-config-next: "npm:^15.5.0"
     lucide-react: "npm:^0.539.0"
-    next: "npm:15.4.6"
+    motion: "npm:^12.23.12"
+    next: "npm:^15.5.0"
     next-themes: "npm:^0.4.6"
+    prettier: "npm:^3.6.2"
+    prettier-plugin-tailwindcss: "npm:^0.6.14"
     react: "npm:19.1.0"
     react-dom: "npm:19.1.0"
+    react-kakao-maps-sdk: "npm:^1.2.0"
     sonner: "npm:^2.0.7"
     tailwind-merge: "npm:^3.3.1"
     tailwindcss: "npm:^4"
