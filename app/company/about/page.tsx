@@ -4,13 +4,12 @@ import Container from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import { CustomOverlayMap, Map, MapTypeControl, useKakaoLoader, ZoomControl } from "react-kakao-maps-sdk";
+import Script from "next/script";
+import { CustomOverlayMap, Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
+
+const API_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY;
 
 export default function AboutPage() {
-  const [loading, error] = useKakaoLoader({
-    appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY!
-  });
-
   return (
     <>
       <Container>
@@ -47,6 +46,10 @@ export default function AboutPage() {
         </div>
       </Container>
       <Separator />
+      <Script
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&libraries=services,clusterer&autoload=false`}
+        strategy="beforeInteractive"
+      />
       <div className="h-[560px] w-full">
         <Map
           id="map"
