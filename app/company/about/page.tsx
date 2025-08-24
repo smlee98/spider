@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { CustomOverlayMap, Map, MapTypeControl, useKakaoLoader, ZoomControl } from "react-kakao-maps-sdk";
 
-const API_KEY = process.env.KAKAO_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
 
 export default function AboutPage() {
   const [loading, error] = useKakaoLoader({
