@@ -14,6 +14,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { menuData, isDropdownMenu, type MenuItem } from "@/lib/menu-data";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,62 +29,47 @@ export function MainNav() {
       <nav className="flex w-full items-center justify-between gap-6 text-sm">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent">보유장비</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="flex w-96 flex-col gap-3 p-4">
-                  <ListItem href="#" title="Item 1">
-                    Description 1
-                  </ListItem>
-                  <ListItem href="#" title="Item 2">
-                    Description 2
-                  </ListItem>
-                  <ListItem href="#" title="Item 3">
-                    Description 3
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem asChild>
-              <NavigationMenuLink className="px-4 font-medium" asChild>
-                <Link href="#">현장사진</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent">회사 소개</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="flex w-96 flex-col gap-3 p-4">
-                  <ListItem href="/company/about" title="대명거미크레인 소개" />
-                  <ListItem href="#" title="연혁" />
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem asChild>
-              <NavigationMenuLink className="px-4 font-medium" asChild>
-                <Link href="#">문의하기</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent">
-                <picture>
-                  <img src="/platform-basket.png" alt="platform-basket" className="h-6 w-auto" />
-                </picture>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="flex w-96 flex-col gap-3 p-4">
-                  <ListItem href="https://www.platformbasket.com/en/spider-lifts/" title="Spider lifts" target="_blank">
-                    Tracked spider lifts, tracked self-propelled spider lifts with basket lift. Vertical lift.
-                  </ListItem>
-                  <ListItem
-                    href="https://www.platformbasket.com/en/rail-boom-lifts/"
-                    title="Rail boom lifts"
-                    target="_blank"
-                  >
-                    Road/rail self-propelled boom lifts
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+            {menuData.map((item) => (
+              <NavigationMenuItem key={item.id}>
+                {isDropdownMenu(item) ? (
+                  <>
+                    <NavigationMenuTrigger className="bg-transparent">
+                      {item.icon?.type === 'image' ? (
+                        <picture>
+                          <img 
+                            src={item.icon.src} 
+                            alt={item.icon.alt} 
+                            className={item.icon.className} 
+                          />
+                        </picture>
+                      ) : (
+                        item.title
+                      )}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="flex w-96 flex-col gap-3 p-4">
+                        {item.children?.map((child) => (
+                          <ListItem 
+                            key={child.id}
+                            href={child.href || "#"} 
+                            title={child.title}
+                            target={child.target}
+                          >
+                            {child.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </>
+                ) : (
+                  <NavigationMenuLink className="px-4 font-medium" asChild>
+                    <Link href={item.href || "#"} target={item.target}>
+                      {item.title}
+                    </Link>
+                  </NavigationMenuLink>
+                )}
+              </NavigationMenuItem>
+            ))}
           </NavigationMenuList>
         </NavigationMenu>
         <ToggleSwitcher />
@@ -117,88 +103,48 @@ export function MobileNav() {
         </SheetHeader>
         <ScrollArea className="flex-1">
           <ul role="list" className="my-4 flex flex-col gap-6 px-6 text-2xl font-bold">
-            <li>
-              <Accordion type="single" collapsible className="flex w-full flex-col gap-6">
-                <AccordionItem value="solution" className="bg-background divide-y-0">
-                  <AccordionTrigger className="bg-inherit p-0 text-2xl font-bold">보유장비</AccordionTrigger>
-                  <AccordionContent className="px-0 pt-6 pb-0">
-                    <ul className="text-muted-foreground flex flex-col gap-6 text-2xl">
-                      <li>
-                        <MobileLink href="#" onOpenChange={setOpen}>
-                          Item 1
-                        </MobileLink>
-                      </li>
-                      <li>
-                        <MobileLink href="#" onOpenChange={setOpen}>
-                          Item 2
-                        </MobileLink>
-                      </li>
-                      <li>
-                        <MobileLink href="#" onOpenChange={setOpen}>
-                          Item 3
-                        </MobileLink>
-                      </li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </li>
-            <li>
-              <MobileLink href="#" onOpenChange={setOpen}>
-                현장사진
-              </MobileLink>
-            </li>
-            <li>
-              <Accordion type="single" collapsible className="flex w-full flex-col gap-6">
-                <AccordionItem value="solution" className="bg-background divide-y-0">
-                  <AccordionTrigger className="bg-inherit p-0 text-2xl font-bold">보유장비</AccordionTrigger>
-                  <AccordionContent className="px-0 pt-6 pb-0">
-                    <ul className="text-muted-foreground flex flex-col gap-6 text-2xl">
-                      <li>
-                        <MobileLink href="/company/about" onOpenChange={setOpen}>
-                          대명거미크레인 소개
-                        </MobileLink>
-                      </li>
-                      <li>
-                        <MobileLink href="#" onOpenChange={setOpen}>
-                          연혁
-                        </MobileLink>
-                      </li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </li>
-            <li>
-              <MobileLink href="#" onOpenChange={setOpen}>
-                문의하기
-              </MobileLink>
-            </li>
-            <li>
-              <Accordion type="single" collapsible className="flex w-full flex-col gap-6">
-                <AccordionItem value="solution" className="bg-background divide-y-0">
-                  <AccordionTrigger className="bg-inherit p-0 text-2xl font-bold">
-                    <picture>
-                      <img src="/platform-basket.png" alt="platform-basket" className="h-6 w-auto" />
-                    </picture>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-0 pt-6 pb-0">
-                    <ul className="text-muted-foreground flex flex-col gap-6 text-2xl">
-                      <li>
-                        <MobileLink href="https://www.platformbasket.com/en/spider-lifts/" onOpenChange={setOpen}>
-                          Spider lifts
-                        </MobileLink>
-                      </li>
-                      <li>
-                        <MobileLink href="https://www.platformbasket.com/en/rail-boom-lifts/" onOpenChange={setOpen}>
-                          Rail boom lifts
-                        </MobileLink>
-                      </li>
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </li>
+            {menuData.map((item) => (
+              <li key={item.id}>
+                {isDropdownMenu(item) ? (
+                  <Accordion type="single" collapsible className="flex w-full flex-col gap-6">
+                    <AccordionItem value={item.id} className="bg-background divide-y-0">
+                      <AccordionTrigger className="bg-inherit p-0 text-2xl font-bold">
+                        {item.icon?.type === 'image' ? (
+                          <picture>
+                            <img 
+                              src={item.icon.src} 
+                              alt={item.icon.alt} 
+                              className={item.icon.className} 
+                            />
+                          </picture>
+                        ) : (
+                          item.title
+                        )}
+                      </AccordionTrigger>
+                      <AccordionContent className="px-0 pt-6 pb-0">
+                        <ul className="text-muted-foreground flex flex-col gap-6 text-2xl">
+                          {item.children?.map((child) => (
+                            <li key={child.id}>
+                              <MobileLink 
+                                href={child.href || "#"} 
+                                onOpenChange={setOpen}
+                                target={child.target}
+                              >
+                                {child.title}
+                              </MobileLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                ) : (
+                  <MobileLink href={item.href || "#"} onOpenChange={setOpen} target={item.target}>
+                    {item.title}
+                  </MobileLink>
+                )}
+              </li>
+            ))}
           </ul>
         </ScrollArea>
         <div className="flex w-full items-center justify-end p-6">
@@ -247,13 +193,15 @@ interface MobileLinkProps extends Omit<ComponentPropsWithoutRef<typeof Link>, "o
   className?: string;
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
+  target?: string;
 }
 
-function MobileLink({ href, onOpenChange, className, children, onClick, ...props }: MobileLinkProps) {
+function MobileLink({ href, onOpenChange, className, children, onClick, target, ...props }: MobileLinkProps) {
   const router = useRouter();
   return (
     <Link
       href={href}
+      target={target}
       onClick={(e) => {
         onClick?.(e);
         router.push(href.toString());

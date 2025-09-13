@@ -4,8 +4,11 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { menuData, isDropdownMenu } from "@/lib/menu-data";
 
 export function SiteFooter() {
+  const showArrowMenus = ['gallery', 'contact'];
+
   return (
     <footer className="bg-zinc-800">
       <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col px-6 pt-8 pb-16 md:pt-24 lg:px-8 lg:pt-12 lg:pb-24">
@@ -30,64 +33,38 @@ export function SiteFooter() {
 
           {/* 섹션 인라인 */}
           <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-5 lg:gap-20">
-            <div>
-              <h3 className="mb-4 text-sm font-semibold text-white">보유 장비</h3>
-              <ul className="space-y-3 text-sm leading-6 text-gray-400">
-                <li>
-                  <a href="#">Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Item 3</a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="mb-4">
-                <a href="#" className="flex items-center gap-x-1.5 text-sm leading-6 font-semibold text-white">
-                  현장 사진 <ArrowUpRight className="size-4" />
-                </a>
-              </h3>
-            </div>
-
-            <div>
-              <h3 className="mb-4 text-sm font-semibold text-white">회사 소개</h3>
-              <ul className="space-y-3 text-sm leading-6 text-gray-400">
-                <li>
-                  <a href="#">대명거미크레인 소개</a>
-                </li>
-                <li>
-                  <a href="#">연혁</a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="mb-4">
-                <a href="#" className="flex items-center gap-x-1.5 text-sm leading-6 font-semibold text-white">
-                  문의하기 <ArrowUpRight className="size-4" />
-                </a>
-              </h3>
-            </div>
-
-            <div>
-              <h3 className="mb-4 text-sm font-semibold text-white">
-                <picture>
-                  <img src="/platform-basket.png" alt="platform-basket" className="h-6 w-auto" />
-                </picture>
-              </h3>
-              <ul className="space-y-3 text-sm leading-6 text-gray-400">
-                <li>
-                  <a href="https://www.platformbasket.com/en/spider-lifts/">Spider lifts</a>
-                </li>
-                <li>
-                  <a href="https://www.platformbasket.com/en/rail-boom-lifts/">Rail boom lifts</a>
-                </li>
-              </ul>
-            </div>
+            {menuData.map((item) => (
+              <div key={item.id}>
+                <h3 className="mb-4 text-sm font-semibold text-white">
+                  {item.icon?.type === 'image' ? (
+                    <picture>
+                      <img 
+                        src={item.icon.src} 
+                        alt={item.icon.alt} 
+                        className={item.icon.className} 
+                      />
+                    </picture>
+                  ) : showArrowMenus.includes(item.id) ? (
+                    <a href={item.href || "#"} className="flex items-center gap-x-1.5 text-sm leading-6 font-semibold text-white">
+                      {item.title} <ArrowUpRight className="size-4" />
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </h3>
+                {isDropdownMenu(item) && (
+                  <ul className="space-y-3 text-sm leading-6 text-gray-400">
+                    {item.children?.map((child) => (
+                      <li key={child.id}>
+                        <a href={child.href || "#"} target={child.target}>
+                          {child.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
