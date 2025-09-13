@@ -63,6 +63,27 @@ export function MainNav() {
                 <Link href="#">문의하기</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent">
+                <picture>
+                  <img src="/platform-basket.png" alt="platform-basket" className="h-6 w-auto" />
+                </picture>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="flex w-96 flex-col gap-3 p-4">
+                  <ListItem href="https://www.platformbasket.com/en/spider-lifts/" title="Spider lifts" target="_blank">
+                    Tracked spider lifts, tracked self-propelled spider lifts with basket lift. Vertical lift.
+                  </ListItem>
+                  <ListItem
+                    href="https://www.platformbasket.com/en/rail-boom-lifts/"
+                    title="Rail boom lifts"
+                    target="_blank"
+                  >
+                    Road/rail self-propelled boom lifts
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
         <ToggleSwitcher />
@@ -152,6 +173,31 @@ export function MobileNav() {
               <MobileLink href="#" onOpenChange={setOpen}>
                 문의하기
               </MobileLink>
+            </li>
+            <li>
+              <Accordion type="single" collapsible className="flex w-full flex-col gap-6">
+                <AccordionItem value="solution" className="bg-background divide-y-0">
+                  <AccordionTrigger className="bg-inherit p-0 text-2xl font-bold">
+                    <picture>
+                      <img src="/platform-basket.png" alt="platform-basket" className="h-6 w-auto" />
+                    </picture>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-0 pt-6 pb-0">
+                    <ul className="text-muted-foreground flex flex-col gap-6 text-2xl">
+                      <li>
+                        <MobileLink href="https://www.platformbasket.com/en/spider-lifts/" onOpenChange={setOpen}>
+                          Spider lifts
+                        </MobileLink>
+                      </li>
+                      <li>
+                        <MobileLink href="https://www.platformbasket.com/en/rail-boom-lifts/" onOpenChange={setOpen}>
+                          Rail boom lifts
+                        </MobileLink>
+                      </li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </li>
           </ul>
         </ScrollArea>

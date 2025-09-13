@@ -29,7 +29,7 @@ export function SiteFooter() {
           </div>
 
           {/* 섹션 인라인 */}
-          <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-4 lg:gap-20">
+          <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-5 lg:gap-20">
             <div>
               <h3 className="mb-4 text-sm font-semibold text-white">보유 장비</h3>
               <ul className="space-y-3 text-sm leading-6 text-gray-400">
@@ -71,6 +71,22 @@ export function SiteFooter() {
                   문의하기 <ArrowUpRight className="size-4" />
                 </a>
               </h3>
+            </div>
+
+            <div>
+              <h3 className="mb-4 text-sm font-semibold text-white">
+                <picture>
+                  <img src="/platform-basket.png" alt="platform-basket" className="h-6 w-auto" />
+                </picture>
+              </h3>
+              <ul className="space-y-3 text-sm leading-6 text-gray-400">
+                <li>
+                  <a href="https://www.platformbasket.com/en/spider-lifts/">Spider lifts</a>
+                </li>
+                <li>
+                  <a href="https://www.platformbasket.com/en/rail-boom-lifts/">Rail boom lifts</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

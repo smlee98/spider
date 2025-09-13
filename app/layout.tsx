@@ -32,7 +32,10 @@ const jetbrainsMono = localFont({
 
 export const metadata: Metadata = {
   title: "(주)대명거미크레인",
-  description: "(주)대명거미크레인"
+  description: "(주)대명거미크레인",
+  icons: {
+    icon: "/favicon.png"
+  }
 };
 
 export default function RootLayout({
