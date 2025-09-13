@@ -21,22 +21,24 @@ export const menuData: MenuItem[] = [
     title: "보유장비",
     children: [
       {
-        id: "equipment-1",
-        title: "Item 1",
-        href: "#",
-        description: "Description 1"
+        id: "spider",
+        title: "거미 크레인",
+        href: "/equipment/spider"
       },
       {
-        id: "equipment-2",
-        title: "Item 2",
-        href: "#",
-        description: "Description 2"
+        id: "boom-lift",
+        title: "굴절식 고소작업대",
+        href: "/equipment/boom-lift"
       },
       {
-        id: "equipment-3",
-        title: "Item 3",
-        href: "#",
-        description: "Description 3"
+        id: "crawler",
+        title: "크롤라 크레인",
+        href: "/equipment/crawler"
+      },
+      {
+        id: "etc",
+        title: "기타 장비",
+        href: "/equipment/etc"
       }
     ]
   },
