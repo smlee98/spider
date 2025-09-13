@@ -54,13 +54,13 @@ export default function AboutPage() {
         <Map
           id="map"
           className="size-full"
-          center={{ lat: 37.4854793, lng: 127.0311841 }} // 지도의 중심 좌표
+          center={{ lat: 37.2261218415906, lng: 127.429142559335 }} // 지도의 중심 좌표
           level={2} // 지도 확대 레벨
           zoomable={false}
           draggable={false}
         >
-          <CustomOverlayMap position={{ lat: 37.4854793, lng: 127.0311841 }}>
-            <Badge className="text-sm">서울 서초구 남부순환로347길 23</Badge>
+          <CustomOverlayMap position={{ lat: 37.2261218415906, lng: 127.429142559335 }}>
+            <Badge className="text-sm">경기도 이천시 호법면 후안리 100-11</Badge>
           </CustomOverlayMap>
           <MapTypeControl position="TOPRIGHT" />
           <ZoomControl position="RIGHT" />
