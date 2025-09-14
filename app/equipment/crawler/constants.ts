@@ -16,7 +16,9 @@ export const crawler = [
         maxAllowableLoad4Lines: "2980kg",
         maxAllowableLoad5Lines: null,
         maxAllowableLoad6Lines: null,
-        operationType: "디젤(경유) 42L"
+        operationType: "디젤(경유) 42L",
+        brochurePdf: "/equipment/crawler/MAEDA/LC383/brochure.pdf",
+        technicalDataPdf: null
       }
     ]
   },
@@ -37,7 +39,9 @@ export const crawler = [
         maxAllowableLoad4Lines: "4900kg",
         maxAllowableLoad5Lines: null,
         maxAllowableLoad6Lines: null,
-        operationType: "디젤(경유) 95L"
+        operationType: "디젤(경유) 95L",
+        brochurePdf: "/equipment/crawler/Kobelco/CK120UR/brochure.pdf",
+        technicalDataPdf: null
       }
     ]
   },
@@ -58,7 +62,9 @@ export const crawler = [
         maxAllowableLoad4Lines: "6000kg",
         maxAllowableLoad5Lines: "6000kg",
         maxAllowableLoad6Lines: "6000kg",
-        operationType: "디젤(경유) 105L"
+        operationType: "디젤(경유) 105L",
+        brochurePdf: "/equipment/crawler/Jekko/SPK60/brochure.pdf",
+        technicalDataPdf: "/equipment/crawler/Jekko/SPK60/technical-data.pdf"
       }
     ]
   }

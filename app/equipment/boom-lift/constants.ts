@@ -10,7 +10,9 @@ export const boomLift = [
         maxLengthHorizontal: "7.5m",
         belowGroundHeight: "-2m",
         platformMaxLoad: "200kg",
-        platformSize: "1400mm x 700mm"
+        platformSize: "1400mm x 700mm",
+        brochurePdf: null,
+        technicalDataPdf: "/equipment/boom-lift/Cela/DT15/technical-data.pdf"
       },
       {
         model: "DT25",
@@ -19,7 +21,9 @@ export const boomLift = [
         maxLengthHorizontal: "12m",
         belowGroundHeight: "-5m",
         platformMaxLoad: "230kg",
-        platformSize: "1400mm x 700mm"
+        platformSize: "1400mm x 700mm",
+        brochurePdf: null,
+        technicalDataPdf: "/equipment/boom-lift/Cela/DT25/technical-data.pdf"
       },
       {
         model: "DT30",
@@ -28,7 +32,9 @@ export const boomLift = [
         maxLengthHorizontal: "16m",
         belowGroundHeight: "-7m",
         platformMaxLoad: "225kg",
-        platformSize: "1800mm x 700mm"
+        platformSize: "1800mm x 700mm",
+        brochurePdf: null,
+        technicalDataPdf: "/equipment/boom-lift/Cela/DT30/technical-data.pdf"
       }
     ]
   }

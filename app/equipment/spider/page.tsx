@@ -23,8 +23,8 @@ export default function SpiderPage() {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
                 {brand.equipments.map((equipment) => (
                   <Link
-                    key={equipment.model}
-                    href={`/equipment/spider/${brand.brandName.toLowerCase()}/${equipment.model.toLowerCase()}`}
+                    key={equipment.modelName}
+                    href={`/equipment/spider/${brand.brandName.toLowerCase()}/${equipment.modelName.toLowerCase()}`}
                     className="group"
                   >
                     <Card className="gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
@@ -32,7 +32,7 @@ export default function SpiderPage() {
                         <ImageOff className="text-muted-foreground size-8" />
                       </CardContent>
                       <CardHeader className="gap-0 border-t py-6">
-                        <CardTitle>{equipment.model}</CardTitle>
+                        <CardTitle>{equipment.modelName}</CardTitle>
                       </CardHeader>
                     </Card>
                   </Link>

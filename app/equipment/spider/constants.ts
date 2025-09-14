@@ -4,7 +4,7 @@ export const spider = [
     brandName: "Jekko",
     equipments: [
       {
-        model: "SPX312",
+        modelName: "SPX312",
         weight: "1915kg",
         weightWithJib: "1985kg",
         maxHeight: "10.9m",
@@ -18,10 +18,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "3760mm x 3760mm",
         maxOutriggerLoad: "1850kg",
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/Jekko/SPX312/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX312/technical-data.pdf"
       },
       {
-        model: "SPX424",
+        modelName: "SPX424",
         weight: "2195kg",
         weightWithJib: "2370kg",
         maxHeight: "15.2m",
@@ -35,10 +37,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "3730mm x 3730mm",
         maxOutriggerLoad: "2200kg",
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/Jekko/SPX424/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX424/technical-data.pdf"
       },
       {
-        model: "SPX527",
+        modelName: "SPX527",
         weight: "3660kg",
         weightWithJib: "3870kg",
         maxHeight: "18.3m",
@@ -52,10 +56,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "4160mm x 4160mm",
         maxOutriggerLoad: "2700kg",
-        operationType: "디젤(경유) 20L"
+        operationType: "디젤(경유) 20L",
+        brochurePdf: "/equipment/spider/Jekko/SPX527/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX527/technical-data.pdf"
       },
       {
-        model: "SPX328",
+        modelName: "SPX328",
         weight: "2300kg",
         weightWithJib: "2450kg",
         maxHeight: "12.8m",
@@ -69,10 +75,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "3822mm x 3861mm",
         maxOutriggerLoad: "2100kg",
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/Jekko/SPX328/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX328/technical-data.pdf"
       },
       {
-        model: "SPX532",
+        modelName: "SPX532",
         weight: "2560kg",
         weightWithJib: "2760kg",
         maxHeight: "17.3m",
@@ -86,10 +94,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "4400mm x 4400mm",
         maxOutriggerLoad: "3000kg",
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/Jekko/SPX532/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX532/technical-data.pdf"
       },
       {
-        model: "SPX1040",
+        modelName: "SPX1040",
         weight: "6400kg",
         weightWithJib: "6710kg",
         maxHeight: "23.5m",
@@ -103,10 +113,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "4169mm x 4170mm",
         maxOutriggerLoad: "4500kg",
-        operationType: "디젤(경유) 20L"
+        operationType: "디젤(경유) 20L",
+        brochurePdf: "/equipment/spider/Jekko/SPX1040/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX1040/technical-data.pdf"
       },
       {
-        model: "SPX650",
+        modelName: "SPX650",
         weight: "5962kg",
         weightWithJib: "6372kg",
         maxHeight: "23.5m",
@@ -120,10 +132,12 @@ export const spider = [
         maxLoad6Lines: "4800kg",
         outriggerWidth: "4500mm x 4500mm",
         maxOutriggerLoad: "4800kg",
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/Jekko/SPX650/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/SPX650/technical-data.pdf"
       },
       {
-        model: "JF545",
+        modelName: "JF545",
         weight: "17250kg",
         weightWithJib: "18450kg",
         maxHeight: "32.5m",
@@ -137,7 +151,9 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "6730mm x 6720mm",
         maxOutriggerLoad: "11250kg",
-        operationType: "디젤(경유) 20L"
+        operationType: "디젤(경유) 20L",
+        brochurePdf: "/equipment/spider/Jekko/JF545/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Jekko/JF545/technical-data.pdf"
       }
     ]
   },
@@ -146,7 +162,7 @@ export const spider = [
     brandName: "Hoeflon",
     equipments: [
       {
-        model: "C1",
+        modelName: "C1",
         weight: "1060kg",
         weightWithJib: null,
         maxHeight: "5.7m",
@@ -160,10 +176,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "1478mm x 1100mm",
         maxOutriggerLoad: null,
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/Hoeflon/C1/brochure.pdf",
+        technicalDataPdf: "/equipment/spider/Hoeflon/C1/technical-data.pdf"
       },
       {
-        model: "C6",
+        modelName: "C6",
         weight: "2650kg",
         weightWithJib: "2850kg",
         maxHeight: "15.8m",
@@ -177,10 +195,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "4200mm x 4400mm",
         maxOutriggerLoad: "2800kg",
-        operationType: "배터리/디젤(경유) 20L"
+        operationType: "배터리/디젤(경유) 20L",
+        brochurePdf: "/equipment/spider/Hoeflon/C6/brochure.pdf",
+        technicalDataPdf: null
       },
       {
-        model: "C10",
+        modelName: "C10",
         weight: "4400kg",
         weightWithJib: "4700kg",
         maxHeight: "22m",
@@ -194,7 +214,9 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "4578mm x 4578mm",
         maxOutriggerLoad: "4500kg",
-        operationType: "배터리/디젤(경유) 20L"
+        operationType: "배터리/디젤(경유) 20L",
+        brochurePdf: "/equipment/spider/Hoeflon/C10/brochure.pdf",
+        technicalDataPdf: null
       }
     ]
   },
@@ -203,7 +225,7 @@ export const spider = [
     brandName: "BEFARD",
     equipments: [
       {
-        model: "XM800",
+        modelName: "XM800",
         weight: "1150kg",
         weightWithJib: null,
         maxHeight: "6.17m",
@@ -217,10 +239,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "2251mm x 1459mm",
         maxOutriggerLoad: null,
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/BEFARD/XM800/brochure.pdf",
+        technicalDataPdf: null
       },
       {
-        model: "XGR800",
+        modelName: "XGR800",
         weight: "1600kg",
         weightWithJib: null,
         maxHeight: "5.5m",
@@ -234,7 +258,9 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "2800mm x 1600mm",
         maxOutriggerLoad: null,
-        operationType: "배터리"
+        operationType: "배터리",
+        brochurePdf: "/equipment/spider/BEFARD/XGR800/brochure.pdf",
+        technicalDataPdf: null
       }
     ]
   },
@@ -243,7 +269,7 @@ export const spider = [
     brandName: "UNIC",
     equipments: [
       {
-        model: "URW295C",
+        modelName: "URW295C",
         weight: "2040kg",
         weightWithJib: null,
         maxHeight: "8.8m",
@@ -257,10 +283,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "3885mm x 3935mm",
         maxOutriggerLoad: null,
-        operationType: "가솔린(휘발유) 6L"
+        operationType: "가솔린(휘발유) 6L",
+        brochurePdf: "/equipment/spider/UNIC/UR-W295C/brochure.pdf",
+        technicalDataPdf: null
       },
       {
-        model: "URW546",
+        modelName: "URW546",
         weight: "4920kg",
         weightWithJib: null,
         maxHeight: "16m",
@@ -274,10 +302,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "5900mm x 5940mm",
         maxOutriggerLoad: null,
-        operationType: "디젤(경유) 40L"
+        operationType: "디젤(경유) 40L",
+        brochurePdf: "/equipment/spider/UNIC/UR-W546/brochure.pdf",
+        technicalDataPdf: null
       },
       {
-        model: "URW547C",
+        modelName: "URW547C",
         weight: "5170kg",
         weightWithJib: null,
         maxHeight: "18.2m",
@@ -291,10 +321,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "5900mm x 5940mm",
         maxOutriggerLoad: null,
-        operationType: "디젤(경유) 40L"
+        operationType: "디젤(경유) 40L",
+        brochurePdf: "/equipment/spider/UNIC/UR-W547C/brochure.pdf",
+        technicalDataPdf: null
       },
       {
-        model: "URW706C",
+        modelName: "URW706C",
         weight: "8080kg",
         weightWithJib: null,
         maxHeight: "25.9m",
@@ -308,7 +340,9 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "6550mm x 6460mm",
         maxOutriggerLoad: null,
-        operationType: "디젤(경유) 60L"
+        operationType: "디젤(경유) 60L",
+        brochurePdf: "/equipment/spider/UNIC/UR-W706C/brochure.pdf",
+        technicalDataPdf: null
       }
     ]
   },
@@ -317,7 +351,7 @@ export const spider = [
     brandName: "MAEDA",
     equipments: [
       {
-        model: "MC305",
+        modelName: "MC305",
         weight: "4080kg",
         weightWithJib: null,
         maxHeight: "12.5m",
@@ -331,10 +365,12 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "4888mm x 4504mm",
         maxOutriggerLoad: "1010kg",
-        operationType: "디젤(경유) 40L"
+        operationType: "디젤(경유) 40L",
+        brochurePdf: "/equipment/spider/MAEDA/MC305/brochure.pdf",
+        technicalDataPdf: null
       },
       {
-        model: "MC405",
+        modelName: "MC405",
         weight: "5750kg",
         weightWithJib: null,
         maxHeight: "16.8m",
@@ -348,7 +384,9 @@ export const spider = [
         maxLoad6Lines: null,
         outriggerWidth: "5785mm x 5520mm",
         maxOutriggerLoad: "1400kg",
-        operationType: "디젤(경유) 60L"
+        operationType: "디젤(경유) 60L",
+        brochurePdf: "/equipment/spider/MAEDA/MC405/brochure.pdf",
+        technicalDataPdf: null
       }
     ]
   }

@@ -2,9 +2,10 @@
 
 import Container from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { ArrowLeft, ImageOff } from "lucide-react";
+import { ArrowLeft, BookText, CloudDownload, ImageOff } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { dictCrawler } from "../../../constants";
@@ -26,7 +27,8 @@ export default function CrawlerDetailPage() {
   }
 
   return (
-    <Container>
+    <div className="flex flex-col">
+      <Container>
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <Link
@@ -144,7 +146,32 @@ export default function CrawlerDetailPage() {
             </div>
           </CardContent>
         </Card>
+        </div>
+      </Container>
+      <div className="bg-muted relative bg-[url(/equipment/disegno.svg)] bg-cover bg-center bg-no-repeat">
+        <div className="flex flex-col items-center justify-center gap-4 bg-[#ddd]/95 py-40">
+          <CloudDownload className="text-muted-foreground size-20" />
+          <span className="text-xl font-semibold">PDF 다운로드</span>
+          <div className="flex items-center gap-4">
+            {equipment.brochurePdf && (
+              <Button size="lg" variant="default" className="font-semibold" asChild>
+                <a href={equipment.brochurePdf} download>
+                  <BookText />
+                  브로슈어 다운로드
+                </a>
+              </Button>
+            )}
+            {equipment.technicalDataPdf && (
+              <Button size="lg" variant="default" className="font-semibold" asChild>
+                <a href={equipment.technicalDataPdf} download>
+                  <BookText />
+                  기술데이터 다운로드
+                </a>
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
-    </Container>
+    </div>
   );
 }
