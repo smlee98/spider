@@ -1,8 +1,6 @@
 import Providers from "@/components/providers";
 import "./globals.css";
 
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -47,9 +45,7 @@ export default function RootLayout({
     <html lang="ko" className={cn(pretendard.variable, jetbrainsMono.variable)} suppressHydrationWarning>
       <body>
         <Providers>
-          <SiteHeader />
-          <div className="flex min-h-0 flex-1 flex-col">{children}</div>
-          <SiteFooter />
+          {children}
           <Toaster />
         </Providers>
       </body>

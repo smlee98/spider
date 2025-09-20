@@ -1,8 +1,9 @@
 "use client";
 
+import { logout } from "@/actions/user/action";
 import { ToggleSwitcher } from "@/components/toggle-switcher";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,9 +14,10 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { isDropdownMenu, menuData } from "@/lib/menu-data";
 import { cn } from "@/lib/utils";
-import { menuData, isDropdownMenu, type MenuItem } from "@/lib/menu-data";
-import { Menu } from "lucide-react";
+import { User } from "@prisma/client";
+import { LogIn, LogOut, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,7 +25,8 @@ import type { ComponentPropsWithoutRef, MouseEventHandler, ReactNode, Ref } from
 import { useState } from "react";
 
 // Main Navigation Component
-export function MainNav() {
+export function MainNav({ user }: { user?: User }) {
+  const router = useRouter();
   return (
     <div className="mr-4 hidden w-full md:flex">
       <nav className="flex w-full items-center justify-between gap-6 text-sm">
@@ -34,13 +37,9 @@ export function MainNav() {
                 {isDropdownMenu(item) ? (
                   <>
                     <NavigationMenuTrigger className="bg-transparent">
-                      {item.icon?.type === 'image' ? (
+                      {item.icon?.type === "image" ? (
                         <picture>
-                          <img 
-                            src={item.icon.src} 
-                            alt={item.icon.alt} 
-                            className={item.icon.className} 
-                          />
+                          <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
                         </picture>
                       ) : (
                         item.title
@@ -49,12 +48,7 @@ export function MainNav() {
                     <NavigationMenuContent>
                       <ul className="flex w-96 flex-col gap-3 p-4">
                         {item.children?.map((child) => (
-                          <ListItem 
-                            key={child.id}
-                            href={child.href || "#"} 
-                            title={child.title}
-                            target={child.target}
-                          >
+                          <ListItem key={child.id} href={child.href || "#"} title={child.title} target={child.target}>
                             {child.description}
                           </ListItem>
                         ))}
@@ -72,14 +66,35 @@ export function MainNav() {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <ToggleSwitcher />
+        <div className="flex items-center justify-end gap-4">
+          <ToggleSwitcher />
+          {!user?.id ? (
+            <Link href="/login" className={cn(buttonVariants({ variant: "outline" }), "font-medium")}>
+              <LogIn />
+              로그인
+            </Link>
+          ) : (
+            <Button
+              variant="outline"
+              className="font-medium"
+              onClick={async () => {
+                await logout();
+                router.push("/");
+              }}
+            >
+              <LogOut />
+              로그아웃
+            </Button>
+          )}
+        </div>
       </nav>
     </div>
   );
 }
 
 // Mobile Navigation Component
-export function MobileNav() {
+export function MobileNav({ user }: { user?: User }) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   return (
@@ -109,13 +124,9 @@ export function MobileNav() {
                   <Accordion type="single" collapsible className="flex w-full flex-col gap-6">
                     <AccordionItem value={item.id} className="bg-background divide-y-0">
                       <AccordionTrigger className="bg-inherit p-0 text-2xl font-bold">
-                        {item.icon?.type === 'image' ? (
+                        {item.icon?.type === "image" ? (
                           <picture>
-                            <img 
-                              src={item.icon.src} 
-                              alt={item.icon.alt} 
-                              className={item.icon.className} 
-                            />
+                            <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
                           </picture>
                         ) : (
                           item.title
@@ -125,11 +136,7 @@ export function MobileNav() {
                         <ul className="text-muted-foreground flex flex-col gap-6 text-2xl">
                           {item.children?.map((child) => (
                             <li key={child.id}>
-                              <MobileLink 
-                                href={child.href || "#"} 
-                                onOpenChange={setOpen}
-                                target={child.target}
-                              >
+                              <MobileLink href={child.href || "#"} onOpenChange={setOpen} target={child.target}>
                                 {child.title}
                               </MobileLink>
                             </li>
@@ -147,8 +154,26 @@ export function MobileNav() {
             ))}
           </ul>
         </ScrollArea>
-        <div className="flex w-full items-center justify-end p-6">
+        <div className="flex w-full items-center justify-between p-6">
           <ToggleSwitcher />
+          {!user?.id ? (
+            <Link href="/login" className={cn(buttonVariants({ variant: "outline" }), "font-medium")}>
+              <LogIn />
+              로그인
+            </Link>
+          ) : (
+            <Button
+              variant="outline"
+              className="font-medium"
+              onClick={async () => {
+                await logout();
+                router.push("/");
+              }}
+            >
+              <LogOut />
+              로그아웃
+            </Button>
+          )}
         </div>
       </SheetContent>
     </Sheet>
