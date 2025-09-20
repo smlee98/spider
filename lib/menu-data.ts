@@ -32,14 +32,14 @@ export const menuData: MenuItem[] = [
       },
       {
         id: "crawler",
-        title: "크롤라 크레인",
+        title: "크롤러 크레인",
         href: "/equipment/crawler"
-      },
-      {
-        id: "etc",
-        title: "기타 장비",
-        href: "/equipment/etc"
       }
+      // {
+      //   id: "etc",
+      //   title: "기타 장비",
+      //   href: "/equipment/etc"
+      // }
     ]
   },
   {
@@ -48,20 +48,9 @@ export const menuData: MenuItem[] = [
     href: "#"
   },
   {
-    id: "company",
-    title: "회사 소개",
-    children: [
-      {
-        id: "company-about",
-        title: "대명거미크레인 소개",
-        href: "/company/about"
-      },
-      {
-        id: "company-history",
-        title: "연혁",
-        href: "#"
-      }
-    ]
+    id: "company-about",
+    title: "대명거미크레인 소개",
+    href: "/company/about"
   },
   {
     id: "contact",

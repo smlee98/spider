@@ -4,7 +4,7 @@ export const boomLift = [
     brandName: "Cela",
     equipments: [
       {
-        model: "DT15",
+        modelName: "DT15",
         bodyWeight: "1550kg",
         maxHeightVertical: "15m",
         maxLengthHorizontal: "7.5m",
@@ -15,7 +15,7 @@ export const boomLift = [
         technicalDataPdf: "/equipment/boom-lift/Cela/DT15/technical-data.pdf"
       },
       {
-        model: "DT25",
+        modelName: "DT25",
         bodyWeight: "2950kg",
         maxHeightVertical: "25m",
         maxLengthHorizontal: "12m",
@@ -26,7 +26,7 @@ export const boomLift = [
         technicalDataPdf: "/equipment/boom-lift/Cela/DT25/technical-data.pdf"
       },
       {
-        model: "DT30",
+        modelName: "DT30",
         bodyWeight: "5000kg",
         maxHeightVertical: "30.2m",
         maxLengthHorizontal: "16m",

@@ -1,11 +1,10 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { ArrowLeft, BookText, CloudDownload, ImageOff } from "lucide-react";
+import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { dictSpider } from "../../../constants";
@@ -30,31 +29,31 @@ export default function SpiderDetailPage() {
     <div className="flex flex-col">
       <Container>
         <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/equipment/spider"
-              className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
-            >
+          <div className="flex items-end justify-between gap-4">
+            <div className="flex flex-col">
+              <h4 className="text-muted-foreground font-semibold">{brand.brandName}</h4>
+              <h1 className="text-foreground text-3xl font-black md:text-4xl">{equipment.modelName}</h1>
+            </div>
+            <Link href="/equipment/spider" className={buttonVariants({ variant: "outline" })}>
               <ArrowLeft className="size-4" />
               뒤로가기
             </Link>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <Badge variant="secondary" className="w-fit font-semibold">
-              {brand.brandName}
-            </Badge>
-            <h1 className="text-foreground text-4xl font-black md:text-5xl">{equipment.modelName}</h1>
-          </div>
-
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Card className="gap-0 overflow-hidden py-0">
               <CardContent className="bg-muted flex aspect-square items-center justify-center p-8">
-                <ImageOff className="text-muted-foreground size-16" />
+                <picture>
+                  <img
+                    src={`/equipment/spider/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
+                    alt={`${brand.brandName}/${equipment.modelName}`}
+                    className="h-auto max-h-80 w-full max-w-full transition-all hover:scale-125 md:max-h-[480px]"
+                  />
+                </picture>
               </CardContent>
             </Card>
 
-            <Card className="gap-0">
+            <Card className="gap-0 pb-0">
               <CardHeader className="gap-0 border-b pb-0">
                 <CardTitle>기본 사양</CardTitle>
               </CardHeader>

@@ -1,7 +1,6 @@
 import Container from "@/components/layout/container";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ImageOff } from "lucide-react";
 import Link from "next/link";
 import { spider } from "./constants";
 
@@ -29,7 +28,13 @@ export default function SpiderPage() {
                   >
                     <Card className="gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
                       <CardContent className="bg-muted flex aspect-square items-center justify-center">
-                        <ImageOff className="text-muted-foreground size-8" />
+                        <picture>
+                          <img
+                            src={`/equipment/spider/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
+                            alt={`${brand.brandName}/${equipment.modelName}`}
+                            className="h-auto max-h-80 w-full max-w-full md:max-h-60"
+                          />
+                        </picture>
                       </CardContent>
                       <CardHeader className="gap-0 border-t py-6">
                         <CardTitle>{equipment.modelName}</CardTitle>
