@@ -1,13 +1,13 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
+import { isDropdownMenu, menuData } from "@/lib/menu-data";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { menuData, isDropdownMenu } from "@/lib/menu-data";
 
 export function SiteFooter() {
-  const showArrowMenus = ['gallery', 'contact'];
+  const showArrowMenus = ["gallery", "contact"];
 
   return (
     <footer className="bg-zinc-800">
@@ -24,7 +24,10 @@ export function SiteFooter() {
             </div>
             <ul className="text-muted-foreground flex items-center space-x-6 transition-all">
               <li className="opacity-75 hover:opacity-100">
-                <a href="#">
+                <a
+                  href="https://www.youtube.com/@%EB%8C%80%EB%AA%85%EA%B1%B0%EB%AF%B8%ED%81%AC%EB%A0%88%EC%9D%B8"
+                  target="_blank"
+                >
                   <Image src="/media/youtube.png" width={32} height={32} alt="youtube" />
                 </a>
               </li>
@@ -36,16 +39,15 @@ export function SiteFooter() {
             {menuData.map((item) => (
               <div key={item.id}>
                 <h3 className="mb-4 text-sm font-semibold text-white">
-                  {item.icon?.type === 'image' ? (
+                  {item.icon?.type === "image" ? (
                     <picture>
-                      <img 
-                        src={item.icon.src} 
-                        alt={item.icon.alt} 
-                        className={item.icon.className} 
-                      />
+                      <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
                     </picture>
                   ) : showArrowMenus.includes(item.id) ? (
-                    <a href={item.href || "#"} className="flex items-center gap-x-1.5 text-sm leading-6 font-semibold text-white">
+                    <a
+                      href={item.href || "#"}
+                      className="flex items-center gap-x-1.5 text-sm leading-6 font-semibold text-white"
+                    >
                       {item.title} <ArrowUpRight className="size-4" />
                     </a>
                   ) : (
