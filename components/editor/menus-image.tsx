@@ -12,18 +12,29 @@ export function MenusImage({ editor }: { editor: Editor }) {
   const handleUploadPhoto = async (files: FileList | null) => {
     if (files === null) return;
 
-    const formData = new FormData();
-    Array.from(files).forEach((x) => formData.append("files", x));
+    try {
+      const formData = new FormData();
+      Array.from(files).forEach((x) => formData.append("files", x));
 
-    const response = await fetch("/api/image/upload", {
-      method: "POST",
-      body: formData
-    });
+      const response = await fetch("/api/image/upload", {
+        method: "POST",
+        body: formData
+      });
 
-    const result = await response.json();
-    result.data.map((item: { path: string }) => {
-      editor.chain().focus().setImage({ src: item.path }).run();
-    });
+      const result = await response.json();
+
+      if (result.status === "success" && result.data) {
+        result.data.map((item: { url: string }) => {
+          editor.chain().focus().setImage({ src: item.url }).run();
+        });
+      } else {
+        console.error("Image upload failed:", result.result || "Unknown error");
+        alert("이미지 업로드에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("Image upload error:", error);
+      alert("이미지 업로드 중 오류가 발생했습니다.");
+    }
   };
 
   return (
