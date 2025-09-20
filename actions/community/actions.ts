@@ -54,10 +54,10 @@ export async function getCommunityList({ pagination }: CommunityListParams): Pro
   }
 }
 
-export async function getCommunityPost({ id }: { id: number }): Promise<(Post & { author: User }) | null> {
+export async function getCommunityPost({ id }: { id: string }): Promise<(Post & { author: User }) | null> {
   try {
     const post = await prisma.post.findUnique({
-      where: { id },
+      where: { id: parseInt(id) },
       include: { author: true }
     });
 

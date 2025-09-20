@@ -6,7 +6,7 @@ import { CommunityPost } from "../community-post";
 export default async function CommunityDetailPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const { id } = params;
-  const data = await getCommunityPost({ id: parseInt(id) });
+  const data = await getCommunityPost({ id });
   const { user } = await getSession();
 
   if (!data) return notFound();
