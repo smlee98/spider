@@ -36,7 +36,7 @@ export default function BoomLiftDetailPage() {
             </div>
             <Link href="/equipment/boom-lift" className={buttonVariants({ variant: "outline" })}>
               <ArrowLeft className="size-4" />
-              뒤로가기
+              목록 보기
             </Link>
           </div>
 

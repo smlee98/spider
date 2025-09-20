@@ -3,7 +3,10 @@
     "allow": [
       "Bash(yarn build)",
       "Bash(npx tsc:*)",
-      "Bash(npx prisma migrate dev:*)"
+      "Bash(npx prisma migrate dev:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run lint)"
     ],
     "deny": [],
     "ask": []

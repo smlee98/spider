@@ -36,7 +36,7 @@ export default function CrawlerDetailPage() {
             </div>
             <Link href="/equipment/crawler" className={buttonVariants({ variant: "outline" })}>
               <ArrowLeft className="size-4" />
-              뒤로가기
+              목록 보기
             </Link>
           </div>
 

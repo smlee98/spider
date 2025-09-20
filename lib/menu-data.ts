@@ -45,12 +45,12 @@ export const menuData: MenuItem[] = [
   {
     id: "gallery",
     title: "현장사진",
-    href: "#"
+    href: "/community"
   },
   {
     id: "company-about",
     title: "대명거미크레인 소개",
-    href: "/company/about"
+    href: "/company"
   },
   {
     id: "contact",
