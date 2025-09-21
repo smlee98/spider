@@ -1,5 +1,5 @@
 import { getCommunityPost } from "@/actions/gallery/actions";
-import { CommunityPostForm } from "../../gallery-form";
+import { CommunityPostForm } from "../../community-form";
 
 export default async function CommunityEditPageContent({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

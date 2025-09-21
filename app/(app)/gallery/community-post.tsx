@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { ArrowLeft, Edit } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CommunityRemove } from "./gallery-remove";
+import { CommunityRemove } from "./community-remove";
 
 export function CommunityPost({ user, data }: { user?: User; data: Post & { author: User } }) {
   const router = useRouter();

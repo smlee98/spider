@@ -1,4 +1,4 @@
-import { CommunityPostForm } from "../gallery-form";
+import { CommunityPostForm } from "../community-form";
 
 export default async function CommunityNewPageContent() {
   return (
