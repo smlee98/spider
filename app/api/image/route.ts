@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient, IMAGES_BUCKET } from "@/lib/supabase";
+import { createAdminClient, IMAGES_BUCKET } from "@/lib/supabase";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(req.url);
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = createAdminClient();
 
     const { data, error } = await supabase.storage
       .from(IMAGES_BUCKET)
