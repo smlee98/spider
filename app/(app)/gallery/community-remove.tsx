@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteCommunityPost } from "@/actions/community/actions";
+import { deleteCommunityPost } from "@/actions/gallery/actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,7 +41,7 @@ export function CommunityRemove({ id }: { id: string }) {
             onClick={async () => {
               await deleteCommunityPost({ id });
               toast("게시글이 삭제되었습니다.");
-              router.push("/community");
+              router.push("/gallery");
             }}
           >
             삭제

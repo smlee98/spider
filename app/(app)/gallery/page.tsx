@@ -1,5 +1,5 @@
 import { getSession } from "@/actions/user/action";
-import { CommunityGrid } from "./community-grid";
+import { CommunityGrid } from "./gallery-grid";
 
 export default async function CommunityPage() {
   const { user } = await getSession();

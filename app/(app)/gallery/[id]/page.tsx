@@ -1,7 +1,7 @@
-import { getCommunityPost } from "@/actions/community/actions";
+import { getCommunityPost } from "@/actions/gallery/actions";
 import { getSession } from "@/actions/user/action";
 import { notFound } from "next/navigation";
-import { CommunityPost } from "../community-post";
+import { CommunityPost } from "../gallery-post";
 
 export default async function CommunityDetailPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

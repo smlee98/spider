@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { ArrowLeft, Edit } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CommunityRemove } from "./community-remove";
+import { CommunityRemove } from "./gallery-remove";
 
 export function CommunityPost({ user, data }: { user?: User; data: Post & { author: User } }) {
   const router = useRouter();
@@ -30,7 +30,7 @@ export function CommunityPost({ user, data }: { user?: User; data: Post & { auth
             <Button
               variant="outline"
               onClick={() => {
-                router.push(`/community`);
+                router.push(`/gallery`);
                 router.refresh();
               }}
             >
@@ -39,7 +39,7 @@ export function CommunityPost({ user, data }: { user?: User; data: Post & { auth
             </Button>
             {user && (
               <>
-                <Link href={`/community/${data.id}/edit`} className={buttonVariants({ variant: "outline" })}>
+                <Link href={`/gallery/${data.id}/edit`} className={buttonVariants({ variant: "outline" })}>
                   <Edit className="size-4" />
                   게시글 수정
                 </Link>

@@ -79,7 +79,7 @@ export async function createCommunityPost({ data }: { data: { title: string; con
       }
     });
 
-    revalidatePath("/community");
+    revalidatePath("/gallery");
     return newPost;
   } catch (error) {
     console.error("Error creating community post:", error);
@@ -97,8 +97,8 @@ export async function updateCommunityPost({ id, data }: { id: string; data: { ti
       }
     });
 
-    revalidatePath("/community");
-    revalidatePath(`/community/${id}`);
+    revalidatePath("/gallery");
+    revalidatePath(`/gallery/${id}`);
     return updatedPost;
   } catch (error) {
     console.error("Error updating community post:", error);
@@ -112,7 +112,7 @@ export async function deleteCommunityPost({ id }: { id: string }) {
       where: { id: parseInt(id) }
     });
 
-    revalidatePath("/community");
+    revalidatePath("/gallery");
     return { success: true };
   } catch (error) {
     console.error("Error deleting community post:", error);

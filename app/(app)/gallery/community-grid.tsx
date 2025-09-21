@@ -1,6 +1,6 @@
 "use client";
 
-import { getCommunityList } from "@/actions/community/actions";
+import { getCommunityList } from "@/actions/gallery/actions";
 import { Spinner } from "@/components/spinner";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

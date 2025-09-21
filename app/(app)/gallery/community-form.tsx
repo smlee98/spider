@@ -1,6 +1,6 @@
 "use client";
 
-import { createCommunityPost, updateCommunityPost } from "@/actions/community/actions";
+import { createCommunityPost, updateCommunityPost } from "@/actions/gallery/actions";
 import { DialogCancel } from "@/components/dialog-cancel";
 import { Editor } from "@/components/editor";
 import { Button } from "@/components/ui/button";
