@@ -92,7 +92,7 @@ export function CommunityGrid({ user }: { user?: User }) {
                         <img
                           src={firstImage}
                           alt={post.title}
-                          className="absolute top-1/2 left-1/2 z-10 w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
+                          className="absolute top-1/2 left-1/2 z-10 min-h-full w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
                         />
                       ) : (
                         <ImageOff className="text-muted-foreground size-8" />
