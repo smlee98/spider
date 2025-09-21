@@ -87,12 +87,12 @@ export function CommunityGrid({ user }: { user?: User }) {
               return (
                 <Link key={post?.id} href={`${pathname}/${post.id}`} className="group">
                   <Card className="group gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
-                    <CardContent className="bg-muted relative flex aspect-square items-center justify-center overflow-hidden p-0">
+                    <CardContent className="bg-muted relative flex aspect-video items-center justify-center overflow-hidden p-0">
                       {firstImage ? (
                         <img
                           src={firstImage}
                           alt={post.title}
-                          className="absolute top-1/2 left-1/2 z-10 min-h-full w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
+                          className="absolute top-1/2 left-1/2 z-10 w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
                         />
                       ) : (
                         <ImageOff className="text-muted-foreground size-8" />
