@@ -23,23 +23,26 @@ export const menuData: MenuItem[] = [
       {
         id: "spider",
         title: "거미 크레인",
-        href: "/equipment/spider"
+        href: "/equipment/spider",
+        description: "Jekko · Hoeflon · BEFARD · UNIC · MAEDA"
       },
       {
         id: "boom-lift",
         title: "굴절식 고소작업대",
-        href: "/equipment/boom-lift"
+        href: "/equipment/boom-lift",
+        description: "Cela"
       },
       {
         id: "crawler",
         title: "크롤러 크레인",
-        href: "/equipment/crawler"
+        href: "/equipment/crawler",
+        description: "MAEDA · Kobelco · Jekko"
+      },
+      {
+        id: "etc",
+        title: "기타 장비",
+        href: "/equipment/etc"
       }
-      // {
-      //   id: "etc",
-      //   title: "기타 장비",
-      //   href: "/equipment/etc"
-      // }
     ]
   },
   {
