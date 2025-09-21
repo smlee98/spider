@@ -1,4 +1,4 @@
-import { createBrowserClient, createServerClient as createSupabaseServerClient } from "@supabase/ssr";
+import { createBrowserClient, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -11,10 +11,10 @@ export const createClient = () => {
 };
 
 // 서버 사이드용 (anon key 사용, 쿠키 기반 인증)
-export const createServerClient = async () => {
+export const createServerSupabaseClient = async () => {
   const cookieStore = await cookies();
 
-  return createSupabaseServerClient(supabaseUrl, supabaseAnonKey, {
+  return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -27,18 +27,26 @@ export const createServerClient = async () => {
         } catch {
           // Server Component에서는 쿠키 설정 무시
         }
-      },
-    },
+      }
+    }
   });
 };
 
 // 관리자용 서버 클라이언트 (service role key 사용)
 export const createAdminClient = () => {
-  return createSupabaseServerClient(supabaseUrl, supabaseServiceRoleKey, {
+  return createServerClient(supabaseUrl, supabaseServiceRoleKey, {
     auth: {
       autoRefreshToken: false,
-      persistSession: false,
+      persistSession: false
     },
+    cookies: {
+      getAll() {
+        return [];
+      },
+      setAll() {
+        // Admin client에서는 쿠키 설정 불필요
+      }
+    }
   });
 };
 
