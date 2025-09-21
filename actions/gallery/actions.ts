@@ -2,52 +2,17 @@
 
 import { getSession } from "@/actions/user/action";
 import { prisma } from "@/lib/prisma";
-import { PageInfo, Pagination } from "@/types/common";
 import { Post, User } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-interface CommunityListParams {
-  pagination: Pagination;
-}
-
-interface CommunityList {
-  data: Array<Post & { author: User }>;
-  pageInfo: PageInfo;
-}
-
-const PAGE_SIZE = 10;
-
-export async function getCommunityList({ pagination }: CommunityListParams): Promise<CommunityList> {
+export async function getCommunityList(): Promise<Array<Post & { author: User }>> {
   try {
-    const { page = 0 } = pagination;
-    const skip = page * PAGE_SIZE;
+    const data = await prisma.post.findMany({
+      include: { author: true },
+      orderBy: { createdAt: "desc" }
+    });
 
-    // Post 테이블 사용
-    const [data, totalCount] = await Promise.all([
-      prisma.post.findMany({
-        include: { author: true },
-        orderBy: { createdAt: "desc" },
-        skip,
-        take: PAGE_SIZE
-      }),
-      prisma.post.count()
-    ]);
-
-    const totalPages = Math.ceil(totalCount / PAGE_SIZE);
-    const isLast = page >= totalPages - 1;
-
-    return {
-      data,
-      pageInfo: {
-        totalElements: totalCount,
-        totalPages,
-        size: PAGE_SIZE,
-        number: page,
-        first: page === 0,
-        last: isLast,
-        numberOfElements: data.length
-      }
-    };
+    return data;
   } catch (error) {
     console.error("Error fetching community list:", error);
     throw new Error("커뮤니티 목록을 가져오는데 실패했습니다.");
