@@ -8,7 +8,7 @@ export default function CrawlerPage() {
   return (
     <Container>
       <div className="flex flex-col gap-6">
-        <h1 className="text-foreground text-4xl font-black md:text-5xl">크롤러 크레인</h1>
+        <h1 className="text-foreground text-3xl font-black md:text-4xl">크롤러 크레인</h1>
         <Tabs defaultValue={crawler[0].id} className="w-full">
           <TabsList>
             {crawler.map((brand) => (

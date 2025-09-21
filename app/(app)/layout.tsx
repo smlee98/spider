@@ -10,7 +10,7 @@ export default function AppLayout({
   return (
     <div className="flex flex-col">
       <SiteHeader />
-      <div className="flex min-h-dvh flex-1 flex-col">{children}</div>
+      <div className="flex min-h-[75vh] flex-1 flex-col">{children}</div>
       <SiteFooter />
     </div>
   );
