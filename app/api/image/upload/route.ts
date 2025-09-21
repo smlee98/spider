@@ -1,7 +1,5 @@
-import { put } from "@vercel/blob";
-import fs from "fs";
+import { IMAGES_BUCKET, createServerSupabaseClient } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
 
 export async function POST(
   req: NextRequest
@@ -11,6 +9,8 @@ export async function POST(
     const files = formData.getAll("files");
     const data: { url: string; size: number }[] = [];
 
+    const supabase = await createServerSupabaseClient();
+
     for await (const fileEntry of files) {
       if (!(fileEntry instanceof File)) {
         return NextResponse.json({ status: "fail", result: "invalid file" }, { status: 400 });
@@ -18,44 +18,53 @@ export async function POST(
 
       const file = fileEntry as File;
       const { name, size } = file;
-      const fileName = Date.now() + "_" + (name || "image");
 
-      if (process.env.VERCEL && process.env.BLOB_READ_WRITE_TOKEN) {
-        // Vercel Blob Storage 사용 (프로덕션)
-        try {
-          const blob = await put(fileName, file, {
-            access: "public",
-            contentType: file.type
-          });
-          data.push({ url: blob.url, size });
-        } catch (blobError) {
-          console.error("Blob upload error:", blobError);
-          // Blob 실패 시 Base64 fallback
-          const arrayBuffer = await file.arrayBuffer();
-          const buffer = Buffer.from(arrayBuffer);
-          const base64 = buffer.toString('base64');
-          const dataUrl = `data:${file.type};base64,${base64}`;
-          data.push({ url: dataUrl, size });
-        }
-      } else {
-        // 로컬 개발 환경: 파일시스템에 저장
-        const uploadPath = "./public/images";
+      // 파일 크기 제한 (50MB)
+      if (size > 50 * 1024 * 1024) {
+        return NextResponse.json({ status: "fail", result: "File too large (max 50MB)" }, { status: 400 });
+      }
 
-        if (!fs.existsSync(uploadPath)) {
-          fs.mkdirSync(uploadPath, { recursive: true });
-        }
+      // 이미지 타입 검증
+      if (!file.type.startsWith("image/")) {
+        return NextResponse.json({ status: "fail", result: "Only image files are allowed" }, { status: 400 });
+      }
 
+      const timestamp = Date.now();
+      const sanitizedName = name?.replace(/[^a-zA-Z0-9.-]/g, "_") || "image";
+      const fileName = `${timestamp}_${sanitizedName}`;
+
+      try {
         const arrayBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        const filePath = path.join(uploadPath, fileName);
-        fs.writeFileSync(filePath, buffer);
-        data.push({ url: `/api/image?image=${fileName}`, size });
+
+        // Service Role로 업로드
+        const { data: uploadData, error } = await supabase.storage.from(IMAGES_BUCKET).upload(fileName, arrayBuffer, {
+          contentType: file.type,
+          cacheControl: "3600",
+          upsert: false
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        // 공개 URL 가져오기
+        const { data: publicUrlData } = supabase.storage.from(IMAGES_BUCKET).getPublicUrl(uploadData.path);
+
+        data.push({ url: publicUrlData.publicUrl, size });
+      } catch (storageError) {
+        console.error("Supabase Storage error:", storageError);
       }
     }
 
     return NextResponse.json({ status: "success", data }, { status: 200 });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ status: "fail", result: "서버 오류가 발생했습니다." }, { status: 500 });
+    return NextResponse.json(
+      {
+        status: "fail",
+        result: error instanceof Error ? error.message : "서버 오류가 발생했습니다."
+      },
+      { status: 500 }
+    );
   }
 }

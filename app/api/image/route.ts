@@ -1,15 +1,7 @@
-import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
+import { createServerSupabaseClient, IMAGES_BUCKET } from "@/lib/supabase";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  // Vercel 환경에서는 이 API를 사용하지 않음 (Base64 data URL 사용)
-  if (process.env.VERCEL) {
-    return NextResponse.json({
-      error: "This endpoint is not available in production. Images are served as data URLs."
-    }, { status: 404 });
-  }
-
   const { searchParams } = new URL(req.url);
   const image = searchParams.get("image");
 
@@ -17,14 +9,24 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "Missing image query parameter" }, { status: 400 });
   }
 
-  const filePath = path.join(process.cwd(), "public", "images", image);
+  try {
+    const supabase = await createServerSupabaseClient();
 
-  if (fs.existsSync(filePath)) {
-    const fileBuffer = fs.readFileSync(filePath);
+    const { data, error } = await supabase.storage
+      .from(IMAGES_BUCKET)
+      .download(image);
+
+    if (error) {
+      return NextResponse.json({ error: "File not found" }, { status: 404 });
+    }
+
     const headers = new Headers();
-    headers.append("Content-Type", "image/*");
-    return new NextResponse(fileBuffer, { headers });
-  } else {
-    return NextResponse.json({ error: "File not found" }, { status: 404 });
+    headers.append("Content-Type", data.type || "image/*");
+    headers.append("Cache-Control", "public, max-age=3600");
+
+    return new NextResponse(data, { headers });
+  } catch (error) {
+    console.error("Image download error:", error);
+    return NextResponse.json({ error: "Failed to fetch image" }, { status: 500 });
   }
 }
