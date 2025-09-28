@@ -63,18 +63,18 @@ export default function CrawlerPage() {
 
   const sortedAllEquipments = getSortedEquipments(allEquipments, sortOption);
 
-  const EquipmentCard = ({ equipment, brandName }: { equipment: CrawlerEquipment; brandName: string }) => (
+  const EquipmentCard = ({ equipment }: { equipment: CrawlerEquipment }) => (
     <Link
-      key={`${brandName}-${equipment.modelName}`}
-      href={`/equipment/crawler/${brandName.toLowerCase()}/${equipment.modelName.toLowerCase()}`}
+      key={`${equipment.brandName}-${equipment.modelName}`}
+      href={`/equipment/crawler/${equipment.brandName.toLowerCase()}/${equipment.modelName.toLowerCase()}`}
       className="group"
     >
       <Card className="gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
         <CardContent className="bg-muted flex aspect-square items-center justify-center">
           <picture>
             <img
-              src={`/equipment/crawler/${brandName}/${equipment.modelName}/${equipment.modelName}.png`}
-              alt={`${brandName}/${equipment.modelName}`}
+              src={`/equipment/crawler/${equipment.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
+              alt={`${equipment.brandName}/${equipment.modelName}`}
               className="h-auto max-h-80 w-full max-w-full md:max-h-60"
             />
           </picture>
@@ -82,7 +82,7 @@ export default function CrawlerPage() {
         <CardHeader className="gap-0 border-t p-0">
           <div className="flex items-center justify-between px-4 py-3">
             <CardTitle className="text-lg">{equipment.modelName}</CardTitle>
-            <Badge>{brandName}</Badge>
+            <Badge>{equipment.brandName}</Badge>
           </div>
           <div className="grid grid-cols-3 divide-x border-t">
             <div className="flex flex-col px-3 py-2">
@@ -150,7 +150,6 @@ export default function CrawlerPage() {
                 <EquipmentCard
                   key={`${equipment.brandName}-${equipment.modelName}`}
                   equipment={equipment}
-                  brandName={equipment.brandName}
                 />
               ))}
             </div>
@@ -161,7 +160,7 @@ export default function CrawlerPage() {
             <TabsContent key={brand.id} value={brand.id}>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {brand.equipments.map((equipment) => (
-                  <EquipmentCard key={equipment.modelName} equipment={equipment} brandName={brand.brandName} />
+                  <EquipmentCard key={equipment.modelName} equipment={{...equipment, brandName: brand.brandName}} />
                 ))}
               </div>
             </TabsContent>
