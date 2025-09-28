@@ -5,7 +5,7 @@ import HeightIcon from "@/components/icons/height";
 import WeightIcon from "@/components/icons/weight";
 import Container from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
@@ -70,6 +70,12 @@ export default function SpiderPage() {
       className="group"
     >
       <Card className="gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
+        <CardHeader className="gap-0 border-b !p-4">
+          <div className="flex items-center gap-2">
+            <Badge>{equipment.brandName}</Badge>
+            <CardTitle className="text-lg">{equipment.modelName}</CardTitle>
+          </div>
+        </CardHeader>
         <CardContent className="bg-muted flex aspect-square items-center justify-center">
           <picture>
             <img
@@ -79,27 +85,23 @@ export default function SpiderPage() {
             />
           </picture>
         </CardContent>
-        <CardHeader className="gap-0 border-t p-0">
-          <div className="flex items-center justify-between px-4 py-3">
-            <CardTitle className="text-lg">{equipment.modelName}</CardTitle>
-            <Badge>{equipment.brandName}</Badge>
-          </div>
-          <div className="grid grid-cols-3 divide-x border-t">
-            <div className="flex flex-col px-3 py-2">
+        <CardFooter className="gap-0 p-0!">
+          <div className="grid w-full grid-cols-3 divide-x border-t">
+            <div className="flex flex-col px-4 py-3">
               <div className="text-muted-foreground flex items-center justify-between text-sm">
                 <span>최대 안전하중</span>
                 <CapacityIcon className="size-4 shrink-0" />
               </div>
               <span className="text-lg font-semibold">{equipment.maxSafeLoad}</span>
             </div>
-            <div className="flex flex-col px-3 py-2">
+            <div className="flex flex-col px-4 py-3">
               <div className="text-muted-foreground flex items-center justify-between text-sm">
                 <span>최대길이(수직)</span>
                 <HeightIcon className="size-4 shrink-0" />
               </div>
               <span className="text-lg font-semibold">{equipment.maxHeight}</span>
             </div>
-            <div className="flex flex-col px-3 py-2">
+            <div className="flex flex-col px-4 py-3">
               <div className="text-muted-foreground flex items-center justify-between text-sm">
                 <span>차체무게</span>
                 <WeightIcon className="size-4 shrink-0" />
@@ -107,7 +109,7 @@ export default function SpiderPage() {
               <span className="text-lg font-semibold">{equipment.weight}</span>
             </div>
           </div>
-        </CardHeader>
+        </CardFooter>
       </Card>
     </Link>
   );
@@ -147,10 +149,7 @@ export default function SpiderPage() {
           <TabsContent value="all">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {sortedAllEquipments.map((equipment) => (
-                <EquipmentCard
-                  key={`${equipment.brandName}-${equipment.modelName}`}
-                  equipment={equipment}
-                />
+                <EquipmentCard key={`${equipment.brandName}-${equipment.modelName}`} equipment={equipment} />
               ))}
             </div>
           </TabsContent>
@@ -160,7 +159,7 @@ export default function SpiderPage() {
             <TabsContent key={brand.id} value={brand.id}>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {brand.equipments.map((equipment) => (
-                  <EquipmentCard key={equipment.modelName} equipment={{...equipment, brandName: brand.brandName}} />
+                  <EquipmentCard key={equipment.modelName} equipment={{ ...equipment, brandName: brand.brandName }} />
                 ))}
               </div>
             </TabsContent>
