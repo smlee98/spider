@@ -20,6 +20,10 @@ type SortOption =
   | "bodyWeight-desc"
   | "bodyWeight-asc";
 
+type CrawlerEquipment = (typeof crawler)[0]["equipments"][0] & {
+  brandName: string;
+};
+
 export default function CrawlerPage() {
   const [sortOption, setSortOption] = useState<SortOption>("maxSafeLoad-desc");
   const [activeTab, setActiveTab] = useState("all");
@@ -59,7 +63,7 @@ export default function CrawlerPage() {
 
   const sortedAllEquipments = getSortedEquipments(allEquipments, sortOption);
 
-  const EquipmentCard = ({ equipment, brandName }: { equipment: any; brandName: string }) => (
+  const EquipmentCard = ({ equipment, brandName }: { equipment: CrawlerEquipment; brandName: string }) => (
     <Link
       key={`${brandName}-${equipment.modelName}`}
       href={`/equipment/crawler/${brandName.toLowerCase()}/${equipment.modelName.toLowerCase()}`}

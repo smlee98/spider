@@ -20,6 +20,10 @@ type SortOption =
   | "bodyWeight-desc"
   | "bodyWeight-asc";
 
+type BoomLiftEquipment = (typeof boomLift)[0]["equipments"][0] & {
+  brandName: string;
+};
+
 export default function BoomLiftPage() {
   const [sortOption, setSortOption] = useState<SortOption>("platformMaxLoad-desc");
   const [activeTab, setActiveTab] = useState("all");
@@ -59,7 +63,7 @@ export default function BoomLiftPage() {
 
   const sortedAllEquipments = getSortedEquipments(allEquipments, sortOption);
 
-  const EquipmentCard = ({ equipment, brandName }: { equipment: any; brandName: string }) => (
+  const EquipmentCard = ({ equipment, brandName }: { equipment: BoomLiftEquipment; brandName: string }) => (
     <Link
       key={`${brandName}-${equipment.modelName}`}
       href={`/equipment/boom-lift/${brandName.toLowerCase()}/${equipment.modelName.toLowerCase()}`}

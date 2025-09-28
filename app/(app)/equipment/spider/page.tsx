@@ -20,6 +20,10 @@ type SortOption =
   | "weight-desc"
   | "weight-asc";
 
+type SpiderEquipment = (typeof spider)[0]["equipments"][0] & {
+  brandName: string;
+};
+
 export default function SpiderPage() {
   const [sortOption, setSortOption] = useState<SortOption>("maxSafeLoad-desc");
   const [activeTab, setActiveTab] = useState("all");
@@ -59,7 +63,7 @@ export default function SpiderPage() {
 
   const sortedAllEquipments = getSortedEquipments(allEquipments, sortOption);
 
-  const EquipmentCard = ({ equipment, brandName }: { equipment: any; brandName: string }) => (
+  const EquipmentCard = ({ equipment, brandName }: { equipment: SpiderEquipment; brandName: string }) => (
     <Link
       key={`${brandName}-${equipment.modelName}`}
       href={`/equipment/spider/${brandName.toLowerCase()}/${equipment.modelName.toLowerCase()}`}
