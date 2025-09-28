@@ -1,6 +1,6 @@
 import { AuroraBackground } from "@/components/aurora-background";
 import { Card, CardContent } from "@/components/ui/card";
-import { PhoneCall, Printer, Smartphone } from "lucide-react";
+import { Mail, PhoneCall, Printer, Smartphone } from "lucide-react";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
           철저한 안전 교육으로 사고 예방에 최선을 다하며 <br className="hidden md:block" /> 국내 최대의 크레인과 베테랑
           기사들을 보유하고 있습니다.
         </h1>
-        <div className="z-50 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="z-50 grid grid-cols-1 gap-8 md:grid-cols-2">
           <Card className="bg-secondary">
             <CardContent>
               <div className="flex items-start gap-4">
@@ -57,6 +57,23 @@ export default function Home() {
                   </div>
                   <ul className="text-muted-foreground flex flex-col gap-1 font-medium">
                     <li>010-7179-5277</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-secondary">
+            <CardContent>
+              <div className="flex items-start gap-4">
+                <div className="bg-muted flex size-10 shrink-0 items-center justify-center rounded-lg">
+                  <Mail className="text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-1 flex items-center">
+                    <h3 className="font-semibold">이메일</h3>
+                  </div>
+                  <ul className="text-muted-foreground flex flex-col gap-1 font-medium">
+                    <li>b6205425@naver.com</li>
                   </ul>
                 </div>
               </div>
