@@ -1,5 +1,5 @@
+import { IMAGES_BUCKET, supabase } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
-import { createAdminClient, IMAGES_BUCKET } from "@/lib/supabase";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(req.url);
@@ -10,11 +10,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const supabase = createAdminClient();
-
-    const { data, error } = await supabase.storage
-      .from(IMAGES_BUCKET)
-      .download(image);
+    const { data, error } = await supabase.storage.from(IMAGES_BUCKET).download(image);
 
     if (error) {
       return NextResponse.json({ error: "File not found" }, { status: 404 });

@@ -1,4 +1,4 @@
-import { IMAGES_BUCKET, createAdminClient } from "@/lib/supabase";
+import { IMAGES_BUCKET, supabase } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
@@ -8,8 +8,6 @@ export async function POST(
     const formData = await req.formData();
     const files = formData.getAll("files");
     const data: { url: string; size: number }[] = [];
-
-    const supabase = createAdminClient();
 
     for await (const fileEntry of files) {
       if (!(fileEntry instanceof File)) {
