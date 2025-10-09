@@ -81,7 +81,7 @@ export default function SpiderPage() {
             <img
               src={`/equipment/spider/${equipment.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
               alt={`${equipment.brandName}/${equipment.modelName}`}
-              className="h-auto max-h-80 w-full max-w-full md:max-h-60"
+              className="h-auto max-h-[420px] w-full max-w-full"
             />
           </picture>
         </CardContent>

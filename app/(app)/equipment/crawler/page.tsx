@@ -81,7 +81,7 @@ export default function CrawlerPage() {
             <img
               src={`/equipment/crawler/${equipment.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
               alt={`${equipment.brandName}/${equipment.modelName}`}
-              className="h-auto max-h-80 w-full max-w-full md:max-h-60"
+              className="h-auto max-h-[420px] w-full max-w-full"
             />
           </picture>
         </CardContent>
@@ -149,10 +149,7 @@ export default function CrawlerPage() {
           <TabsContent value="all">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {sortedAllEquipments.map((equipment) => (
-                <EquipmentCard
-                  key={`${equipment.brandName}-${equipment.modelName}`}
-                  equipment={equipment}
-                />
+                <EquipmentCard key={`${equipment.brandName}-${equipment.modelName}`} equipment={equipment} />
               ))}
             </div>
           </TabsContent>
@@ -162,7 +159,7 @@ export default function CrawlerPage() {
             <TabsContent key={brand.id} value={brand.id}>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {brand.equipments.map((equipment) => (
-                  <EquipmentCard key={equipment.modelName} equipment={{...equipment, brandName: brand.brandName}} />
+                  <EquipmentCard key={equipment.modelName} equipment={{ ...equipment, brandName: brand.brandName }} />
                 ))}
               </div>
             </TabsContent>

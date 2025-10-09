@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,17 +42,19 @@ export default function CrawlerDetailPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <Card className="gap-0 overflow-hidden py-0">
-              <CardContent className="bg-muted flex aspect-square items-center justify-center p-8">
-                <picture>
+            {/* <picture>
                   <img
                     src={`/equipment/crawler/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
                     alt={`${brand.brandName}/${equipment.modelName}`}
                     className="h-auto max-h-80 w-full max-w-full transition-all hover:scale-125 md:max-h-[480px]"
                   />
-                </picture>
-              </CardContent>
-            </Card>
+                </picture> */}
+            <ImageZoom
+              src={`/equipment/crawler/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
+              alt={`${brand.brandName}/${equipment.modelName}`}
+              className="w-full"
+              zoomLevel={3.5}
+            />
 
             <Card className="gap-0 pb-0">
               <CardHeader className="gap-0 border-b pb-0">
