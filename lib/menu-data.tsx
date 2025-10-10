@@ -27,6 +27,18 @@ export const menuData: MenuItem[] = [
         description: "Jekko · Hoeflon · BEFARD · UNIC · MAEDA"
       },
       {
+        id: "spider-grapple",
+        title: "집게 거미크레인",
+        href: "/equipment/spider-grapple",
+        description: "Jekko · Hoeflon"
+      },
+      {
+        id: "spider-glass",
+        title: "유리 흡착기 거미크레인",
+        href: "/equipment/spider-glass",
+        description: "Jekko"
+      },
+      {
         id: "boom-lift",
         title: "굴절식 고소작업대",
         href: "/equipment/boom-lift",

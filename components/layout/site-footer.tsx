@@ -15,12 +15,14 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
             {/* Logo */}
-            <Link href="/" className="invert">
-              <Image src="/logo.png" alt="logo" width={184} height={40} />
-            </Link>
-            <div className="text-sm leading-6 text-white">
-              <p>사용자등록번호 : 132-86-04665 | 대표 : 박완서</p>
-              <p>17394 경기도 이천시 호법면 후안리 100-11</p>
+            <div className="flex flex-col gap-4">
+              <Link href="/" className="invert">
+                <Image src="/logo.png" alt="logo" width={184} height={40} />
+              </Link>
+              <div className="text-sm leading-6 text-white">
+                <p>사용자등록번호 : 132-86-04665 | 대표 : 박완서</p>
+                <p>17394 경기도 이천시 호법면 후안리 100-11</p>
+              </div>
             </div>
             <ul className="text-muted-foreground flex items-center space-x-6 transition-all">
               <li className="opacity-75 hover:opacity-100">
