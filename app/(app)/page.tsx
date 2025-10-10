@@ -10,7 +10,7 @@ export default function Home() {
             철저한 안전 교육으로 사고 예방에 최선을 다하며 <br className="hidden md:block" /> 국내 최대의 크레인과
             베테랑 기사들을 보유하고 있습니다.
           </h1>
-          <div className="z-50 grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="z-20 grid grid-cols-1 gap-8 md:grid-cols-2">
             <Card className="bg-secondary">
               <CardContent>
                 <div className="flex items-start gap-4">
@@ -90,6 +90,8 @@ export default function Home() {
         preload="auto"
         autoPlay
         loop
+        muted
+        playsInline
       >
         <source src="intro.mp4" type="video/mp4" />
       </video>
