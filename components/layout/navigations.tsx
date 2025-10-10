@@ -36,7 +36,7 @@ export function MainNav({ user }: { user?: User }) {
               <NavigationMenuItem key={item.id}>
                 {isDropdownMenu(item) ? (
                   <>
-                    <NavigationMenuTrigger className="bg-transparent">
+                    <NavigationMenuTrigger className="bg-transparent" onClick={(e) => e.preventDefault()}>
                       {item.icon?.type === "image" ? (
                         <picture>
                           <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
