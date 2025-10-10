@@ -148,13 +148,13 @@ export default function SpiderDetailPage() {
           </div>
         </div>
       </Container>
-      <div className="bg-muted relative bg-[url(/equipment/disegno.svg)] bg-cover bg-center bg-no-repeat">
+      <div className="relative bg-[#ddd] bg-[url(/equipment/disegno.svg)] bg-cover bg-center bg-no-repeat">
         <div className="flex flex-col items-center justify-center gap-4 bg-[#ddd]/95 py-40">
-          <CloudDownload className="text-muted-foreground size-20" />
-          <span className="text-xl font-semibold">PDF 다운로드</span>
+          <CloudDownload className="size-20 text-black/75" />
+          <span className="text-xl font-semibold text-black">PDF 다운로드</span>
           <div className="flex items-center gap-4">
             {equipment.brochurePdf && (
-              <Button size="lg" variant="default" className="font-semibold" asChild>
+              <Button size="lg" variant="default" className="bg-black font-semibold text-white" asChild>
                 <a href={equipment.brochurePdf} download>
                   <BookText />
                   브로슈어 다운로드
@@ -162,7 +162,7 @@ export default function SpiderDetailPage() {
               </Button>
             )}
             {equipment.technicalDataPdf && (
-              <Button size="lg" variant="default" className="font-semibold" asChild>
+              <Button size="lg" variant="default" className="bg-black font-semibold text-white" asChild>
                 <a href={equipment.technicalDataPdf} download>
                   <BookText />
                   기술데이터 다운로드
