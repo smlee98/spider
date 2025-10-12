@@ -22,20 +22,26 @@ export const menuData: MenuItem[] = [
     children: [
       {
         id: "spider",
-        title: "거미 크레인",
+        title: "거미크레인",
         href: "/equipment/spider",
         description: "Jekko · Hoeflon · BEFARD · UNIC · MAEDA"
       },
       {
-        id: "spider-grapple",
+        id: "jib",
+        title: "지브 거미크레인",
+        href: "/equipment/jib",
+        description: "Jekko · Hoeflon · UNIC"
+      },
+      {
+        id: "grapple",
         title: "집게 거미크레인",
-        href: "/equipment/spider-grapple",
+        href: "/equipment/grapple",
         description: "Jekko · Hoeflon"
       },
       {
-        id: "spider-glass",
+        id: "glass",
         title: "유리 흡착기 거미크레인",
-        href: "/equipment/spider-glass",
+        href: "/equipment/glass",
         description: "Jekko"
       },
       {
@@ -79,17 +85,17 @@ export const menuData: MenuItem[] = [
     children: [
       {
         id: "spider-lifts",
-        title: "Spider lifts",
+        title: "거미형 리프트",
         href: "https://www.platformbasket.com/en/spider-lifts/",
         target: "_blank",
-        description: "Tracked spider lifts, tracked self-propelled spider lifts with basket lift. Vertical lift."
+        description: "거미형 트랙식 굴절 리프트"
       },
       {
         id: "rail-boom-lifts",
-        title: "Rail boom lifts",
+        title: "철도 리프트",
         href: "https://www.platformbasket.com/en/rail-boom-lifts/",
         target: "_blank",
-        description: "Road/rail self-propelled boom lifts"
+        description: "도로/철도 겸용 자가 추진식 리프트"
       }
     ]
   }

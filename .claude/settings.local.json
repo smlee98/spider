@@ -6,7 +6,9 @@
       "Bash(npx prisma migrate dev:*)",
       "Bash(ls:*)",
       "Bash(mkdir:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)",
+      "Bash(paste:*)"
     ],
     "deny": [],
     "ask": []
