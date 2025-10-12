@@ -2,27 +2,17 @@
 
 import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { use } from "react";
 import { getMenuById } from "@/lib/menu-data";
+import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
+import { notFound, useParams, useRouter } from "next/navigation";
 import { crains, dictionaries } from "../../../constants";
 
-interface PageProps {
-  params: Promise<{
-    type: string;
-    brand: string;
-    id: string;
-  }>;
-}
-
-export default function EquipmentDetailPage({ params }: PageProps) {
-  // Next.js 15: params를 Promise로 unwrap
-  const { type: typeParam, brand: brandParam, id: modelParam } = use(params);
+export default function EquipmentDetailPage() {
+  const router = useRouter();
+  const { type: typeParam, brand: brandParam, id: modelParam } = useParams();
 
   // menuData에서 해당 경로를 가진 메뉴 아이템 찾기
   const equipmentMenu = getMenuById("equipment");
@@ -58,10 +48,10 @@ export default function EquipmentDetailPage({ params }: PageProps) {
               <h4 className="text-muted-foreground font-semibold">{brand.brandName}</h4>
               <h1 className="text-foreground text-3xl font-black md:text-4xl">{equipment.modelName}</h1>
             </div>
-            <Link href={`/equipment/${typeParam}`} className={buttonVariants({ variant: "outline" })}>
+            <Button variant="outline" onClick={() => router.back()}>
               <ArrowLeft className="size-4" />
-              목록 보기
-            </Link>
+              뒤로가기
+            </Button>
           </div>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -153,9 +143,7 @@ export default function EquipmentDetailPage({ params }: PageProps) {
                     )}
                     {equipment.speed && (
                       <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.speed}
-                        </TableCell>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">{dictionaries.speed}</TableCell>
                         <TableCell className="px-6">{equipment.speed}</TableCell>
                       </TableRow>
                     )}
