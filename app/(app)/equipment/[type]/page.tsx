@@ -13,7 +13,7 @@ import { Boxes } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useState } from "react";
-import { cranes, craneType } from "../constants";
+import { cranes, craneType, type Equipment as BaseEquipment } from "../constants";
 
 type SortOption =
   | "maxSafeLoad-desc"
@@ -23,15 +23,8 @@ type SortOption =
   | "weight-desc"
   | "weight-asc";
 
-type Accessory = {
-  accessoryName: string;
-  accessoryType: string;
-  [key: string]: any;
-};
-
-type Equipment = (typeof cranes)[0]["brands"][0]["equipments"][0] & {
+type Equipment = BaseEquipment & {
   brandName: string;
-  accessories?: Accessory[];
 };
 
 export default function EquipmentTypePage() {

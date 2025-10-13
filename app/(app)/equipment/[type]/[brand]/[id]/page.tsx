@@ -10,17 +10,7 @@ import { getMenuById } from "@/lib/menu-data";
 import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { cranes, craneType, dictionaries } from "../../../constants";
-
-type Accessory = {
-  accessoryName: string;
-  accessoryType: string;
-  [key: string]: any;
-};
-
-type Equipment = (typeof cranes)[0]["brands"][0]["equipments"][0] & {
-  accessories?: Accessory[];
-};
+import { cranes, craneType, dictionaries, type Equipment } from "../../../constants";
 
 export default function EquipmentDetailPage() {
   const router = useRouter();

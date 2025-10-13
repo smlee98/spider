@@ -24,9 +24,67 @@ export const craneType = {
   grapple: "집게",
   glass: "유리흡착기",
   crawler: "크롤러"
+} as const;
+
+export type AccessoryType = keyof typeof craneType;
+
+export type Accessory = {
+  accessoryName: string;
+  accessoryType: AccessoryType;
+  dimensions: string;
+  outriggerExtensionDimensions: string;
+  trackDimensions: string;
+  boomLength: string;
+  maxLiftingHeight: string;
+  maxLiftingLength: string;
+  bodyWeight: string;
+  maxSafeLoad: string;
+  maxHeightTipLoad: string;
+  maxLengthTipLoad: string;
+  speed: string;
+  climbingAbility: string;
+  workingAngle: string;
+  slewingAngle: string;
+  maxOutriggerLoad: string;
+  groundPressure: string;
+  powerType: string;
 };
 
-export const cranes = [
+export type Equipment = {
+  modelName: string;
+  dimensions: string;
+  outriggerExtensionDimensions: string;
+  trackDimensions: string;
+  boomLength: string;
+  maxLiftingHeight: string;
+  maxLiftingLength: string;
+  bodyWeight: string;
+  maxSafeLoad: string;
+  maxHeightTipLoad: string;
+  maxLengthTipLoad: string;
+  speed: string;
+  climbingAbility: string;
+  workingAngle: string;
+  slewingAngle: string;
+  maxOutriggerLoad: string;
+  groundPressure: string;
+  powerType: string;
+  isBrochure: boolean;
+  isTechnicalData: boolean;
+  accessories?: Accessory[];
+};
+
+export type Brand = {
+  brandName: string;
+  equipments: Equipment[];
+};
+
+export type CraneType = {
+  type: string;
+  brands: Brand[];
+};
+
+export const cranes: CraneType[] = [
   {
     type: "spider",
     brands: [
@@ -140,9 +198,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "2200kg",
                 groundPressure: "0.55kg/㎠",
-                powerType: "배터리",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "배터리"
               }
             ]
           },
@@ -364,9 +420,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "4000kg",
                 groundPressure: "0.59kg/㎠",
-                powerType: "디젤(경유) 20L",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "디젤(경유) 20L"
               },
               {
                 accessoryName: "JIB 3500G",
@@ -387,9 +441,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "4000kg",
                 groundPressure: "0.59kg/㎠",
-                powerType: "디젤(경유) 20L",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "디젤(경유) 20L"
               },
               {
                 accessoryName: "JIB 100.1FL",
@@ -410,9 +462,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "4000kg",
                 groundPressure: "0.59kg/㎠",
-                powerType: "디젤(경유) 20L",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "디젤(경유) 20L"
               },
               {
                 accessoryName: "MR800.4",
@@ -433,9 +483,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "4000kg",
                 groundPressure: "0.59kg/㎠",
-                powerType: "디젤(경유) 20L",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "디젤(경유) 20L"
               }
             ]
           },
@@ -480,9 +528,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "4800kg",
                 groundPressure: "0.75kg/㎠",
-                powerType: "배터리",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "배터리"
               },
               {
                 accessoryName: "JIB 1200 3HX",
@@ -503,9 +549,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "4800kg",
                 groundPressure: "0.75kg/㎠",
-                powerType: "배터리",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "배터리"
               },
               {
                 accessoryName: "JIB500GR",
@@ -526,9 +570,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "3000kg",
                 groundPressure: "0.63kg/㎠",
-                powerType: "배터리",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "배터리"
               }
             ]
           },
@@ -666,9 +708,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "2800kg",
                 groundPressure: "0.79kg/㎠",
-                powerType: "배터리/디젤(경유) 20L",
-                isBrochure: true,
-                isTechnicalData: false
+                powerType: "배터리/디젤(경유) 20L"
               },
               {
                 accessoryName: "MC1200",
@@ -689,9 +729,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "2800kg",
                 groundPressure: "0.79kg/㎠",
-                powerType: "배터리/디젤(경유) 20L",
-                isBrochure: true,
-                isTechnicalData: false
+                powerType: "배터리/디젤(경유) 20L"
               }
             ]
           },
@@ -901,9 +939,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "",
                 groundPressure: "0.44kg/㎠",
-                powerType: "디젤(경유) 60L",
-                isBrochure: true,
-                isTechnicalData: false
+                powerType: "디젤(경유) 60L"
               },
               {
                 accessoryName: "플라잉 지브",
@@ -924,9 +960,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "",
                 groundPressure: "0.44kg/㎠",
-                powerType: "디젤(경유) 60L",
-                isBrochure: true,
-                isTechnicalData: false
+                powerType: "디젤(경유) 60L"
               }
             ]
           }
@@ -1084,9 +1118,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "361°",
                 groundPressure: "0.90kg/㎠",
-                powerType: "디젤(경유) 105L",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "디젤(경유) 105L"
               },
               {
                 accessoryName: "JIB 3500GX",
@@ -1107,9 +1139,7 @@ export const cranes = [
                 slewingAngle: "360°",
                 maxOutriggerLoad: "",
                 groundPressure: "0.90kg/㎠",
-                powerType: "디젤(경유) 105L",
-                isBrochure: true,
-                isTechnicalData: true
+                powerType: "디젤(경유) 105L"
               }
             ]
           }
