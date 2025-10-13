@@ -26,24 +26,24 @@ export const menuData: MenuItem[] = [
         href: "/equipment/spider",
         description: "Jekko · Hoeflon · BEFARD · UNIC · MAEDA"
       },
-      {
-        id: "jib",
-        title: "지브 거미크레인",
-        href: "/equipment/jib",
-        description: "Jekko · Hoeflon · UNIC"
-      },
-      {
-        id: "grapple",
-        title: "집게 거미크레인",
-        href: "/equipment/grapple",
-        description: "Jekko · Hoeflon"
-      },
-      {
-        id: "glass",
-        title: "유리 흡착기 거미크레인",
-        href: "/equipment/glass",
-        description: "Jekko"
-      },
+      // {
+      //   id: "jib",
+      //   title: "지브 거미크레인",
+      //   href: "/equipment/jib",
+      //   description: "Jekko · Hoeflon · UNIC"
+      // },
+      // {
+      //   id: "grapple",
+      //   title: "집게 거미크레인",
+      //   href: "/equipment/grapple",
+      //   description: "Jekko · Hoeflon"
+      // },
+      // {
+      //   id: "glass",
+      //   title: "유리 흡착기 거미크레인",
+      //   href: "/equipment/glass",
+      //   description: "Jekko"
+      // },
       {
         id: "boom-lift",
         title: "굴절식 고소작업대",

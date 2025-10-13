@@ -13,7 +13,7 @@ import { Boxes } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useState } from "react";
-import { crains } from "../constants";
+import { cranes } from "../constants";
 
 type SortOption =
   | "maxSafeLoad-desc"
@@ -23,7 +23,7 @@ type SortOption =
   | "weight-desc"
   | "weight-asc";
 
-type Equipment = (typeof crains)[0]["brands"][0]["equipments"][0] & {
+type Equipment = (typeof cranes)[0]["brands"][0]["equipments"][0] & {
   brandName: string;
 };
 
@@ -40,8 +40,8 @@ export default function EquipmentTypePage() {
     notFound();
   }
 
-  // crains 데이터에서 menuItem.id에 해당하는 장비 찾기
-  const typeData = crains.find((c) => c.type === menuItem.id);
+  // cranes 데이터에서 menuItem.id에 해당하는 장비 찾기
+  const typeData = cranes.find((c) => c.type === menuItem.id);
 
   if (!typeData) {
     notFound();
@@ -95,10 +95,10 @@ export default function EquipmentTypePage() {
               <Badge>{equipment.brandName}</Badge>
               <CardTitle className="text-lg">{equipment.modelName}</CardTitle>
             </div>
-            {equipment.accessory ? (
+            {equipment.accessories && equipment.accessories.length > 0 ? (
               <Badge variant="outline">
                 <Boxes />
-                {equipment.accessory}
+                {equipment.accessories.length}개 악세서리
               </Badge>
             ) : null}
           </div>

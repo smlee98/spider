@@ -5,14 +5,17 @@ import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getMenuById } from "@/lib/menu-data";
 import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
 import { notFound, useParams, useRouter } from "next/navigation";
-import { crains, dictionaries } from "../../../constants";
+import { useState } from "react";
+import { cranes, dictionaries } from "../../../constants";
 
 export default function EquipmentDetailPage() {
   const router = useRouter();
   const { type: typeParam, brand: brandParam, id: modelParam } = useParams();
+  const [selectedAccessoryIndex, setSelectedAccessoryIndex] = useState<number>(-1);
 
   // menuData에서 해당 경로를 가진 메뉴 아이템 찾기
   const equipmentMenu = getMenuById("equipment");
@@ -22,8 +25,8 @@ export default function EquipmentDetailPage() {
     notFound();
   }
 
-  // crains 데이터에서 menuItem.id에 해당하는 장비 찾기
-  const typeData = crains.find((c) => c.type === menuItem.id);
+  // cranes 데이터에서 menuItem.id에 해당하는 장비 찾기
+  const typeData = cranes.find((c) => c.type === menuItem.id);
 
   if (!typeData) {
     notFound();
@@ -38,6 +41,15 @@ export default function EquipmentDetailPage() {
   if (!equipment) {
     notFound();
   }
+
+  // 현재 표시할 데이터 결정: 악세서리가 선택되었으면 해당 악세서리 데이터, 아니면 기본 데이터
+  const currentData =
+    selectedAccessoryIndex >= 0 && equipment.accessories?.[selectedAccessoryIndex]
+      ? equipment.accessories[selectedAccessoryIndex]
+      : equipment;
+
+  // 악세서리가 있는지 확인
+  const hasAccessories = equipment.accessories && equipment.accessories.length > 0;
 
   return (
     <div className="flex flex-col">
@@ -54,6 +66,25 @@ export default function EquipmentDetailPage() {
             </Button>
           </div>
 
+          {hasAccessories && (
+            <Tabs
+              defaultValue="-1"
+              value={selectedAccessoryIndex.toString()}
+              onValueChange={(value) => setSelectedAccessoryIndex(Number(value))}
+            >
+              <TabsList>
+                <TabsTrigger value="-1" className="flex-1">
+                  기본
+                </TabsTrigger>
+                {equipment.accessories?.map((accessory, index) => (
+                  <TabsTrigger key={index} value={index.toString()} className="flex-1">
+                    {accessory.accessoryName}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          )}
+
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <ImageZoom
               src={`/equipment/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
@@ -69,138 +100,138 @@ export default function EquipmentDetailPage() {
               <CardContent className="px-0">
                 <Table>
                   <TableBody>
-                    {equipment.dimensions && (
+                    {currentData.dimensions && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.dimensions}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.dimensions}</TableCell>
+                        <TableCell className="px-6">{currentData.dimensions}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.trackDimensions && (
+                    {currentData.trackDimensions && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.trackDimensions}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.trackDimensions}</TableCell>
+                        <TableCell className="px-6">{currentData.trackDimensions}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.boomLength && (
+                    {currentData.boomLength && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.boomLength}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.boomLength}</TableCell>
+                        <TableCell className="px-6">{currentData.boomLength}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.maxLiftingHeight && (
+                    {currentData.maxLiftingHeight && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.maxLiftingHeight}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.maxLiftingHeight}</TableCell>
+                        <TableCell className="px-6">{currentData.maxLiftingHeight}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.maxLiftingLength && (
+                    {currentData.maxLiftingLength && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.maxLiftingLength}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.maxLiftingLength}</TableCell>
+                        <TableCell className="px-6">{currentData.maxLiftingLength}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.bodyWeight && (
+                    {currentData.bodyWeight && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.bodyWeight}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.bodyWeight}</TableCell>
+                        <TableCell className="px-6">{currentData.bodyWeight}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.maxSafeLoad && (
+                    {currentData.maxSafeLoad && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.maxSafeLoad}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.maxSafeLoad}</TableCell>
+                        <TableCell className="px-6">{currentData.maxSafeLoad}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.maxHeightTipLoad && (
+                    {currentData.maxHeightTipLoad && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.maxHeightTipLoad}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.maxHeightTipLoad}</TableCell>
+                        <TableCell className="px-6">{currentData.maxHeightTipLoad}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.maxLengthTipLoad && (
+                    {currentData.maxLengthTipLoad && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.maxLengthTipLoad}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.maxLengthTipLoad}</TableCell>
+                        <TableCell className="px-6">{currentData.maxLengthTipLoad}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.speed && (
+                    {currentData.speed && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">{dictionaries.speed}</TableCell>
-                        <TableCell className="px-6">{equipment.speed}</TableCell>
+                        <TableCell className="px-6">{currentData.speed}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.climbingAbility && (
+                    {currentData.climbingAbility && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.climbingAbility}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.climbingAbility}</TableCell>
+                        <TableCell className="px-6">{currentData.climbingAbility}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.workingAngle && (
+                    {currentData.workingAngle && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.workingAngle}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.workingAngle}</TableCell>
+                        <TableCell className="px-6">{currentData.workingAngle}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.slewingAngle && (
+                    {currentData.slewingAngle && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.slewingAngle}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.slewingAngle}</TableCell>
+                        <TableCell className="px-6">{currentData.slewingAngle}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.outriggerExtensionDimensions && (
+                    {currentData.outriggerExtensionDimensions && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.outriggerExtensionDimensions}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.outriggerExtensionDimensions}</TableCell>
+                        <TableCell className="px-6">{currentData.outriggerExtensionDimensions}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.maxOutriggerLoad && (
+                    {currentData.maxOutriggerLoad && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.maxOutriggerLoad}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.maxOutriggerLoad}</TableCell>
+                        <TableCell className="px-6">{currentData.maxOutriggerLoad}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.groundPressure && (
+                    {currentData.groundPressure && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.groundPressure}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.groundPressure}</TableCell>
+                        <TableCell className="px-6">{currentData.groundPressure}</TableCell>
                       </TableRow>
                     )}
-                    {equipment.powerType && (
+                    {currentData.powerType && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.powerType}
                         </TableCell>
-                        <TableCell className="px-6">{equipment.powerType}</TableCell>
+                        <TableCell className="px-6">{currentData.powerType}</TableCell>
                       </TableRow>
                     )}
                   </TableBody>

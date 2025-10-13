@@ -1,6 +1,6 @@
 "use client";
 
-import { crains } from "@/app/(app)/equipment/constants";
+import { cranes } from "@/app/(app)/equipment/constants";
 import { EquipmentFilters } from "@/app/(app)/filter";
 import { EquipmentTable } from "@/app/(app)/table";
 import { useMemo, useState } from "react";
@@ -34,7 +34,7 @@ export default function Catalog() {
   };
 
   const filteredData = useMemo(() => {
-    const allEquipments = crains.flatMap((item) =>
+    const allEquipments = cranes.flatMap((item) =>
       item.brands.flatMap((brand) =>
         brand.equipments.map((equipment) => ({
           ...equipment,
