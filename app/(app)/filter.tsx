@@ -7,7 +7,17 @@ import { Slider } from "@/components/ui/slider";
 import { RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters: any) => void }) {
+type EquipmentFilters = {
+  heightRange: [number, number];
+  lengthRange: [number, number];
+  weightRange: [number, number];
+  loadRange: [number, number];
+  workingAngleRange: [number, number];
+  rotationAngleRange: [number, number];
+  outriggerLoadRange: [number, number];
+};
+
+export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters: EquipmentFilters) => void }) {
   const initialFilters = {
     heightRange: [0, 35],
     lengthRange: [0, 20],
@@ -22,7 +32,7 @@ export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters:
 
   // 필터가 변경될 때마다 부모 컴포넌트에 알림
   useEffect(() => {
-    onFilterChange(filters);
+    onFilterChange(filters as EquipmentFilters);
   }, [filters, onFilterChange]);
 
   return (
