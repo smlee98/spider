@@ -10,7 +10,17 @@ import { getMenuById } from "@/lib/menu-data";
 import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { cranes, dictionaries } from "../../../constants";
+import { cranes, craneType, dictionaries } from "../../../constants";
+
+type Accessory = {
+  accessoryName: string;
+  accessoryType: string;
+  [key: string]: any;
+};
+
+type Equipment = (typeof cranes)[0]["brands"][0]["equipments"][0] & {
+  accessories?: Accessory[];
+};
 
 export default function EquipmentDetailPage() {
   const router = useRouter();
@@ -37,7 +47,7 @@ export default function EquipmentDetailPage() {
     notFound();
   }
 
-  const equipment = brand.equipments.find((e) => e.modelName.toLowerCase() === modelParam);
+  const equipment = brand.equipments.find((e) => e.modelName.toLowerCase() === modelParam) as Equipment | undefined;
   if (!equipment) {
     notFound();
   }
@@ -78,7 +88,12 @@ export default function EquipmentDetailPage() {
                 </TabsTrigger>
                 {equipment.accessories?.map((accessory, index) => (
                   <TabsTrigger key={index} value={index.toString()} className="flex-1">
-                    {accessory.accessoryName}
+                    <div className="flex items-center gap-1">
+                      <span>{accessory.accessoryName}</span>
+                      <span className="text-muted-foreground">
+                        ({craneType[accessory.accessoryType as keyof typeof craneType]})
+                      </span>
+                    </div>
                   </TabsTrigger>
                 ))}
               </TabsList>

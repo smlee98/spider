@@ -13,7 +13,7 @@ import { Boxes } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useState } from "react";
-import { cranes } from "../constants";
+import { cranes, craneType } from "../constants";
 
 type SortOption =
   | "maxSafeLoad-desc"
@@ -23,8 +23,15 @@ type SortOption =
   | "weight-desc"
   | "weight-asc";
 
+type Accessory = {
+  accessoryName: string;
+  accessoryType: string;
+  [key: string]: any;
+};
+
 type Equipment = (typeof cranes)[0]["brands"][0]["equipments"][0] & {
   brandName: string;
+  accessories?: Accessory[];
 };
 
 export default function EquipmentTypePage() {
@@ -90,17 +97,33 @@ export default function EquipmentTypePage() {
     >
       <Card className="gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
         <CardHeader className="gap-0 border-b !p-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <Badge>{equipment.brandName}</Badge>
               <CardTitle className="text-lg">{equipment.modelName}</CardTitle>
             </div>
             {equipment.accessories && equipment.accessories.length > 0 ? (
-              <Badge variant="outline">
-                <Boxes />
-                {equipment.accessories.length}개 악세서리
-              </Badge>
-            ) : null}
+              <div className="flex flex-wrap items-center gap-1">
+                {equipment.accessories.slice(0, 2).map((accessory, index) => (
+                  <Badge key={index} variant="secondary">
+                    <Boxes className="size-3" />
+                    <div className="flex items-center gap-1">
+                      <span>{accessory.accessoryName}</span>
+                      <span className="text-muted-foreground">
+                        ({craneType[accessory.accessoryType as keyof typeof craneType]})
+                      </span>
+                    </div>
+                  </Badge>
+                ))}
+                {equipment.accessories.length > 2 && (
+                  <Badge variant="outline">
+                    <span className="text-muted-foreground">+ {equipment.accessories.length - 2}개</span>
+                  </Badge>
+                )}
+              </div>
+            ) : (
+              <span className="text-muted-foreground">-</span>
+            )}
           </div>
         </CardHeader>
         <CardContent className="bg-muted flex aspect-square items-center justify-center">

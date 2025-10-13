@@ -19,6 +19,13 @@ export const dictionaries = {
   powerType: "디젤/배터리"
 };
 
+export const craneType = {
+  jib: "보조붐",
+  grapple: "집게",
+  glass: "유리흡착기",
+  crawler: "크롤러"
+};
+
 export const cranes = [
   {
     type: "spider",
@@ -50,6 +57,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB",
+                accessoryType: "jib",
                 dimensions: "2790 x 770 x 1600mm",
                 outriggerExtensionDimensions: "3700 x 3700mm",
                 trackDimensions: "770, (1065)mm",
@@ -94,6 +102,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB",
+                accessoryType: "jib",
                 dimensions: "3165 x 775 x 1955mm",
                 outriggerExtensionDimensions: "3730 x 3730mm",
                 trackDimensions: "775, (1100)mm",
@@ -114,6 +123,7 @@ export const cranes = [
               },
               {
                 accessoryName: "MR800.4",
+                accessoryType: "glass",
                 dimensions: "3165 x 775 x 1955mm",
                 outriggerExtensionDimensions: "3730 x 3730mm",
                 trackDimensions: "775, (1100)mm",
@@ -160,6 +170,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB 600.2H",
+                accessoryType: "jib",
                 dimensions: "4145 x 1100 x 1960mm",
                 outriggerExtensionDimensions: "4160 x 4160mm",
                 trackDimensions: "600, (1100)mm",
@@ -180,6 +191,7 @@ export const cranes = [
               },
               {
                 accessoryName: "MR800.4",
+                accessoryType: "glass",
                 dimensions: "4145 x 1100 x 1960mm",
                 outriggerExtensionDimensions: "4160 x 4160mm",
                 trackDimensions: "600, (1100)mm",
@@ -224,6 +236,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "Unknown",
+                accessoryType: "jib",
                 dimensions: "2950 x 730 x 1610mm",
                 outriggerExtensionDimensions: "3830 x 3865mm",
                 trackDimensions: "730mm",
@@ -268,6 +281,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "Unknown",
+                accessoryType: "jib",
                 dimensions: "3220 x 770 x 1950mm",
                 outriggerExtensionDimensions: "4400 x 4400mm",
                 trackDimensions: "770, (1050)mm",
@@ -288,6 +302,7 @@ export const cranes = [
               },
               {
                 accessoryName: "JIB500GR",
+                accessoryType: "grapple",
                 dimensions: "3220 x 770 x 1950mm",
                 outriggerExtensionDimensions: "4400 x 4400mm",
                 trackDimensions: "770, (1050)mm",
@@ -332,6 +347,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB 600.2H",
+                accessoryType: "jib",
                 dimensions: "5390 x 1450 x 2040mm",
                 outriggerExtensionDimensions: "4200 x 4200mm",
                 trackDimensions: "1450mm",
@@ -354,6 +370,7 @@ export const cranes = [
               },
               {
                 accessoryName: "JIB 3500G",
+                accessoryType: "jib",
                 dimensions: "5390 x 1450 x 2040mm",
                 outriggerExtensionDimensions: "4200 x 4200mm",
                 trackDimensions: "1450mm",
@@ -376,6 +393,7 @@ export const cranes = [
               },
               {
                 accessoryName: "JIB 100.1FL",
+                accessoryType: "jib",
                 dimensions: "5390 x 1450 x 2040mm",
                 outriggerExtensionDimensions: "4200 x 4200mm",
                 trackDimensions: "1450mm",
@@ -398,6 +416,7 @@ export const cranes = [
               },
               {
                 accessoryName: "MR800.4",
+                accessoryType: "glass",
                 dimensions: "5390 x 1450 x 2040mm",
                 outriggerExtensionDimensions: "4200 x 4200mm",
                 trackDimensions: "1450mm",
@@ -444,6 +463,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB 2000GX",
+                accessoryType: "jib",
                 dimensions: "4460 x 980 x 2020mm",
                 outriggerExtensionDimensions: "4510 x 4510mm",
                 trackDimensions: "980, (1380)mm",
@@ -466,6 +486,7 @@ export const cranes = [
               },
               {
                 accessoryName: "JIB 1200 3HX",
+                accessoryType: "jib",
                 dimensions: "4460 x 980 x 2020mm",
                 outriggerExtensionDimensions: "4510 x 4510mm",
                 trackDimensions: "980, (1380)mm",
@@ -485,10 +506,32 @@ export const cranes = [
                 powerType: "배터리",
                 isBrochure: true,
                 isTechnicalData: true
+              },
+              {
+                accessoryName: "JIB500GR",
+                accessoryType: "grapple",
+                dimensions: "3220 x 770 x 1950mm",
+                outriggerExtensionDimensions: "4400 x 4400mm",
+                trackDimensions: "770, (1050)mm",
+                boomLength: "11.9m",
+                maxLiftingHeight: "13.6m",
+                maxLiftingLength: "10m",
+                bodyWeight: "2790kg",
+                maxSafeLoad: "500kg",
+                maxHeightTipLoad: "500kg",
+                maxLengthTipLoad: "200kg",
+                speed: "2.7km/h",
+                climbingAbility: "20°",
+                workingAngle: "0° ~ 83° (↑91° ~ ↓92°)",
+                slewingAngle: "360°",
+                maxOutriggerLoad: "3000kg",
+                groundPressure: "0.63kg/㎠",
+                powerType: "배터리",
+                isBrochure: true,
+                isTechnicalData: true
               }
             ]
           },
-
           {
             modelName: "JF545",
             dimensions: "5450 x 1840 x 2750mm",
@@ -513,6 +556,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB 3000.6HA",
+                accessoryType: "jib",
                 dimensions: "5450 x 1840 x 2750mm",
                 outriggerExtensionDimensions: "6700 x 6700mm",
                 trackDimensions: "1840mm",
@@ -533,6 +577,7 @@ export const cranes = [
               },
               {
                 accessoryName: "MWP-2PGR",
+                accessoryType: "jib",
                 dimensions: "5450 x 1840 x 2750mm",
                 outriggerExtensionDimensions: "6700 x 6700mm",
                 trackDimensions: "1840mm",
@@ -604,6 +649,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB",
+                accessoryType: "jib",
                 dimensions: "3140 x 750 x 1950mm",
                 outriggerExtensionDimensions: "4200 x 4400mm",
                 trackDimensions: "750, (1050)mm",
@@ -626,6 +672,7 @@ export const cranes = [
               },
               {
                 accessoryName: "MC1200",
+                accessoryType: "grapple",
                 dimensions: "3140 x 750 x 1950mm",
                 outriggerExtensionDimensions: "4200 x 4400mm",
                 trackDimensions: "750, (1050)mm",
@@ -673,6 +720,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB",
+                accessoryType: "jib",
                 dimensions: "4150 x 800 x 2070mm",
                 outriggerExtensionDimensions: "4580 x 4580mm",
                 trackDimensions: "800, (1100)mm",
@@ -693,6 +741,7 @@ export const cranes = [
               },
               {
                 accessoryName: "MC1200",
+                accessoryType: "grapple",
                 dimensions: "4150 x 800 x 2070mm",
                 outriggerExtensionDimensions: "4580 x 4580mm",
                 trackDimensions: "800, (1100)mm",
@@ -835,6 +884,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "유압 지브",
+                accessoryType: "jib",
                 dimensions: "5610 x 1670 x 2185mm",
                 outriggerExtensionDimensions: "6550 x 6460mm",
                 trackDimensions: "1670mm",
@@ -857,6 +907,7 @@ export const cranes = [
               },
               {
                 accessoryName: "플라잉 지브",
+                accessoryType: "jib",
                 dimensions: "5610 x 1670 x 2185mm",
                 outriggerExtensionDimensions: "6550 x 6460mm",
                 trackDimensions: "1670mm",
@@ -1016,6 +1067,7 @@ export const cranes = [
             accessories: [
               {
                 accessoryName: "JIB 1501.3HL",
+                accessoryType: "crawler",
                 dimensions: "3505 x 2320 x 2640mm",
                 outriggerExtensionDimensions: "3506 x 2320 x 2640mm",
                 trackDimensions: "2320, (2920)mm",
@@ -1038,6 +1090,7 @@ export const cranes = [
               },
               {
                 accessoryName: "JIB 3500GX",
+                accessoryType: "crawler",
                 dimensions: "3505 x 2320 x 2640mm",
                 outriggerExtensionDimensions: "",
                 trackDimensions: "2320, (2920)mm",
