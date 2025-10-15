@@ -1,11 +1,12 @@
 "use client";
 
 import Container from "@/components/layout/container";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Script from "next/script";
-import { CustomOverlayMap, Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
+
+const KakaoMap = dynamic(() => import("./kakao-map"), { ssr: false });
 
 const API_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY;
 
@@ -51,20 +52,7 @@ export default function AboutPage() {
         strategy="beforeInteractive"
       />
       <div className="h-[560px] w-full">
-        <Map
-          id="map"
-          className="size-full"
-          center={{ lat: 37.2261218415906, lng: 127.429142559335 }} // 지도의 중심 좌표
-          level={2} // 지도 확대 레벨
-          zoomable={false}
-          draggable={false}
-        >
-          <CustomOverlayMap position={{ lat: 37.2261218415906, lng: 127.429142559335 }}>
-            <Badge className="text-sm">경기도 이천시 호법면 후안리 100-11</Badge>
-          </CustomOverlayMap>
-          <MapTypeControl position="TOPRIGHT" />
-          <ZoomControl position="RIGHT" />
-        </Map>
+        <KakaoMap />
       </div>
     </>
   );
