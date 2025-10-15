@@ -3,8 +3,6 @@
 import { Badge } from "@/components/ui/badge";
 import { CustomOverlayMap, Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
 
-const API_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY;
-
 export default function KakaoMap() {
   return (
     <Map

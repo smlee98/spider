@@ -1,14 +1,9 @@
 "use client";
 
+import KakaoMap from "@/app/(app)/company/about/kakao-map";
 import Container from "@/components/layout/container";
 import { Separator } from "@/components/ui/separator";
-import dynamic from "next/dynamic";
 import Image from "next/image";
-import Script from "next/script";
-
-const KakaoMap = dynamic(() => import("./kakao-map"), { ssr: false });
-
-const API_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY;
 
 export default function AboutPage() {
   return (
@@ -47,10 +42,6 @@ export default function AboutPage() {
         </div>
       </Container>
       <Separator />
-      <Script
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&libraries=services,clusterer&autoload=false`}
-        strategy="beforeInteractive"
-      />
       <div className="h-[560px] w-full">
         <KakaoMap />
       </div>

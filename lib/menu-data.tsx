@@ -69,9 +69,20 @@ export const menuData: MenuItem[] = [
     href: "/gallery"
   },
   {
-    id: "about",
-    title: "대명거미크레인 소개",
-    href: "/about"
+    id: "company",
+    title: "회사소개",
+    children: [
+      {
+        id: "about",
+        title: "대명거미크레인 소개",
+        href: "/company/about"
+      },
+      {
+        id: "milestone",
+        title: "연혁",
+        href: "/company/milestone"
+      }
+    ]
   },
   {
     id: "platform-basket",

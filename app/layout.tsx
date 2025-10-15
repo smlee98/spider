@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
+
+const API_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY;
 
 export const pretendard = localFont({
   src: [
@@ -44,6 +47,10 @@ export default function RootLayout({
   return (
     <html lang="ko" className={cn(pretendard.variable, jetbrainsMono.variable)} suppressHydrationWarning>
       <body>
+        <Script
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${API_KEY}&libraries=services,clusterer&autoload=false`}
+          strategy="beforeInteractive"
+        />
         <Providers>
           {children}
           <Toaster />
