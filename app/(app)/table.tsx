@@ -19,7 +19,6 @@ interface Equipment {
   modelName: string;
   accessory?: string;
   dimensions: string;
-  boomLength: string;
   maxLiftingHeight: string;
   maxLiftingLength: string;
   bodyWeight: string;
@@ -105,7 +104,6 @@ export function EquipmentTable({ data }: { data: Equipment[] }) {
                   )}
                 </TableCell>
                 <TableCell className="text-sm whitespace-nowrap">{equipment.dimensions}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.boomLength}</TableCell>
                 <TableCell className="whitespace-nowrap">{equipment.maxLiftingHeight}</TableCell>
                 <TableCell className="whitespace-nowrap">{equipment.maxLiftingLength}</TableCell>
                 <TableCell className="whitespace-nowrap">{equipment.bodyWeight}</TableCell>
