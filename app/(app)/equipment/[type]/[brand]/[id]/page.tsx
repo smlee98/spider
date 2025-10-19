@@ -121,14 +121,6 @@ export default function EquipmentDetailPage() {
                         <TableCell className="px-6">{currentData.trackDimensions}</TableCell>
                       </TableRow>
                     )}
-                    {currentData.boomLength && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.boomLength}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.boomLength}</TableCell>
-                      </TableRow>
-                    )}
                     {currentData.maxLiftingHeight && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
@@ -153,6 +145,22 @@ export default function EquipmentDetailPage() {
                         <TableCell className="px-6">{currentData.bodyWeight}</TableCell>
                       </TableRow>
                     )}
+                    {currentData.dryWeight && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.dryWeight}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.dryWeight}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.counterWeight && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.counterWeight}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.counterWeight}</TableCell>
+                      </TableRow>
+                    )}
                     {currentData.maxSafeLoad && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
@@ -161,20 +169,36 @@ export default function EquipmentDetailPage() {
                         <TableCell className="px-6">{currentData.maxSafeLoad}</TableCell>
                       </TableRow>
                     )}
-                    {currentData.maxHeightTipLoad && (
+                    {currentData.maxHeightTipLoadWinch && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxHeightTipLoad}
+                          {dictionaries.maxHeightTipLoadWinch}
                         </TableCell>
-                        <TableCell className="px-6">{currentData.maxHeightTipLoad}</TableCell>
+                        <TableCell className="px-6">{currentData.maxHeightTipLoadWinch}</TableCell>
                       </TableRow>
                     )}
-                    {currentData.maxLengthTipLoad && (
+                    {currentData.maxLengthTipLoadWinch && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxLengthTipLoad}
+                          {dictionaries.maxLengthTipLoadWinch}
                         </TableCell>
-                        <TableCell className="px-6">{currentData.maxLengthTipLoad}</TableCell>
+                        <TableCell className="px-6">{currentData.maxLengthTipLoadWinch}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.maxHeightTipLoadHook && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.maxHeightTipLoadHook}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.maxHeightTipLoadHook}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.maxLengthTipLoadHook && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.maxLengthTipLoadHook}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.maxLengthTipLoadHook}</TableCell>
                       </TableRow>
                     )}
                     {currentData.speed && (
@@ -199,12 +223,44 @@ export default function EquipmentDetailPage() {
                         <TableCell className="px-6">{currentData.workingAngle}</TableCell>
                       </TableRow>
                     )}
+                    {currentData.hoistingSpeed && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.hoistingSpeed}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.hoistingSpeed}</TableCell>
+                      </TableRow>
+                    )}
                     {currentData.slewingAngle && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.slewingAngle}
                         </TableCell>
                         <TableCell className="px-6">{currentData.slewingAngle}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.slewingSpeed && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.slewingSpeed}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.slewingSpeed}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.winchLength && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.winchLength}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.winchLength}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.winchDiameter && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.winchDiameter}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.winchDiameter}</TableCell>
                       </TableRow>
                     )}
                     {currentData.outriggerExtensionDimensions && (
@@ -231,12 +287,44 @@ export default function EquipmentDetailPage() {
                         <TableCell className="px-6">{currentData.groundPressure}</TableCell>
                       </TableRow>
                     )}
+                    {currentData.operatingMethod && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.operatingMethod}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.operatingMethod}</TableCell>
+                      </TableRow>
+                    )}
                     {currentData.powerType && (
                       <TableRow>
                         <TableCell className="text-muted-foreground px-6 font-semibold">
                           {dictionaries.powerType}
                         </TableCell>
                         <TableCell className="px-6">{currentData.powerType}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.powerPack && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.powerPack}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.powerPack}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.powerSupply && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.powerSupply}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.powerSupply}</TableCell>
+                      </TableRow>
+                    )}
+                    {currentData.additionalOptions && (
+                      <TableRow>
+                        <TableCell className="text-muted-foreground px-6 font-semibold">
+                          {dictionaries.additionalOptions}
+                        </TableCell>
+                        <TableCell className="px-6">{currentData.additionalOptions}</TableCell>
                       </TableRow>
                     )}
                   </TableBody>
