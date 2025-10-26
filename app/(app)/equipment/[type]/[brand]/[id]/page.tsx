@@ -1,6 +1,6 @@
 "use client";
 
-import { getCommunityListByEquipment } from "@/actions/gallery/actions";
+import { getListByEquipment } from "@/actions/post/actions";
 import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
@@ -75,14 +75,14 @@ export default function EquipmentDetailPage() {
   }
 
   const fetcher = async (): Promise<Array<Post & { author: User }>> => {
-    return await getCommunityListByEquipment({
+    return await getListByEquipment({
       type: menuItem.id,
       brand: brand.brandName,
       model: equipment.modelName
     });
   };
 
-  const { data, isLoading } = useSWR<Array<Post & { author: User }>, Error>(
+  const { data } = useSWR<Array<Post & { author: User }>, Error>(
     `community-list-${menuItem.id}-${brand.brandName}-${equipment.modelName}`,
     fetcher
   );
