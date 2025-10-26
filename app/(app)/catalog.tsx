@@ -9,11 +9,7 @@ export default function Catalog() {
   const [filters, setFilters] = useState({
     heightRange: [0, 35],
     lengthRange: [0, 20],
-    weightRange: [0, 18000],
-    loadRange: [0, 16000],
-    workingAngleRange: [-15, 85],
-    rotationAngleRange: [0, 720],
-    outriggerLoadRange: [0, 12000]
+    loadRange: [0, 16000]
   });
 
   // 숫자 값 추출 헬퍼 함수
@@ -21,16 +17,6 @@ export default function Catalog() {
     if (!value) return 0;
     const match = value.match(/[-]?\d+(\.\d+)?/);
     return match ? parseFloat(match[0]) : 0;
-  };
-
-  // 각도 범위 추출 함수 (예: "0° ~ 80°" -> {min: 0, max: 80})
-  const parseAngleRange = (value: string): { min: number; max: number } => {
-    if (!value) return { min: 0, max: 0 };
-    const matches = value.match(/[-]?\d+/g);
-    if (matches && matches.length >= 2) {
-      return { min: parseFloat(matches[0]), max: parseFloat(matches[1]) };
-    }
-    return { min: 0, max: 0 };
   };
 
   const filteredData = useMemo(() => {
@@ -57,42 +43,9 @@ export default function Catalog() {
         return false;
       }
 
-      // 차체무게 필터
-      const weight = parseNumericValue(equipment.bodyWeight);
-      if (weight < filters.weightRange[0] || weight > filters.weightRange[1]) {
-        return false;
-      }
-
       // 최대 안전하중 필터
       const maxLoad = parseNumericValue(equipment.maxSafeLoad);
       if (maxLoad < filters.loadRange[0] || maxLoad > filters.loadRange[1]) {
-        return false;
-      }
-
-      // 작업 각도 필터
-      const workingAngle = parseAngleRange(equipment.workingAngle);
-      if (
-        workingAngle.max > 0 &&
-        (workingAngle.min > filters.workingAngleRange[1] || workingAngle.max < filters.workingAngleRange[0])
-      ) {
-        return false;
-      }
-
-      // 선회 각도 필터
-      const slewingAngle = parseNumericValue(equipment.slewingAngle);
-      if (
-        slewingAngle > 0 &&
-        (slewingAngle < filters.rotationAngleRange[0] || slewingAngle > filters.rotationAngleRange[1])
-      ) {
-        return false;
-      }
-
-      // 최대 아웃트리거 하중 필터
-      const outriggerLoad = parseNumericValue(equipment.maxOutriggerLoad);
-      if (
-        outriggerLoad > 0 &&
-        (outriggerLoad < filters.outriggerLoadRange[0] || outriggerLoad > filters.outriggerLoadRange[1])
-      ) {
         return false;
       }
 
@@ -101,12 +54,21 @@ export default function Catalog() {
   }, [filters]);
 
   return (
-    <div className="grid w-full gap-6 lg:max-w-(--breakpoint-2xl) lg:grid-cols-[320px_1fr]">
-      <aside className="h-fit lg:sticky lg:top-8">
-        <EquipmentFilters onFilterChange={setFilters} />
-      </aside>
+    <>
+      <div className="mb-24 flex flex-col items-center gap-4">
+        <h1 className="text-center text-3xl font-bold lg:max-w-3xl lg:text-5xl">장비 카탈로그</h1>
+        <p className="text-muted-foreground text-center text-lg font-medium md:max-w-4xl lg:text-xl">
+          업계 최고 수준의 성능과 안전성을 자랑하는 프리미엄 크레인 장비 라인업. <br /> 각 현장의 특성에 최적화된 맞춤형
+          솔루션을 제공합니다.
+        </p>
+      </div>
+      <div className="grid w-full gap-6 lg:max-w-(--breakpoint-2xl) lg:grid-cols-[320px_1fr]">
+        <aside className="h-fit lg:sticky lg:top-24">
+          <EquipmentFilters onFilterChange={setFilters} />
+        </aside>
 
-      <EquipmentTable data={filteredData} />
-    </div>
+        <EquipmentTable data={filteredData} />
+      </div>
+    </>
   );
 }

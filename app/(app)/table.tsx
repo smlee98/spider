@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
   Pagination,
@@ -13,20 +12,10 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import type { Equipment as EquipmentType } from "@/app/(app)/equipment/constants";
 
-interface Equipment {
+interface Equipment extends EquipmentType {
   brandName: string;
-  modelName: string;
-  accessory?: string;
-  dimensions: string;
-  maxLiftingHeight: string;
-  maxLiftingLength: string;
-  bodyWeight: string;
-  maxSafeLoad: string;
-  workingAngle: string;
-  slewingAngle: string;
-  maxOutriggerLoad: string;
-  powerType: string;
   type?: string; // 상세페이지 라우팅을 위한 타입
 }
 
@@ -71,54 +60,45 @@ export function EquipmentTable({ data }: { data: Equipment[] }) {
 
   return (
     <Card className="gap-0 overflow-hidden py-0">
-      <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-muted/50">
-              <TableHead className="pl-4 font-semibold whitespace-nowrap">제작사</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">모델명</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">치수 (LxWxH)</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">붐 길이</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">최대 인양높이</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">최대 인양길이</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">차체 무게</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">최대 안전하중</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">작업 각도</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">선회 각도</TableHead>
-              <TableHead className="font-semibold whitespace-nowrap">최대 아웃트리거 하중</TableHead>
-              <TableHead className="pr-4 font-semibold whitespace-nowrap">동력원</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {currentData.map((equipment: Equipment, index: number) => (
-              <TableRow
-                key={index}
-                className="hover:bg-muted/30 cursor-pointer transition-colors"
-                onClick={() => handleRowClick(equipment)}
-              >
-                <TableCell className="pl-4 font-medium whitespace-nowrap">{equipment.brandName}</TableCell>
-                <TableCell className="whitespace-nowrap">
-                  {equipment.modelName}
-                  {equipment.accessory && (
-                    <span className="text-muted-foreground ml-1 text-xs">({equipment.accessory})</span>
-                  )}
-                </TableCell>
-                <TableCell className="text-sm whitespace-nowrap">{equipment.dimensions}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.maxLiftingHeight}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.maxLiftingLength}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.bodyWeight}</TableCell>
-                <TableCell className="font-medium whitespace-nowrap">{equipment.maxSafeLoad}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.workingAngle || "-"}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.slewingAngle || "-"}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.maxOutriggerLoad || "-"}</TableCell>
-                <TableCell className="pr-4 whitespace-nowrap">
-                  {equipment.powerType ? <Badge variant="outline">{equipment.powerType}</Badge> : "-"}
-                </TableCell>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead className="pl-4 font-semibold whitespace-nowrap">제작사</TableHead>
+                <TableHead className="font-semibold whitespace-nowrap">모델명</TableHead>
+                <TableHead className="font-semibold whitespace-nowrap">치수 (LxWxH)</TableHead>
+                <TableHead className="font-semibold whitespace-nowrap">최대 안전하중</TableHead>
+                <TableHead className="font-semibold whitespace-nowrap">최대 인양높이</TableHead>
+                <TableHead className="font-semibold whitespace-nowrap">최대 인양길이</TableHead>
+                <TableHead className="pr-4 font-semibold whitespace-nowrap">작동방식</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+            </TableHeader>
+            <TableBody>
+              {currentData.map((equipment: Equipment, index: number) => (
+                <TableRow
+                  key={index}
+                  className="hover:bg-muted/30 cursor-pointer transition-colors"
+                  onClick={() => handleRowClick(equipment)}
+                >
+                  <TableCell className="pl-4 font-medium whitespace-nowrap">{equipment.brandName}</TableCell>
+                  <TableCell className="whitespace-nowrap">
+                    {equipment.modelName}
+                    {equipment.accessories && equipment.accessories.length > 0 && (
+                      <span className="text-muted-foreground ml-1 text-xs">
+                        ({equipment.accessories.map(acc => acc.accessoryName).join(", ")})
+                      </span>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-sm whitespace-nowrap">{equipment.dimensions || "-"}</TableCell>
+                  <TableCell className="font-medium whitespace-nowrap">{equipment.maxSafeLoad || "-"}</TableCell>
+                  <TableCell className="whitespace-nowrap">{equipment.maxLiftingHeight || "-"}</TableCell>
+                  <TableCell className="whitespace-nowrap">{equipment.maxLiftingLength || "-"}</TableCell>
+                  <TableCell className="pr-4 whitespace-nowrap">{equipment.operatingMethod || "-"}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
 
       {/* 페이지네이션 */}
       {totalPages > 1 && (
