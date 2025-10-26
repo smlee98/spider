@@ -2,6 +2,13 @@
 
 import { getCommunityList } from "@/actions/gallery/actions";
 import { Spinner } from "@/components/spinner";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@/components/ui/breadcrumb";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Post, User } from "@prisma/client";
@@ -26,6 +33,12 @@ export function CommunityGrid({ user }: { user?: User }) {
   const { data, isLoading } = useSWR<Array<Post & { author: User }>, Error>("community-list", fetcher);
 
   const pathname = usePathname();
+
+  const typeMap = {
+    spider: "거미크레인",
+    crawler: "크롤러 크레인",
+    "boom-lift": "굴절식 고소작업대"
+  };
 
   return (
     <div className="relative flex size-full flex-col gap-y-6">
@@ -69,13 +82,30 @@ export function CommunityGrid({ user }: { user?: User }) {
                     )}
                   </CardContent>
                   <CardHeader className="gap-0 border-t py-6">
-                    <CardTitle>
-                      <div className="flex items-center gap-x-1.5">
-                        <span className="text-muted-foreground font-semibold">#{post?.id}</span>
-                        <span className="line-clamp-1 flex-1 font-semibold">{post?.title}</span>
-                      </div>
-                    </CardTitle>
-                    <CardDescription>{format(post?.createdAt, "yyyy-MM-dd")}</CardDescription>
+                    <div className="flex flex-col gap-1">
+                      <Breadcrumb>
+                        <BreadcrumbList className="font-medium sm:gap-0.5">
+                          <BreadcrumbItem>
+                            <BreadcrumbPage>{typeMap[post.type as keyof typeof typeMap]}</BreadcrumbPage>
+                          </BreadcrumbItem>
+                          <BreadcrumbSeparator />
+                          <BreadcrumbItem>
+                            <BreadcrumbPage>{post.brand}</BreadcrumbPage>
+                          </BreadcrumbItem>
+                          <BreadcrumbSeparator />
+                          <BreadcrumbItem>
+                            <BreadcrumbPage>{post.model}</BreadcrumbPage>
+                          </BreadcrumbItem>
+                        </BreadcrumbList>
+                      </Breadcrumb>
+                      <CardTitle>
+                        <div className="flex items-center gap-x-1.5">
+                          <span className="text-muted-foreground font-semibold">#{post?.id}</span>
+                          <span className="line-clamp-1 flex-1 font-semibold">{post?.title}</span>
+                        </div>
+                      </CardTitle>
+                      <CardDescription>{format(post?.createdAt, "yyyy-MM-dd")}</CardDescription>
+                    </div>
                   </CardHeader>
                 </Card>
               </Link>

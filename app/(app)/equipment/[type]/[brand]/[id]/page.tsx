@@ -1,15 +1,31 @@
 "use client";
 
+import { getCommunityListByEquipment } from "@/actions/gallery/actions";
 import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getMenuById } from "@/lib/menu-data";
-import { ArrowLeft, ArrowRight, ArrowUp, BookText, CloudDownload, Cog, Quote, Ruler, Weight } from "lucide-react";
+import { Post, User } from "@prisma/client";
+import { format } from "date-fns";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  BookText,
+  CloudDownload,
+  Cog,
+  ImageOff,
+  Quote,
+  Ruler,
+  Weight
+} from "lucide-react";
+import Link from "next/link";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import useSWR from "swr";
 import { cranes, craneType, dictionaries, type Equipment } from "../../../constants";
 
 export default function EquipmentDetailPage() {
@@ -50,6 +66,26 @@ export default function EquipmentDetailPage() {
 
   // 악세서리가 있는지 확인
   const hasAccessories = equipment.accessories && equipment.accessories.length > 0;
+
+  // HTML 콘텐츠에서 첫 번째 이미지 URL 추출
+  function extractFirstImage(htmlContent: string): string | null {
+    const imgRegex = /<img[^>]+src="([^">]+)"/;
+    const match = htmlContent.match(imgRegex);
+    return match ? match[1] : null;
+  }
+
+  const fetcher = async (): Promise<Array<Post & { author: User }>> => {
+    return await getCommunityListByEquipment({
+      type: menuItem.id,
+      brand: brand.brandName,
+      model: equipment.modelName
+    });
+  };
+
+  const { data, isLoading } = useSWR<Array<Post & { author: User }>, Error>(
+    `community-list-${menuItem.id}-${brand.brandName}-${equipment.modelName}`,
+    fetcher
+  );
 
   return (
     <div className="flex flex-col">
@@ -187,6 +223,44 @@ export default function EquipmentDetailPage() {
               </CardContent>
             </Card>
           )}
+          <div className="flex flex-col gap-4">
+            <h2 className="text-2xl font-semibold">현장사진</h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+              {data?.length ? (
+                data?.map((post: Post & { author: User }) => {
+                  const firstImage = extractFirstImage(post.content);
+                  return (
+                    <Link key={post?.id} href={`/gallery/${post.id}`} className="group">
+                      <Card className="group gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
+                        <CardContent className="bg-muted relative flex aspect-video items-center justify-center overflow-hidden p-0">
+                          {firstImage ? (
+                            <img
+                              src={firstImage}
+                              alt={post.title}
+                              className="absolute top-1/2 left-1/2 z-10 w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
+                            />
+                          ) : (
+                            <ImageOff className="text-muted-foreground size-8" />
+                          )}
+                        </CardContent>
+                        <CardHeader className="gap-0 border-t py-6">
+                          <CardTitle>
+                            <div className="flex items-center gap-x-1.5">
+                              <span className="text-muted-foreground font-semibold">#{post?.id}</span>
+                              <span className="line-clamp-1 flex-1 font-semibold">{post?.title}</span>
+                            </div>
+                          </CardTitle>
+                          <CardDescription>{format(post?.createdAt, "yyyy-MM-dd")}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  );
+                })
+              ) : (
+                <span className="text-muted-foreground">등록된 현장사진이 없습니다.</span>
+              )}
+            </div>
+          </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl font-semibold">기술 정보</h2>
             <Card className="gap-0 py-0">

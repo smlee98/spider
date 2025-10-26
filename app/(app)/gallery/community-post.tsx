@@ -12,6 +12,11 @@ import { CommunityRemove } from "./community-remove";
 
 export function CommunityPost({ user, data }: { user?: User; data: Post & { author: User } }) {
   const router = useRouter();
+  const typeMap = {
+    spider: "거미크레인",
+    crawler: "크롤러 크레인",
+    "boom-lift": "굴절식 고소작업대"
+  };
   return (
     <div className="mx-auto flex w-full max-w-(--breakpoint-2xl) flex-col">
       <div className="flex flex-col gap-6">
@@ -30,7 +35,7 @@ export function CommunityPost({ user, data }: { user?: User; data: Post & { auth
             <Button
               variant="outline"
               onClick={() => {
-                router.push(`/gallery`);
+                router.back();
                 router.refresh();
               }}
             >
@@ -62,6 +67,18 @@ export function CommunityPost({ user, data }: { user?: User; data: Post & { auth
                 <CardContent className="text-sm">
                   <div className="grid gap-3">
                     <ul className="grid gap-3">
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">타입</span>
+                        <span>{typeMap[data.type as keyof typeof typeMap] ?? "-"}</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">브랜드</span>
+                        <span>{data.brand ?? "-"}</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">모델</span>
+                        <span>{data.model ?? "-"}</span>
+                      </li>
                       <li className="flex items-center justify-between">
                         <span className="text-muted-foreground">등록자</span>
                         <span>{data.author?.name ?? "-"}</span>
