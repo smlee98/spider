@@ -105,6 +105,7 @@ export type Equipment = {
   isBrochure: boolean;
   isTechnicalData: boolean;
   accessories?: Accessory[];
+  description?: string;
 };
 
 export type Brand = {
@@ -189,7 +190,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "400.1MX",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "SPX312는 작고 컴팩트한 디자인과 자국을 남기지 않는 흰색 트랙, 친환경적인 리튬 배터리. 그리고 0.44kg/cm2의 낮은 트랙 압력을 갖춰 평범한 크레인과 리프팅 장비로는 감당할 수 없는 장소와 각종 민감하고 복잡한 실내에서의 작업에 쓸 수 있는 완벽한 파트너입니다."
           },
           {
             modelName: "SPX424",
@@ -288,7 +291,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "MR800.4",
                 accessoryType: "glass"
               }
-            ]
+            ],
+            description:
+              "Jekko에서 제작한 크레인의 대표 모델 중 하나인 SPX424는 리튬 배터리로 움직이는 거미크레인 시장에서 가장 인기 있는 제품 중 하나입니다. Jekko의 기술, 혁신, 그리고 신뢰성이 이 작은 크기의 역사상 가장 많이 팔린 베스트셀러 크레인에 모두 담겨 있죠."
           },
           {
             modelName: "SPX527",
@@ -387,7 +392,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "MR800.4",
                 accessoryType: "glass"
               }
-            ]
+            ],
+            description:
+              "Jekko SPX 527은 작고 컴팩트한 디자인과 강력한 디젤 엔진을 갖춘 미니 크레인으로 실외 실내를 가리지 않습니다. 거기에 더하여 전선으로 연결하여 전기로 작동할 수 있도록 설계가 되어있어, 실내에서의 작업에선 공해도 일으키지 않죠. "
           },
           {
             modelName: "SPX328",
@@ -454,7 +461,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "JIB 500.1EX",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "Jekko SPX328은 2,800kg의 리프팅 용량을 갖춘 컴팩트하고 강력한 친환경 미니 크레인입니다. 폭이 730mm에 불과하기 때문에 다른 크레인이라면 상상조차 할 수 없는 좁은 곳으로도 들어갈 수 있죠. 거기에 더하여 리튬 배터리로 작동하기 때문에 최고의 성능과 무공해를 자랑하여 복잡한 실내 및 민감한 작업 환경에 가장 적합하죠."
           },
           {
             modelName: "SPX532",
@@ -553,7 +562,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "JIB500GR",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "SPX532는 좁은 공간에서도 최대 성능을 발휘하도록 설계된 Jekko의 최첨단 거미크레인입니다. 최대 3,200kg의 인양력과 지브를 사용할 경우 17.3m까지 도달할 수 있는 이 거미크레인은 건설부터 산업 유지 보수까지 다양한 분야에서 강력한 성능, 정밀성, 그리고 다재다능함을 자랑하죠. 거기에 더하여 리튬 배터리를 사용하여 무공해 기능을 갖추고 있어 실내 및 민감한 환경에 이상적입니다."
           },
           {
             modelName: "SPX1040",
@@ -716,7 +727,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "MR800.4",
                 accessoryType: "glass"
               }
-            ]
+            ],
+            description:
+              "Jekko를 세계적으로 유명하게 만들어준 SPX1040은 뛰어난 기능을 갖춘 소형 크레인으로 140cm. 이중 문 정도의 폭만 있다면, 얼마든지 통과할 수 있습니다. 거기에 더하여 그런 컴팩트함에서 나오는 것이라곤 믿기 힘든 4톤의 인양능력과 긴 붐은 이 크레인이 어떻게 젝코를 세계적으로 유명하게 만들어줬는지를 증명하고 있죠."
           },
           {
             modelName: "SPX650",
@@ -847,7 +860,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "JIB500GR",
                 accessoryType: "grapple"
               }
-            ]
+            ],
+            description:
+              "진정한 멀티태스킹이란 무엇인지 보여주는 SPX650은 Jekko의 5톤 전기 거미크레인으로, 단순히 들어 올리는 것에 그치지 않고 건설, 산업 유지 보수, 유리 설치 등 다양한 현장에 적합합니다. 거기에 더하여 완전 전기식으로 작동하기 때문에 실내 및 도심의 현장에 배기가스 배출 없어 깨끗하고 조용한 작동을 제공합니다."
           },
           {
             modelName: "JF545",
@@ -914,7 +929,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "JIB 3000.6HA",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "JF545는 굴절형 붐의 유연성과 강력함에 거미 크레인의 소형화와 다재다능함을 결합한 거미 크레인입니다. 최대 15.5톤의 인양 용량을 갖춘 이 고급 모델은 다재다능함, 정밀성, 그리고 소형 크기로 굴절형 크레인 시장에서 두각을 나타내고 있죠. JF545는 산업 유지 보수, 도심 지역 인양, 복잡한 공간 이동 등 어떤 작업이든, 너클 붐 설계를 통해서 쉽고 안정적으로 작업을 수행할 수 있도록 만들어져있습니다."
           }
         ]
       },
@@ -986,7 +1003,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "FLY JIB",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "Hoeflon 고객들은 C1e의 확실한 장점으로 소형화와 기동성을 꼽았습니다. C1e는 굉장히 컴팩트해서 엘리베이터를 통해서도 운반이 가능할 정도로 간편하고 좁은 공간에서도 쉽게 조작할 수 있죠. 거기에 픽&캐리 기능을 지원하여 짐을 싣고 그대로 운반도 할 수 있습니다. 이 기능 덕분에 1층에서 창문을 설치하든 유지와 보수 작업에 투입되건 C1e는 완벽하게 작업을 처리할 수 있게 되죠. 또한 윈치 작업도 가능하도록 기본 옵션으로 25m 윈치도 장착이 되어있습니다."
           },
           {
             modelName: "C6",
@@ -1085,7 +1104,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "MC1200",
                 accessoryType: "grapple"
               }
-            ]
+            ],
+            description:
+              "C6는 호플론(Hoeflon)의 소형 크레인 중에서도 가장 다재다능한 제품입니다. 인양 능력 3톤에 지브를 사용하면 최대 16m까지 뻗어나가며 회전식 아우트리거로 항상 안정적으로 유지되고 있죠. 무엇보다 가장 큰 장점은 차체 중량을 초과하는 하중도 인양할 수 있는 것으로 이 장점 덕분에 C6e는 유리 설치와 철골 작업의 정밀한 위치 조정에 적합하죠."
           },
           {
             modelName: "C10",
@@ -1184,7 +1205,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "MC1200",
                 accessoryType: "grapple"
               }
-            ]
+            ],
+            description:
+              "강력한 파워, 정말이지 C10은 그 이름에 걸맞습니다. C10은 동급의 크레인 중에서 최고의 인양 능력을 자랑하며 특히나 수평 리프팅이 뛰어나죠. 거기에 더하여 인양 능력에 비해서 컴팩트한 사이즈 덕분에 좁은 공간도 쉽게 통과할 수 있어 옥상에서 철골을 설치하든 공장의 전체 생산 설비를 옮기든, C10e는 그 모든 작업을 완벽하게 처리할 수 있습니다."
           }
         ]
       },
@@ -1222,7 +1245,9 @@ export const cranes: CraneType[] = [
             powerSupply: "220VAC 50Hz",
             additionalOptions: "",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "픽&캐리에 특화된 BEFARD XM 800은 무선 조종 방식의 크레인으로 자국을 남기지 않는 트랙을 기본으로 탑재하여 실내외 어디에서나 작업할 수 있습니다. 배터리로 움직이기 때문에 친환경적인 것은 물론이고 픽&캐리가 아닌 보다 무거운 물건의 인양이 필요한 순간엔 트랙의 앞에 있는 확장 기능이 달린 아우트리거가 제 몫을 다 해줄 겁니다."
           },
           {
             modelName: "XGR800",
@@ -1255,7 +1280,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: false,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "유리 조립 로봇 BEFARD XGR 및 XGRe는 무거운 유리와 창문을 조립하는 데 사용되는 캐터필러 방식의 매니퓰레이터입니다. 최대 5.55m 범위의 확장 장치를 장착할 수 있습니다. 기본으로 무선 조종 장치가 장착되어 있어 주행 및 기계 작동을 모두 지원합니다. 트랙 섀시를 사용하여 까다로운 건설 환경에서도 작업이 가능합니다."
           }
         ]
       },
@@ -1293,7 +1320,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "URW295는 시중에서 가장 인기 있는 거미 크레인 중 하나입니다. 8.65m 붐은 최대 8.8m의 리프팅 높이를 제공하죠. 또한 UNIC URW-295 스파이더 크레인에는 Lift-Smart 첨단 안전 시스템이 탑재되어 있어, 안전 하중 표시기를 통해 크레인이 안전 작업 범위를 벗어나는 것을 방지합니다."
           },
           {
             modelName: "URW546",
@@ -1326,7 +1355,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "RC 무선 조종기",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "UNIC URW-546은 새로운 청정 배출 Tier 4 디젤 엔진을 탑재하여 까다로운 최신 배출가스 규정을 완벽하게 준수하고 있습니다. 또한 운전석에서의 조종뿐만 아니라 무선 리모컨으로도 정밀한 리프팅 및 적재 작업을 수행할 수 있으며 폭이 1.4m에 불과해서 내부 출입구 통과 및 작업 공간이 제한될 수 있는 좁은 공간에서의 작업에도 이상적입니다."
           },
           {
             modelName: "URW547",
@@ -1360,7 +1391,9 @@ export const cranes: CraneType[] = [
             additionalOptions:
               "KM - 100 중량초과 자동 정지 장치\n디지털 인양중량 미터기\n무선 조종기\n- C4A, C2A -\nSLI(인양 무게 인디케이터) 무선 조종기\n- C4E,C2E -\nC4E + 파워팩\n-C4EM-\n단선용 후크\n-ALL-",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "그 어떤 것보다 안전을 우선시한 URW-547은 무선 원격 제어 장치와 리프트-스마트 고급 안전 시스템, 리프팅 작업 전 섀시 안정화를 위한 아웃리거 인터록 등 보다 향상된 안전 기능이 기본으로 제공됩니다. 또한, 이 크레인에는 안정성 경고등과 안전 경고 알람을 포함한 전복 방지 기능이 탑재되어 있어 전복 위험을 방지하죠."
           },
           {
             modelName: "URW706",
@@ -1459,7 +1492,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "유압 지브",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "URW-706은 리프팅 유연성을 높이기 위해 플라이 지브를 장착하여 최대 22.615m까지 작업할 수 있고 추가로 무선 원격 제어 기능이 제공되어 작업자가 작업물이 있는 곳의 뒤나 멀리에서도 작업할 수 있어 가시성 향상 및 안전한 근접 작업, 정확한 적재가 가능합니다. 조종석과 무선 원격 제어장치에 달린 인양물의 무게에 대한 즉각적인 피드백을 해주는 인디케이터도 큰 장점이죠. 초고층 빌딩, 발전소, 옥상 작업, 쇼핑센터 작업에 적합한 작지만 강력한 URW-706은 다양한 작업 환경에서 작업 유연성과 강력한 성능을 완벽하게 결합한 거미크레인입니다."
           }
         ]
       },
@@ -1497,7 +1532,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "파워팩\n(CE-2)\n단선용 후크\n전자식 작업 인디케이터\n-ALL-",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "MC305는 그 작은 크기에도 불구하고 매우 다재다능하며 강력한 성능을 자랑합니다. 폭은 128cm에 불과하지만, 인양 능력은 최대 2.98톤으로 강력하며 전자식 작업 인디케이터가 인양물에 대한 정보를 전달받아 실시간으로 전달해줘 작업자가 편안하게 작업할 수 있도록 도와주죠."
           },
           {
             modelName: "MC405",
@@ -1530,7 +1567,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "파워팩\n(CE)\n단선용 후크\n전자식 작업 인디케이터\n-ALL-",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "MC405는 인양 능력이 최대 3.83톤인 강력한 미니 크레인으로 전자식 인디케이터와 파워팩이 탑재되어 있어 인양물의 정보를 실시간으로 전달받아 손쉽게 작업을 할 수 있으며. 유사시에는 물건을 인양한 상태로 이동할 수 있도록 500kg의 픽&캐리 기능도 갖추고 있습니다."
           }
         ]
       }
@@ -1573,7 +1612,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "LC383은 2.93톤의 크롤라 크레인으로 아우트리거가 필요 없는 매우 컴팩트한 트랙형 바닥과 스윙 반경이 트랙의 폭을 벗어나지 않는 거의 제로에 가까운 테일 스윙 덕분에 도심과 같이 공간이 제한된 지역에서 주로 사용하도록 개발되었습니다. 이 크레인의 주요 특징은 최대 1,465kg의 픽&캐리 용량이며 다른 특징으로는 9.3m의 리프팅 높이, 개방형이지만 덮개가 있는 운전실과 4,400kg 정도밖에 되지 않는 총중량 등이 있습니다."
           }
         ]
       },
@@ -1611,7 +1652,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: true,
-            isTechnicalData: false
+            isTechnicalData: false,
+            description:
+              "KOBELCO 4.9톤 크롤라 크레인 CK120UR은 단순히 높은 사양뿐만 아니라 실용적인 용량과 기능을 갖춘 뛰어난 크롤라 크레인을 제공하기 위해 개발되었습니다. 지하 도로 및 철도 인프라, 공공시설용 트렌치, 신축 건물 기초 공사, 고가 교량 또는 철도 선로 작업 등 작업 공간이 매우 제한적인 도시 현장에서 이 고성능 크롤라 크레인은 믿을 수 있는 작업 성능을 제공합니다."
           }
         ]
       },
@@ -1715,7 +1758,9 @@ export const cranes: CraneType[] = [
                 accessoryName: "JIB 3500GX",
                 accessoryType: "jib"
               }
-            ]
+            ],
+            description:
+              "완벽한 밀폐형 운전실을 갖춘 크롤라 크레인입니다. 독립형 연장 트랙은 안정성을 높이고, 특히 제로 테일 스윙 방식으로 픽&캐리 모드에서도 항시 탁월한 성능을 발휘하여 좁은 공간에서의 작업에 이상적입니다. 운전실에 설치된 두 대의 비디오 카메라 모니터는 작업자가 자신이 작업하는 공간을 완벽하게 볼 수 있도록 해주며, 디지털로 되어있는 제어장치는 작업자의 입맛과 현장의 상황에 따라서 설정할 수 있습니다."
           }
         ]
       }
@@ -1758,7 +1803,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: false,
-            isTechnicalData: true
+            isTechnicalData: true,
+            description:
+              "DT15에는 이중 바스켓 부착 장치가 있어 바스켓을 독립적으로 올리거나 내릴 수 있어 사용자의 특정 요구에 손쉽게 맞출 수 있습니다. 하지만 이것이 이 DT15의 전부는 아닙니다. DT15를 진정으로 차별화하는 것은 바로 이중 텔레스코픽 붐 기술입니다. 메인 붐과 지브 모두에 ​​이중 텔레스코픽 붐이 장착되어 거의 완벽한 원형 작업 영역을 만들어 장애물을 손쉽게 탐색하고 어떤 지점이든 탁월한 정밀도로 도달할 수 있습니다."
           },
           {
             modelName: "DT25",
@@ -1791,7 +1838,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: false,
-            isTechnicalData: true
+            isTechnicalData: true,
+            description:
+              "당사의 다른 유명한 DT 시리즈와 마찬가지로 신뢰할 수 있는 이중 텔레스코픽 붐(DT) 디자인을 채택하여 탁월한 도달 범위와 정밀성을 제공하며 다양한 바스켓 옵션을 갖추고 있습니다. 거기에 인증된 호이스트 후크와 윈치 부착 장치를 장착시켜 유사시에는 잠시 크레인처럼 변형시킬 수도 있죠. 또한 360도 바스켓 회전 기능을 통해 작업자에게 작업 공간에 대한 전례 없는 접근성을 제공합니다."
           },
           {
             modelName: "DT30",
@@ -1824,7 +1873,9 @@ export const cranes: CraneType[] = [
             powerSupply: "",
             additionalOptions: "",
             isBrochure: false,
-            isTechnicalData: true
+            isTechnicalData: true,
+            description:
+              "DT28의 성공을 기반으로 제작된 이 확장형 DT는 고객분들이 좋아하는 모든 놀라운 기능을 그대로 유지하면서도 두 번째 붐 끝에 특수 지브를 장착하여 고소 작업 시의 미세한 조작을 더욱 원활하게 했습니다. DT 30은 DT 고소 작업대의 모든 장점을 계승하면서도, 2m의 연장된 붐으로 더욱 넓은 작업 범위를 제공하죠. 이러한 특징으로 수목 재배, 지붕 공사, 도색 작업 등 다양한 분야의 전문가들에게 선호되는 제품입니다."
           }
         ]
       }

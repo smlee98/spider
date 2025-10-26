@@ -3,11 +3,11 @@
 import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getMenuById } from "@/lib/menu-data";
-import { ArrowLeft, BookText, CloudDownload } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUp, BookText, CloudDownload, Cog, Quote, Ruler, Weight } from "lucide-react";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { cranes, craneType, dictionaries, type Equipment } from "../../../constants";
@@ -54,279 +54,311 @@ export default function EquipmentDetailPage() {
   return (
     <div className="flex flex-col">
       <Container>
-        <div className="flex flex-col gap-6">
-          <div className="flex items-end justify-between gap-4">
-            <div className="flex flex-col">
-              <h4 className="text-muted-foreground font-semibold">{brand.brandName}</h4>
-              <h1 className="text-foreground text-3xl font-black md:text-4xl">{equipment.modelName}</h1>
+        <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-6">
+            <div className="flex items-end justify-between gap-4">
+              <div className="flex flex-col">
+                <h4 className="text-muted-foreground font-semibold">{brand.brandName}</h4>
+                <h1 className="text-foreground text-3xl font-black md:text-4xl">{equipment.modelName}</h1>
+              </div>
+              <Button variant="outline" onClick={() => router.back()}>
+                <ArrowLeft className="size-4" />
+                뒤로가기
+              </Button>
             </div>
-            <Button variant="outline" onClick={() => router.back()}>
-              <ArrowLeft className="size-4" />
-              뒤로가기
-            </Button>
-          </div>
 
-          {hasAccessories && (
-            <Tabs
-              defaultValue="-1"
-              value={selectedAccessoryIndex.toString()}
-              onValueChange={(value) => setSelectedAccessoryIndex(Number(value))}
-            >
-              <TabsList>
-                <TabsTrigger value="-1" className="flex-1">
-                  기본
-                </TabsTrigger>
-                {equipment.accessories?.map((accessory, index) => (
-                  <TabsTrigger key={index} value={index.toString()} className="flex-1">
-                    <div className="flex items-center gap-1">
-                      <span>{accessory.accessoryName}</span>
-                      <span className="text-muted-foreground">
-                        ({craneType[accessory.accessoryType as keyof typeof craneType]})
-                      </span>
-                    </div>
+            {hasAccessories && (
+              <Tabs
+                defaultValue="-1"
+                value={selectedAccessoryIndex.toString()}
+                onValueChange={(value) => setSelectedAccessoryIndex(Number(value))}
+              >
+                <TabsList>
+                  <TabsTrigger value="-1" className="flex-1">
+                    기본
                   </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+                  {equipment.accessories?.map((accessory, index) => (
+                    <TabsTrigger key={index} value={index.toString()} className="flex-1">
+                      <div className="flex items-center gap-1">
+                        <span>{accessory.accessoryName}</span>
+                        <span className="text-muted-foreground">
+                          ({craneType[accessory.accessoryType as keyof typeof craneType]})
+                        </span>
+                      </div>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            )}
+
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <ImageZoom
+                src={`/equipment/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
+                alt={`${brand.brandName}/${equipment.modelName}`}
+                className="w-full"
+                zoomLevel={3.5}
+              />
+
+              <div className="flex flex-col gap-8 [&>[data-slot='card']]:flex-1">
+                <Card>
+                  <CardContent className="size-full">
+                    <div className="flex size-full items-center justify-between">
+                      <div className="flex flex-col justify-center">
+                        <span className="text-muted-foreground text-sm">{dictionaries.dimensions}</span>
+                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                          {currentData.dimensions || "-"}
+                        </span>
+                      </div>
+                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                        <Ruler className="size-8" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="size-full">
+                    <div className="flex size-full items-center justify-between">
+                      <div className="flex size-full flex-col justify-center">
+                        <span className="text-muted-foreground text-sm">{dictionaries.maxSafeLoad}</span>
+                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                          {currentData.maxSafeLoad || "-"}
+                        </span>
+                      </div>
+                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                        <Weight className="size-8" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="size-full">
+                    <div className="flex size-full items-center justify-between">
+                      <div className="flex size-full flex-col justify-center">
+                        <span className="text-muted-foreground text-sm">{dictionaries.maxLiftingHeight}</span>
+                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                          {currentData.maxLiftingHeight || "-"}
+                        </span>
+                      </div>
+                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                        <ArrowUp className="size-8" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="size-full">
+                    <div className="flex size-full items-center justify-between">
+                      <div className="flex size-full flex-col justify-center">
+                        <span className="text-muted-foreground text-sm">{dictionaries.maxLiftingLength}</span>
+                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                          {currentData.maxLiftingLength || "-"}
+                        </span>
+                      </div>
+                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                        <ArrowRight className="size-8" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="size-full">
+                    <div className="flex size-full items-center justify-between">
+                      <div className="flex size-full flex-col justify-center">
+                        <span className="text-muted-foreground text-sm">{dictionaries.operatingMethod}</span>
+                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                          {currentData.operatingMethod || "-"}
+                        </span>
+                      </div>
+                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                        <Cog className="size-8" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+          {equipment.description && (
+            <Card className="bg-secondary gap-0 overflow-hidden py-0">
+              <CardContent className="relative flex flex-row items-center justify-between px-12 py-8">
+                <p className="text-primary z-20 text-lg font-medium text-pretty">{equipment.description}</p>
+                <Quote className="fill-foreground absolute -top-2 -left-3 z-10 size-16 rotate-180 opacity-15" />
+                <Quote className="fill-foreground absolute -right-3 -bottom-2 z-10 size-16 opacity-15" />
+              </CardContent>
+            </Card>
           )}
-
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <ImageZoom
-              src={`/equipment/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
-              alt={`${brand.brandName}/${equipment.modelName}`}
-              className="w-full"
-              zoomLevel={3.5}
-            />
-
-            <Card className="gap-0 pb-0">
-              <CardHeader className="gap-0 border-b pb-0">
-                <CardTitle>기본 사양</CardTitle>
-              </CardHeader>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-2xl font-semibold">기술 정보</h2>
+            <Card className="gap-0 py-0">
               <CardContent className="px-0">
                 <Table>
-                  <TableBody>
-                    {currentData.dimensions && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.dimensions}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.dimensions}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.trackDimensions && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.trackDimensions}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.trackDimensions}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxLiftingHeight && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxLiftingHeight}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxLiftingHeight}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxLiftingLength && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxLiftingLength}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxLiftingLength}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.bodyWeight && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.bodyWeight}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.bodyWeight}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.dryWeight && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.dryWeight}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.dryWeight}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.counterWeight && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.counterWeight}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.counterWeight}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxSafeLoad && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxSafeLoad}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxSafeLoad}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxHeightTipLoadWinch && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxHeightTipLoadWinch}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxHeightTipLoadWinch}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxLengthTipLoadWinch && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxLengthTipLoadWinch}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxLengthTipLoadWinch}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxHeightTipLoadHook && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxHeightTipLoadHook}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxHeightTipLoadHook}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxLengthTipLoadHook && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxLengthTipLoadHook}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxLengthTipLoadHook}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.speed && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">{dictionaries.speed}</TableCell>
-                        <TableCell className="px-6">{currentData.speed}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.climbingAbility && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.climbingAbility}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.climbingAbility}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.workingAngle && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.workingAngle}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.workingAngle}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.hoistingSpeed && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.hoistingSpeed}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.hoistingSpeed}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.slewingAngle && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.slewingAngle}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.slewingAngle}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.slewingSpeed && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.slewingSpeed}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.slewingSpeed}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.winchLength && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.winchLength}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.winchLength}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.winchDiameter && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.winchDiameter}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.winchDiameter}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.outriggerExtensionDimensions && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.outriggerExtensionDimensions}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.outriggerExtensionDimensions}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.maxOutriggerLoad && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.maxOutriggerLoad}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.maxOutriggerLoad}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.groundPressure && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.groundPressure}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.groundPressure}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.operatingMethod && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.operatingMethod}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.operatingMethod}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.powerType && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.powerType}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.powerType}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.powerPack && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.powerPack}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.powerPack}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.powerSupply && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.powerSupply}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.powerSupply}</TableCell>
-                      </TableRow>
-                    )}
-                    {currentData.additionalOptions && (
-                      <TableRow>
-                        <TableCell className="text-muted-foreground px-6 font-semibold">
-                          {dictionaries.additionalOptions}
-                        </TableCell>
-                        <TableCell className="px-6">{currentData.additionalOptions}</TableCell>
-                      </TableRow>
-                    )}
+                  <TableBody className="[&>[data-slot='table-row']]:hover:bg-background">
+                    {/* 1. 치수 (LxWxH) */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={5}>
+                        제원
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.dimensions}</TableCell>
+                      <TableCell className="px-6">{currentData.dimensions || "-"}</TableCell>
+                    </TableRow>
+                    {/* 2. 차체 무게 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.bodyWeight}</TableCell>
+                      <TableCell className="px-6">{currentData.bodyWeight || "-"}</TableCell>
+                    </TableRow>
+                    {/* 3. 건조 무게 (드라이 웨이트) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.dryWeight}</TableCell>
+                      <TableCell className="px-6">{currentData.dryWeight || "-"}</TableCell>
+                    </TableRow>
+                    {/* 4. 카운터 웨이트 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.counterWeight}</TableCell>
+                      <TableCell className="px-6">{currentData.counterWeight || "-"}</TableCell>
+                    </TableRow>
+                    {/* 5. 최대 안전하중 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxSafeLoad}</TableCell>
+                      <TableCell className="px-6">{currentData.maxSafeLoad || "-"}</TableCell>
+                    </TableRow>
+                    {/* 6. 최대 인양높이 */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={8}>
+                        작업 제원
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLiftingHeight}</TableCell>
+                      <TableCell className="px-6">{currentData.maxLiftingHeight || "-"}</TableCell>
+                    </TableRow>
+                    {/* 7. 최대 인양길이 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLiftingLength}</TableCell>
+                      <TableCell className="px-6">{currentData.maxLiftingLength || "-"}</TableCell>
+                    </TableRow>
+                    {/* 8. 최대 높이 끝단 하중 (윈치) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxHeightTipLoadWinch}</TableCell>
+                      <TableCell className="px-6">{currentData.maxHeightTipLoadWinch || "-"}</TableCell>
+                    </TableRow>
+                    {/* 9. 최대 길이 끝단 하중 (윈치) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLengthTipLoadWinch}</TableCell>
+                      <TableCell className="px-6">{currentData.maxLengthTipLoadWinch || "-"}</TableCell>
+                    </TableRow>
+                    {/* 10. 최대 높이 끝단 하중 (후크)(집게)(패드) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxHeightTipLoadHook}</TableCell>
+                      <TableCell className="px-6">{currentData.maxHeightTipLoadHook || "-"}</TableCell>
+                    </TableRow>
+                    {/* 11. 최대 길이 끝단 하중 (후크)(집게)(패드) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLengthTipLoadHook}</TableCell>
+                      <TableCell className="px-6">{currentData.maxLengthTipLoadHook || "-"}</TableCell>
+                    </TableRow>
+                    {/* 12. 작업 각도 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.workingAngle}</TableCell>
+                      <TableCell className="px-6">{currentData.workingAngle || "-"}</TableCell>
+                    </TableRow>
+                    {/* 13. 권상 속도 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.hoistingSpeed}</TableCell>
+                      <TableCell className="px-6">{currentData.hoistingSpeed || "-"}</TableCell>
+                    </TableRow>
+                    {/* 14. 선회 각도 */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={2}>
+                        선회
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.slewingAngle}</TableCell>
+                      <TableCell className="px-6">{currentData.slewingAngle || "-"}</TableCell>
+                    </TableRow>
+                    {/* 15. 선회 속도 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.slewingSpeed}</TableCell>
+                      <TableCell className="px-6">{currentData.slewingSpeed || "-"}</TableCell>
+                    </TableRow>
+                    {/* 16. 윈치 길이 */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={2}>
+                        와이어
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.winchLength}</TableCell>
+                      <TableCell className="px-6">{currentData.winchLength || "-"}</TableCell>
+                    </TableRow>
+                    {/* 17. 윈치 두께 (⌀ = 직경) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.winchDiameter}</TableCell>
+                      <TableCell className="px-6">{currentData.winchDiameter || "-"}</TableCell>
+                    </TableRow>
+                    {/* 18. 아웃트리거 확장 치수 */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={2}>
+                        아웃트리거
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">
+                        {dictionaries.outriggerExtensionDimensions}
+                      </TableCell>
+                      <TableCell className="px-6">{currentData.outriggerExtensionDimensions || "-"}</TableCell>
+                    </TableRow>
+                    {/* 19. 최대 아웃트리거 하중 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxOutriggerLoad}</TableCell>
+                      <TableCell className="px-6">{currentData.maxOutriggerLoad || "-"}</TableCell>
+                    </TableRow>
+                    {/* 20. 트랙 치수(확장) */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={4}>
+                        트랙
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.trackDimensions}</TableCell>
+                      <TableCell className="px-6">{currentData.trackDimensions || "-"}</TableCell>
+                    </TableRow>
+                    {/* 21. 속력 1단, (2단) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.speed}</TableCell>
+                      <TableCell className="px-6">{currentData.speed || "-"}</TableCell>
+                    </TableRow>
+                    {/* 22. 등판 능력 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.climbingAbility}</TableCell>
+                      <TableCell className="px-6">{currentData.climbingAbility || "-"}</TableCell>
+                    </TableRow>
+                    {/* 23. 접지압 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.groundPressure}</TableCell>
+                      <TableCell className="px-6">{currentData.groundPressure || "-"}</TableCell>
+                    </TableRow>
+                    {/* 24. 작동방식 */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={4}>
+                        엔진
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.operatingMethod}</TableCell>
+                      <TableCell className="px-6">{currentData.operatingMethod || "-"}</TableCell>
+                    </TableRow>
+                    {/* 25. 엔진/배터리 (HP : 마력) */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.powerType}</TableCell>
+                      <TableCell className="px-6">{currentData.powerType || "-"}</TableCell>
+                    </TableRow>
+                    {/* 26. 파워팩 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.powerPack}</TableCell>
+                      <TableCell className="px-6">{currentData.powerPack || "-"}</TableCell>
+                    </TableRow>
+                    {/* 27. 사용 전원 */}
+                    <TableRow>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.powerSupply}</TableCell>
+                      <TableCell className="px-6">{currentData.powerSupply || "-"}</TableCell>
+                    </TableRow>
+                    {/* 28. 추가 옵션 */}
+                    <TableRow>
+                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold">
+                        추가 옵션
+                      </TableCell>
+                      <TableCell className="text-muted-foreground px-6">{dictionaries.additionalOptions}</TableCell>
+                      <TableCell className="px-6">{currentData.additionalOptions || "-"}</TableCell>
+                    </TableRow>
                   </TableBody>
                 </Table>
               </CardContent>
