@@ -16,7 +16,6 @@ export default function Home() {
             철저한 안전 교육으로 사고 예방에 최선을 다하며 <br className="hidden md:block" /> 국내 최대의 크레인과
             베테랑 기사들을 보유하고 있습니다.
           </h1>
-          <Animations variant="scrollDown" className="size-8 text-white lg:size-12" />
         </div>
         <div className="absolute top-24 right-8 z-10 flex flex-col justify-end gap-3">
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
@@ -31,6 +30,10 @@ export default function Home() {
             </picture>
             <span className="tracking-widest">공식딜러</span>
           </div>
+        </div>
+        <div className="absolute bottom-24 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
+          <Animations variant="scrollDown" className="size-4! text-white lg:size-8!" />
+          <span className="text-white">Scroll</span>
         </div>
         <div className="absolute inset-0 -z-10 size-full min-w-full bg-black/70 select-none" />
         <video
