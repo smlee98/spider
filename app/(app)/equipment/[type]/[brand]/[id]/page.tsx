@@ -193,7 +193,7 @@ export default function EquipmentDetailPage() {
                           {currentData.dimensions || "-"}
                         </span>
                       </div>
-                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                      <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
                         <Ruler className="size-8" />
                       </div>
                     </div>
@@ -210,7 +210,7 @@ export default function EquipmentDetailPage() {
                           {currentData.maxSafeLoad || "-"}
                         </span>
                       </div>
-                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                      <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
                         <CapacityIcon className="size-8" />
                       </div>
                     </div>
@@ -227,7 +227,7 @@ export default function EquipmentDetailPage() {
                           {currentData.maxLiftingHeight || "-"}
                         </span>
                       </div>
-                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                      <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
                         <HeightIcon className="size-8" />
                       </div>
                     </div>
@@ -244,7 +244,7 @@ export default function EquipmentDetailPage() {
                           {currentData.maxLiftingLength || "-"}
                         </span>
                       </div>
-                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                      <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
                         <HeightIcon className="size-8 rotate-90" />
                       </div>
                     </div>
@@ -259,7 +259,7 @@ export default function EquipmentDetailPage() {
                           {currentData.operatingMethod || "-"}
                         </span>
                       </div>
-                      <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
+                      <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
                         <Cog className="size-8" />
                       </div>
                     </div>
