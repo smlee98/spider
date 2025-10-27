@@ -284,7 +284,7 @@ export default function EquipmentDetailPage() {
             <Card className="gap-0 py-0">
               <CardContent className="px-0">
                 <Table>
-                  <TableBody className="[&>[data-slot='table-row']]:hover:bg-background">
+                  <TableBody className="[&>[data-slot='table-row']]:hover:bg-transparent">
                     {/* 1. 치수 (LxWxH) */}
                     <TableRow>
                       <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={5}>
