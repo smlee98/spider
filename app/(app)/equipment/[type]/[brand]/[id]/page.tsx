@@ -276,7 +276,7 @@ export default function EquipmentDetailPage() {
                 </Card>
                 {equipment.description && (
                   <Card className="bg-secondary col-span-full gap-0 overflow-hidden py-0">
-                    <CardContent className="relative flex flex-row items-center justify-between px-12 py-8">
+                    <CardContent className="relative flex size-full flex-row items-center justify-between px-18 py-8">
                       <p className="text-primary z-20 text-lg font-medium text-balance break-keep">
                         {equipment.description}
                       </p>
