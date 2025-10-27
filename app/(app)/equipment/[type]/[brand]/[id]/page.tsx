@@ -67,6 +67,61 @@ export default function EquipmentDetailPage() {
   // 악세서리가 있는지 확인
   const hasAccessories = equipment.accessories && equipment.accessories.length > 0;
 
+  // 숫자 추출 함수
+  const extractNumber = (value: string): number => {
+    if (!value) return 0;
+    const match = value.match(/[-]?\d+(\.\d+)?/);
+    return match ? parseFloat(match[0]) : 0;
+  };
+
+  // 값 비교 후 색상 클래스 반환 (카드용)
+  const getValueColor = (currentValue: string, field: keyof Equipment): string => {
+    // 기본 탭일 때는 항상 검정색
+    if (selectedAccessoryIndex === -1) {
+      return "";
+    }
+
+    // 항상 기본 탭(equipment)과 비교
+    const currentNum = extractNumber(currentValue);
+    const baseNum = extractNumber(equipment[field] as string);
+
+    if (currentNum > baseNum) {
+      return "text-green-600";
+    } else if (currentNum < baseNum) {
+      return "text-red-600";
+    }
+    return "";
+  };
+
+  // 증감값 계산 및 표시 (테이블용)
+  const getValueDiff = (
+    currentValue: string,
+    field: keyof Equipment
+  ): { diff: number; absDiff: number; unit: string } | null => {
+    // 기본 탭일 때는 증감 표시 안 함
+    if (selectedAccessoryIndex === -1) {
+      return null;
+    }
+
+    // 항상 기본 탭(equipment)과 비교
+    const currentNum = extractNumber(currentValue);
+    const baseNum = extractNumber(equipment[field] as string);
+
+    if (currentNum === baseNum) {
+      return null;
+    }
+
+    // 소수점 둘째자리에서 반올림
+    const diff = Math.round((currentNum - baseNum) * 100) / 100;
+    const absDiff = Math.abs(diff);
+
+    // 단위 추출 (kg, m 등)
+    const unitMatch = currentValue.match(/[a-zA-Z가-힣]+/);
+    const unit = unitMatch ? unitMatch[0] : "";
+
+    return { diff, absDiff, unit };
+  };
+
   // HTML 콘텐츠에서 첫 번째 이미지 URL 추출
   function extractFirstImage(htmlContent: string): string | null {
     const imgRegex = /<img[^>]+src="([^">]+)"/;
@@ -141,7 +196,9 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.dimensions}</span>
-                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                        <span
+                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.dimensions || "", "dimensions")}`}
+                        >
                           {currentData.dimensions || "-"}
                         </span>
                       </div>
@@ -156,7 +213,9 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.maxSafeLoad}</span>
-                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                        <span
+                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.maxSafeLoad || "", "maxSafeLoad")}`}
+                        >
                           {currentData.maxSafeLoad || "-"}
                         </span>
                       </div>
@@ -171,7 +230,9 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.maxLiftingHeight}</span>
-                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                        <span
+                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.maxLiftingHeight || "", "maxLiftingHeight")}`}
+                        >
                           {currentData.maxLiftingHeight || "-"}
                         </span>
                       </div>
@@ -186,7 +247,9 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.maxLiftingLength}</span>
-                        <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                        <span
+                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.maxLiftingLength || "", "maxLiftingLength")}`}
+                        >
                           {currentData.maxLiftingLength || "-"}
                         </span>
                       </div>
@@ -237,27 +300,117 @@ export default function EquipmentDetailPage() {
                         제원
                       </TableCell>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.dimensions}</TableCell>
-                      <TableCell className="px-6">{currentData.dimensions || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.dimensions || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.dimensions || "", "dimensions");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 2. 차체 무게 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.bodyWeight}</TableCell>
-                      <TableCell className="px-6">{currentData.bodyWeight || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.bodyWeight || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.bodyWeight || "", "bodyWeight");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 3. 건조 무게 (드라이 웨이트) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.dryWeight}</TableCell>
-                      <TableCell className="px-6">{currentData.dryWeight || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.dryWeight || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.dryWeight || "", "dryWeight");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 4. 카운터 웨이트 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.counterWeight}</TableCell>
-                      <TableCell className="px-6">{currentData.counterWeight || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.counterWeight || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.counterWeight || "", "counterWeight");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 5. 최대 안전하중 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxSafeLoad}</TableCell>
-                      <TableCell className="px-6">{currentData.maxSafeLoad || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxSafeLoad || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxSafeLoad || "", "maxSafeLoad");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 6. 최대 인양높이 */}
                     <TableRow>
@@ -265,42 +418,186 @@ export default function EquipmentDetailPage() {
                         작업 제원
                       </TableCell>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxLiftingHeight}</TableCell>
-                      <TableCell className="px-6">{currentData.maxLiftingHeight || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxLiftingHeight || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxLiftingHeight || "", "maxLiftingHeight");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 7. 최대 인양길이 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxLiftingLength}</TableCell>
-                      <TableCell className="px-6">{currentData.maxLiftingLength || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxLiftingLength || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxLiftingLength || "", "maxLiftingLength");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 8. 최대 높이 끝단 하중 (윈치) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxHeightTipLoadWinch}</TableCell>
-                      <TableCell className="px-6">{currentData.maxHeightTipLoadWinch || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxHeightTipLoadWinch || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxHeightTipLoadWinch || "", "maxHeightTipLoadWinch");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 9. 최대 길이 끝단 하중 (윈치) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxLengthTipLoadWinch}</TableCell>
-                      <TableCell className="px-6">{currentData.maxLengthTipLoadWinch || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxLengthTipLoadWinch || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxLengthTipLoadWinch || "", "maxLengthTipLoadWinch");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 10. 최대 높이 끝단 하중 (후크)(집게)(패드) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxHeightTipLoadHook}</TableCell>
-                      <TableCell className="px-6">{currentData.maxHeightTipLoadHook || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxHeightTipLoadHook || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxHeightTipLoadHook || "", "maxHeightTipLoadHook");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 11. 최대 길이 끝단 하중 (후크)(집게)(패드) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxLengthTipLoadHook}</TableCell>
-                      <TableCell className="px-6">{currentData.maxLengthTipLoadHook || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxLengthTipLoadHook || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxLengthTipLoadHook || "", "maxLengthTipLoadHook");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 12. 작업 각도 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.workingAngle}</TableCell>
-                      <TableCell className="px-6">{currentData.workingAngle || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.workingAngle || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.workingAngle || "", "workingAngle");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 13. 권상 속도 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.hoistingSpeed}</TableCell>
-                      <TableCell className="px-6">{currentData.hoistingSpeed || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.hoistingSpeed || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.hoistingSpeed || "", "hoistingSpeed");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 14. 선회 각도 */}
                     <TableRow>
@@ -308,12 +605,48 @@ export default function EquipmentDetailPage() {
                         선회
                       </TableCell>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.slewingAngle}</TableCell>
-                      <TableCell className="px-6">{currentData.slewingAngle || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.slewingAngle || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.slewingAngle || "", "slewingAngle");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 15. 선회 속도 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.slewingSpeed}</TableCell>
-                      <TableCell className="px-6">{currentData.slewingSpeed || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.slewingSpeed || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.slewingSpeed || "", "slewingSpeed");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 16. 윈치 길이 */}
                     <TableRow>
@@ -321,12 +654,48 @@ export default function EquipmentDetailPage() {
                         와이어
                       </TableCell>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.winchLength}</TableCell>
-                      <TableCell className="px-6">{currentData.winchLength || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.winchLength || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.winchLength || "", "winchLength");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 17. 윈치 두께 (⌀ = 직경) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.winchDiameter}</TableCell>
-                      <TableCell className="px-6">{currentData.winchDiameter || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.winchDiameter || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.winchDiameter || "", "winchDiameter");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 18. 아웃트리거 확장 치수 */}
                     <TableRow>
@@ -336,12 +705,51 @@ export default function EquipmentDetailPage() {
                       <TableCell className="text-muted-foreground px-6">
                         {dictionaries.outriggerExtensionDimensions}
                       </TableCell>
-                      <TableCell className="px-6">{currentData.outriggerExtensionDimensions || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.outriggerExtensionDimensions || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(
+                              currentData.outriggerExtensionDimensions || "",
+                              "outriggerExtensionDimensions"
+                            );
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 19. 최대 아웃트리거 하중 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.maxOutriggerLoad}</TableCell>
-                      <TableCell className="px-6">{currentData.maxOutriggerLoad || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.maxOutriggerLoad || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.maxOutriggerLoad || "", "maxOutriggerLoad");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 20. 트랙 치수(확장) */}
                     <TableRow>
@@ -349,22 +757,94 @@ export default function EquipmentDetailPage() {
                         트랙
                       </TableCell>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.trackDimensions}</TableCell>
-                      <TableCell className="px-6">{currentData.trackDimensions || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.trackDimensions || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.trackDimensions || "", "trackDimensions");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 21. 속력 1단, (2단) */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.speed}</TableCell>
-                      <TableCell className="px-6">{currentData.speed || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.speed || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.speed || "", "speed");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 22. 등판 능력 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.climbingAbility}</TableCell>
-                      <TableCell className="px-6">{currentData.climbingAbility || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.climbingAbility || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.climbingAbility || "", "climbingAbility");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 23. 접지압 */}
                     <TableRow>
                       <TableCell className="text-muted-foreground px-6">{dictionaries.groundPressure}</TableCell>
-                      <TableCell className="px-6">{currentData.groundPressure || "-"}</TableCell>
+                      <TableCell className="px-6">
+                        <div className="flex items-center gap-2">
+                          <span>{currentData.groundPressure || "-"}</span>
+                          {(() => {
+                            const diff = getValueDiff(currentData.groundPressure || "", "groundPressure");
+                            if (diff) {
+                              return (
+                                <span
+                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
+                                >
+                                  ({diff.diff > 0 ? "▲" : "▼"}
+                                  {diff.absDiff})
+                                </span>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </div>
+                      </TableCell>
                     </TableRow>
                     {/* 24. 작동방식 */}
                     <TableRow>
