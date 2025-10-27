@@ -55,6 +55,10 @@ export default function Home() {
       </Container>
       <Separator />
       <Container>
+        <Construction />
+      </Container>
+      <Separator />
+      <Container>
         <div className="container mx-auto px-4 py-16">
           <div className="mb-16 flex flex-col items-center gap-4">
             <h1 className="text-center text-3xl font-bold lg:max-w-3xl lg:text-5xl">공식 딜러</h1>
@@ -139,10 +143,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </Container>
-      <Separator />
-      <Container>
-        <Construction />
       </Container>
     </div>
   );

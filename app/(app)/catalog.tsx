@@ -65,7 +65,7 @@ export default function Catalog() {
 
   return (
     <>
-      <div className="mb-24 flex flex-col items-center gap-4">
+      <div className="mb-16 flex flex-col items-center gap-4">
         <h1 className="text-center text-3xl font-bold lg:max-w-3xl lg:text-5xl">장비 카탈로그</h1>
         <p className="text-muted-foreground text-center text-lg font-medium text-balance break-keep md:max-w-4xl lg:text-xl">
           업계 최고 수준의 성능과 안전성을 자랑하는 프리미엄 크레인 장비 라인업. <br /> 각 현장의 특성에 최적화된 맞춤형

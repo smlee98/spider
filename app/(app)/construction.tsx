@@ -46,7 +46,7 @@ export function Construction() {
   return (
     <>
       <div className="mb-16 flex flex-col items-center gap-4">
-        <h1 className="text-center text-3xl font-bold lg:max-w-3xl lg:text-5xl">공사실적</h1>
+        <h1 className="text-center text-3xl font-bold lg:max-w-3xl lg:text-5xl">주요 공사실적</h1>
         <p className="text-muted-foreground text-center text-lg font-medium text-balance break-keep md:max-w-4xl lg:text-xl">
           우수한 기술력과 풍부한 경험으로 완성한 프로젝트를 소개합니다.
         </p>
