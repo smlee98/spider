@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <div className="relative -mt-16 min-h-dvh overflow-hidden">
-        <div className="absolute flex size-full flex-col items-center justify-center gap-16 p-6">
+        <div className="absolute flex size-full flex-col items-center justify-center gap-8 p-6 lg:gap-16">
           <h1 className="text-center text-3xl leading-snug font-bold tracking-tight text-pretty break-keep text-white sm:text-4xl md:text-5xl lg:text-7xl">
             철저한 안전 교육으로 사고 예방에 최선을 다하며 <br className="hidden md:block" /> 국내 최대의 크레인과
             베테랑 기사들을 보유하고 있습니다.
