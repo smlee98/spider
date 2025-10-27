@@ -135,8 +135,8 @@ export default function EquipmentDetailPage() {
                 zoomLevel={3.5}
               />
 
-              <div className="flex flex-col gap-8 [&>[data-slot='card']]:flex-1">
-                <Card>
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 [&>[data-slot='card']]:flex-1">
+                <Card className="col-span-full">
                   <CardContent className="size-full">
                     <div className="flex size-full items-center justify-between">
                       <div className="flex flex-col justify-center">
@@ -211,54 +211,18 @@ export default function EquipmentDetailPage() {
                     </div>
                   </CardContent>
                 </Card>
+                {equipment.description && (
+                  <Card className="bg-secondary col-span-full gap-0 overflow-hidden py-0">
+                    <CardContent className="relative flex flex-row items-center justify-between px-12 py-8">
+                      <p className="text-primary z-20 text-lg font-medium text-balance break-keep">
+                        {equipment.description}
+                      </p>
+                      <Quote className="fill-foreground absolute -top-2 -left-3 z-10 size-16 rotate-180 opacity-15" />
+                      <Quote className="fill-foreground absolute -right-3 -bottom-2 z-10 size-16 opacity-15" />
+                    </CardContent>
+                  </Card>
+                )}
               </div>
-            </div>
-          </div>
-          {equipment.description && (
-            <Card className="bg-secondary gap-0 overflow-hidden py-0">
-              <CardContent className="relative flex flex-row items-center justify-between px-12 py-8">
-                <p className="text-primary z-20 text-lg font-medium text-pretty">{equipment.description}</p>
-                <Quote className="fill-foreground absolute -top-2 -left-3 z-10 size-16 rotate-180 opacity-15" />
-                <Quote className="fill-foreground absolute -right-3 -bottom-2 z-10 size-16 opacity-15" />
-              </CardContent>
-            </Card>
-          )}
-          <div className="flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">현장사진</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-              {data?.length ? (
-                data?.map((post: Post & { author: User }) => {
-                  const firstImage = extractFirstImage(post.content);
-                  return (
-                    <Link key={post?.id} href={`/gallery/${post.id}`} className="group">
-                      <Card className="group gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
-                        <CardContent className="bg-muted relative flex aspect-video items-center justify-center overflow-hidden p-0">
-                          {firstImage ? (
-                            <img
-                              src={firstImage}
-                              alt={post.title}
-                              className="absolute top-1/2 left-1/2 z-10 w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
-                            />
-                          ) : (
-                            <ImageOff className="text-muted-foreground size-8" />
-                          )}
-                        </CardContent>
-                        <CardHeader className="gap-0 border-t py-6">
-                          <CardTitle>
-                            <div className="flex items-center gap-x-1.5">
-                              <span className="text-muted-foreground font-semibold">#{post?.id}</span>
-                              <span className="line-clamp-1 flex-1 font-semibold">{post?.title}</span>
-                            </div>
-                          </CardTitle>
-                          <CardDescription>{format(post?.createdAt, "yyyy-MM-dd")}</CardDescription>
-                        </CardHeader>
-                      </Card>
-                    </Link>
-                  );
-                })
-              ) : (
-                <span className="text-muted-foreground">등록된 현장사진이 없습니다.</span>
-              )}
             </div>
           </div>
           <div className="flex flex-col gap-4">
@@ -437,6 +401,44 @@ export default function EquipmentDetailPage() {
                 </Table>
               </CardContent>
             </Card>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-2xl font-semibold">현장사진</h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+              {data?.length ? (
+                data?.map((post: Post & { author: User }) => {
+                  const firstImage = extractFirstImage(post.content);
+                  return (
+                    <Link key={post?.id} href={`/gallery/${post.id}`} className="group">
+                      <Card className="group gap-0 overflow-hidden py-0 transition-all group-hover:ring-2">
+                        <CardContent className="bg-muted relative flex aspect-video items-center justify-center overflow-hidden p-0">
+                          {firstImage ? (
+                            <img
+                              src={firstImage}
+                              alt={post.title}
+                              className="absolute top-1/2 left-1/2 z-10 w-full max-w-none -translate-x-1/2 -translate-y-1/2 transition-all group-hover:scale-125"
+                            />
+                          ) : (
+                            <ImageOff className="text-muted-foreground size-8" />
+                          )}
+                        </CardContent>
+                        <CardHeader className="gap-0 border-t py-6">
+                          <CardTitle>
+                            <div className="flex items-center gap-x-1.5">
+                              <span className="text-muted-foreground font-semibold">#{post?.id}</span>
+                              <span className="line-clamp-1 flex-1 font-semibold">{post?.title}</span>
+                            </div>
+                          </CardTitle>
+                          <CardDescription>{format(post?.createdAt, "yyyy-MM-dd")}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  );
+                })
+              ) : (
+                <span className="text-muted-foreground">등록된 현장사진이 없습니다.</span>
+              )}
+            </div>
           </div>
         </div>
       </Container>

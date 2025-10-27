@@ -16,6 +16,7 @@ import { useState } from "react";
 import { cranes, craneType, type Equipment as BaseEquipment } from "../constants";
 
 type SortOption =
+  | "default"
   | "maxSafeLoad-desc"
   | "maxSafeLoad-asc"
   | "maxHeight-desc"
@@ -28,7 +29,7 @@ type Equipment = BaseEquipment & {
 };
 
 export default function EquipmentTypePage() {
-  const [sortOption, setSortOption] = useState<SortOption>("maxSafeLoad-desc");
+  const [sortOption, setSortOption] = useState<SortOption>("default");
   const [activeTab, setActiveTab] = useState("all");
   const params = useParams();
 
@@ -58,6 +59,14 @@ export default function EquipmentTypePage() {
   // 정렬 함수
   const getSortedEquipments = (equipments: Equipment[], sortBy: SortOption) => {
     return [...equipments].sort((a, b) => {
+      // 기본순 정렬 (브랜드 순서: hoeflon, jekko, unic, maeda, befard)
+      if (sortBy === "default") {
+        const brandOrder = ["hoeflon", "jekko", "unic", "maeda", "befard"];
+        const aIndex = brandOrder.indexOf(a.brandName.toLowerCase());
+        const bIndex = brandOrder.indexOf(b.brandName.toLowerCase());
+        return aIndex - bIndex;
+      }
+
       const [field, order] = sortBy.split("-") as [string, "asc" | "desc"];
 
       let aValue: number;
@@ -81,6 +90,14 @@ export default function EquipmentTypePage() {
   };
 
   const sortedAllEquipments = getSortedEquipments(allEquipments, sortOption);
+
+  // 브랜드 탭 순서 정렬
+  const sortedBrands = [...typeData.brands].sort((a, b) => {
+    const brandOrder = ["hoeflon", "jekko", "unic", "maeda", "befard"];
+    const aIndex = brandOrder.indexOf(a.brandName.toLowerCase());
+    const bIndex = brandOrder.indexOf(b.brandName.toLowerCase());
+    return aIndex - bIndex;
+  });
 
   const EquipmentCard = ({ equipment }: { equipment: Equipment }) => (
     <Link
@@ -130,23 +147,23 @@ export default function EquipmentTypePage() {
         </CardContent>
         <CardFooter className="gap-0 p-0!">
           <div className="grid w-full grid-cols-3 divide-x border-t">
-            <div className="flex flex-col px-4 py-3">
+            <div className="flex flex-col px-3 py-3">
               <div className="text-muted-foreground flex items-center justify-between text-sm">
-                <span>최대 안전하중</span>
+                <span className="whitespace-nowrap">최대 안전하중</span>
                 <CapacityIcon className="size-4 shrink-0" />
               </div>
               <span className="text-lg font-semibold">{equipment.maxSafeLoad}</span>
             </div>
-            <div className="flex flex-col px-4 py-3">
+            <div className="flex flex-col px-3 py-3">
               <div className="text-muted-foreground flex items-center justify-between text-sm">
-                <span>최대 인양높이</span>
+                <span className="whitespace-nowrap">최대 인양높이</span>
                 <HeightIcon className="size-4 shrink-0" />
               </div>
               <span className="text-lg font-semibold">{equipment.maxLiftingHeight}</span>
             </div>
-            <div className="flex flex-col px-4 py-3">
+            <div className="flex flex-col px-3 py-3">
               <div className="text-muted-foreground flex items-center justify-between text-sm">
-                <span>차체 무게</span>
+                <span className="whitespace-nowrap">차체 무게</span>
                 <WeightIcon className="size-4 shrink-0" />
               </div>
               <span className="text-lg font-semibold">{equipment.bodyWeight}</span>
@@ -163,24 +180,27 @@ export default function EquipmentTypePage() {
         <h1 className="text-foreground text-3xl font-black md:text-4xl">{menuItem.title}</h1>
         <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            <TabsList>
-              <TabsTrigger value="all">전체 ({allEquipments.length})</TabsTrigger>
-              {typeData.brands.map((brand) => (
-                <TabsTrigger key={brand.brandName} value={brand.brandName}>
-                  {brand.brandName} ({brand.equipments.length})
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            <div className="max-w-full overflow-x-auto">
+              <TabsList>
+                <TabsTrigger value="all">전체 ({allEquipments.length})</TabsTrigger>
+                {sortedBrands.map((brand) => (
+                  <TabsTrigger key={brand.brandName} value={brand.brandName}>
+                    {brand.brandName} ({brand.equipments.length})
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
             {activeTab === "all" && (
               <Select value={sortOption} onValueChange={(value: SortOption) => setSortOption(value)}>
                 <SelectTrigger className="w-48">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="maxSafeLoad-desc">최대 안전하중 높은순</SelectItem>
-                  <SelectItem value="maxSafeLoad-asc">최대 안전하중 낮은순</SelectItem>
-                  <SelectItem value="maxLiftingHeight-desc">최대 인양높이 높은순</SelectItem>
-                  <SelectItem value="maxLiftingHeight-asc">최대 인양높이 낮은순</SelectItem>
+                  <SelectItem value="default">기본순</SelectItem>
+                  <SelectItem value="maxSafeLoad-desc">안전하중 높은순</SelectItem>
+                  <SelectItem value="maxSafeLoad-asc">안전하중 낮은순</SelectItem>
+                  <SelectItem value="maxLiftingHeight-desc">인양높이 높은순</SelectItem>
+                  <SelectItem value="maxLiftingHeight-asc">인양높이 낮은순</SelectItem>
                   <SelectItem value="bodyWeight-desc">차체 무게 높은순</SelectItem>
                   <SelectItem value="bodyWeight-asc">차체 무게 낮은순</SelectItem>
                 </SelectContent>
@@ -198,7 +218,7 @@ export default function EquipmentTypePage() {
           </TabsContent>
 
           {/* 브랜드별 탭 */}
-          {typeData.brands.map((brand) => (
+          {sortedBrands.map((brand) => (
             <TabsContent key={brand.brandName} value={brand.brandName}>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {brand.equipments.map((equipment) => (

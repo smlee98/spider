@@ -108,7 +108,7 @@ export function ImageZoom({ src, alt, className, zoomLevel = 2.5, magnifierSize 
           </div>
         </CardContent>
       </Card>
-      <div className="absolute top-0 -right-[calc(50%+2rem)] z-20 size-full translate-x-1/2 rounded-lg">
+      <div className="absolute top-0 -right-[calc(50%+2rem)] z-30 size-full translate-x-1/2 rounded-lg">
         {isZooming && imageLoaded && !imageError && !isMobile ? (
           <div
             className="size-full overflow-hidden rounded-lg border-2 border-blue-600 bg-white"

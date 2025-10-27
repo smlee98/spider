@@ -17,16 +17,16 @@ export default function Home() {
             베테랑 기사들을 보유하고 있습니다.
           </h1>
         </div>
-        <div className="absolute top-24 right-8 z-10 flex flex-col justify-end gap-3">
+        <div className="absolute top-24 right-8 z-10 flex flex-col justify-end gap-4">
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo-befard.png" alt="logo-befard" className="h-6 w-auto lg:h-14" />
+              <img src="/logo-platform.png" alt="logo-platform" className="h-6 w-auto lg:h-14" />
             </picture>
             <span className="tracking-widest">공식딜러</span>
           </div>
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo-platform.png" alt="logo-platform" className="h-6 w-auto lg:h-14" />
+              <img src="/logo-befard.png" alt="logo-befard" className="h-6 w-auto lg:h-14" />
             </picture>
             <span className="tracking-widest">공식딜러</span>
           </div>
