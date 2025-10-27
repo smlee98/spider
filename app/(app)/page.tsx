@@ -1,5 +1,6 @@
 import Catalog from "@/app/(app)/catalog";
 import { Construction } from "@/app/(app)/construction";
+import { Animations } from "@/components/animation";
 import Container from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,11 +11,12 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <div className="relative -mt-16 min-h-dvh overflow-hidden">
-        <div className="absolute flex size-full items-center justify-center p-6">
+        <div className="absolute flex size-full flex-col items-center justify-center gap-16 p-6">
           <h1 className="text-center text-3xl leading-snug font-bold tracking-tight text-pretty break-keep text-white sm:text-4xl md:text-5xl lg:text-7xl">
             철저한 안전 교육으로 사고 예방에 최선을 다하며 <br className="hidden md:block" /> 국내 최대의 크레인과
             베테랑 기사들을 보유하고 있습니다.
           </h1>
+          <Animations variant="scrollDown" className="size-8 text-white lg:size-12" />
         </div>
         <div className="absolute top-24 right-8 z-10 flex flex-col justify-end gap-3">
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">

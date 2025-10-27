@@ -4723,6 +4723,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lottie-web@npm:^5.5.7":
+  version: 5.13.0
+  resolution: "lottie-web@npm:5.13.0"
+  checksum: 10c0/b463ad462169df3f7e04b7f3716274e269842554f1d72b8303ca7245628f2512982a59ae31698b3d57fbcda886228ae160fcb2aa518c6cecd8a95974db2458ee
+  languageName: node
+  linkType: hard
+
 "lucide-react@npm:^0.539.0":
   version: 0.539.0
   resolution: "lucide-react@npm:0.539.0"
@@ -5686,6 +5693,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-useanimations@npm:^2.10.0":
+  version: 2.10.0
+  resolution: "react-useanimations@npm:2.10.0"
+  dependencies:
+    lottie-web: "npm:^5.5.7"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 10c0/d563ab09cec34ef359de69b6d182462f6f322ab9115e276b9bb115556d32db95a32d041c02bdeb762eae5d45ab5e707a60486e99e8f44191751dc1e7790da18e
+  languageName: node
+  linkType: hard
+
 "react@npm:19.1.0":
   version: 19.1.0
   resolution: "react@npm:19.1.0"
@@ -6147,6 +6166,7 @@ __metadata:
     react-hook-form: "npm:^7.63.0"
     react-intersection-observer: "npm:^9.16.0"
     react-kakao-maps-sdk: "npm:^1.2.0"
+    react-useanimations: "npm:^2.10.0"
     sonner: "npm:^2.0.7"
     swr: "npm:^2.3.6"
     tailwind-merge: "npm:^3.3.1"
