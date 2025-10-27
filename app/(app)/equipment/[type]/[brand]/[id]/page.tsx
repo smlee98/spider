@@ -1,6 +1,8 @@
 "use client";
 
 import { getListByEquipment } from "@/actions/post/actions";
+import CapacityIcon from "@/components/icons/capacity";
+import HeightIcon from "@/components/icons/height";
 import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
@@ -10,18 +12,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getMenuById } from "@/lib/menu-data";
 import { Post, User } from "@prisma/client";
 import { format } from "date-fns";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
-  BookText,
-  CloudDownload,
-  Cog,
-  ImageOff,
-  Quote,
-  Ruler,
-  Weight
-} from "lucide-react";
+import { ArrowLeft, BookText, CloudDownload, Cog, ImageOff, Quote, Ruler } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -220,7 +211,7 @@ export default function EquipmentDetailPage() {
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
-                        <Weight className="size-8" />
+                        <CapacityIcon className="size-8" />
                       </div>
                     </div>
                   </CardContent>
@@ -237,7 +228,7 @@ export default function EquipmentDetailPage() {
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
-                        <ArrowUp className="size-8" />
+                        <HeightIcon className="size-8" />
                       </div>
                     </div>
                   </CardContent>
@@ -254,7 +245,7 @@ export default function EquipmentDetailPage() {
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-lg">
-                        <ArrowRight className="size-8" />
+                        <HeightIcon className="size-8 rotate-90" />
                       </div>
                     </div>
                   </CardContent>
