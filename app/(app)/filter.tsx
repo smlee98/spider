@@ -2,22 +2,22 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
 import { RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type EquipmentFilters = {
-  heightRange: [number, number];
-  lengthRange: [number, number];
-  loadRange: [number, number];
+  maxWeight: number;
+  minLoad: number;
+  minHeight: number;
 };
 
 export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters: EquipmentFilters) => void }) {
   const initialFilters = {
-    heightRange: [0, 35],
-    lengthRange: [0, 20],
-    loadRange: [0, 16000]
+    maxWeight: 0,
+    minLoad: 0,
+    minHeight: 0
   };
 
   const [filters, setFilters] = useState(initialFilters);
@@ -40,54 +40,60 @@ export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters:
       <CardContent className="p-6">
         <div className="flex flex-col gap-6">
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-medium">최대 안전하중 (kg)</Label>
-              <span className="text-muted-foreground text-xs">
-                {filters.loadRange[0].toLocaleString()} - {filters.loadRange[1].toLocaleString()}
-              </span>
+            <Label htmlFor="maxWeight" className="text-sm font-medium">
+              최대 차체 무게
+            </Label>
+            <div className="relative">
+              <Input
+                id="maxWeight"
+                type="number"
+                min={0}
+                step="0.1"
+                placeholder="최대 차체 무게"
+                value={filters.maxWeight || ""}
+                onChange={(e) => setFilters({ ...filters, maxWeight: Number(e.target.value) || 0 })}
+                className="w-full pr-12"
+              />
+              <span className="text-muted-foreground absolute top-1/2 right-4 -translate-y-1/2 text-sm">ton</span>
             </div>
-            <Slider
-              min={0}
-              max={16000}
-              step={100}
-              value={filters.loadRange}
-              onValueChange={(value) => setFilters({ ...filters, loadRange: value })}
-              className="w-full"
-            />
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-medium">최대 인양높이 (m)</Label>
-              <span className="text-muted-foreground text-xs">
-                {filters.heightRange[0]} - {filters.heightRange[1]}
-              </span>
+            <Label htmlFor="minLoad" className="text-sm font-medium">
+              최소 안전하중
+            </Label>
+            <div className="relative">
+              <Input
+                id="minLoad"
+                type="number"
+                min={0}
+                step="0.1"
+                placeholder="최소 안전하중"
+                value={filters.minLoad || ""}
+                onChange={(e) => setFilters({ ...filters, minLoad: Number(e.target.value) || 0 })}
+                className="w-full pr-12"
+              />
+              <span className="text-muted-foreground absolute top-1/2 right-4 -translate-y-1/2 text-sm">ton</span>
             </div>
-            <Slider
-              min={0}
-              max={35}
-              step={1}
-              value={filters.heightRange}
-              onValueChange={(value) => setFilters({ ...filters, heightRange: value })}
-              className="w-full"
-            />
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-medium">최대 인양 길이 (m)</Label>
-              <span className="text-muted-foreground text-xs">
-                {filters.lengthRange[0]} - {filters.lengthRange[1]}
-              </span>
+            <Label htmlFor="minHeight" className="text-sm font-medium">
+              최소 인양높이
+            </Label>
+            <div className="relative">
+              <Input
+                id="minHeight"
+                type="number"
+                min={0}
+                step="0.1"
+                placeholder="최소 인양높이 입력"
+                value={filters.minHeight || ""}
+                onChange={(e) => setFilters({ ...filters, minHeight: Number(e.target.value) || 0 })}
+                className="w-full pr-12"
+              />
+              <span className="text-muted-foreground absolute top-1/2 right-4 -translate-y-1/2 text-sm">m</span>
             </div>
-            <Slider
-              min={0}
-              max={20}
-              step={0.5}
-              value={filters.lengthRange}
-              onValueChange={(value) => setFilters({ ...filters, lengthRange: value })}
-              className="w-full"
-            />
           </div>
         </div>
       </CardContent>
