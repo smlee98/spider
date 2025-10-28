@@ -9,7 +9,8 @@ export default function Catalog() {
   const [filters, setFilters] = useState({
     maxWeight: 0,
     minLoad: 0,
-    minHeight: 0
+    minHeight: 0,
+    accessoryType: ""
   });
 
   // 숫자 값 추출 헬퍼 함수
@@ -59,6 +60,24 @@ export default function Catalog() {
         }
       }
 
+      // 악세서리 타입 필터
+      if (filters.accessoryType) {
+        if (filters.accessoryType === "base_jib") {
+          // 기본 + 보조붐: 악세서리가 없거나 jib 타입이 있는 경우
+          const hasJib = equipment.accessories?.some((acc) => acc.accessoryType === "jib");
+          const hasNoAccessories = !equipment.accessories || equipment.accessories.length === 0;
+          if (!hasNoAccessories && !hasJib) {
+            return false;
+          }
+        } else {
+          // 다른 타입: 해당 악세서리 타입이 있는 경우만
+          const hasAccessoryType = equipment.accessories?.some((acc) => acc.accessoryType === filters.accessoryType);
+          if (!hasAccessoryType) {
+            return false;
+          }
+        }
+      }
+
       return true;
     });
   }, [filters]);
@@ -77,7 +96,7 @@ export default function Catalog() {
           <EquipmentFilters onFilterChange={setFilters} />
         </aside>
 
-        <EquipmentTable data={filteredData} />
+        <EquipmentTable data={filteredData} accessoryFilter={filters.accessoryType} />
       </div>
     </>
   );

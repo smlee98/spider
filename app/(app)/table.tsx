@@ -19,30 +19,97 @@ interface Equipment extends EquipmentType {
   type?: string; // 상세페이지 라우팅을 위한 타입
 }
 
-const ITEMS_PER_PAGE = 12;
+// 테이블 row 데이터 타입 (악세서리 정보가 확장됨)
+interface TableRowData {
+  brandName: string;
+  modelName: string;
+  type?: string;
+  accessoryName: string;
+  accessoryType?: string; // 필터링을 위한 악세서리 타입
+  dimensions: string;
+  bodyWeight: string;
+  maxSafeLoad: string;
+  maxLiftingHeight: string;
+  operatingMethod: string;
+  originalEquipment: Equipment; // 원본 장비 정보 (라우팅용)
+}
 
-export function EquipmentTable({ data }: { data: Equipment[] }) {
+const ITEMS_PER_PAGE = 10;
+
+export function EquipmentTable({ data, accessoryFilter }: { data: Equipment[]; accessoryFilter?: string }) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
+
+  // 장비 데이터를 악세서리별 row로 확장
+  const expandedData: TableRowData[] = data.flatMap((equipment) => {
+    // 기본 모델 row (악세서리 없는 상태)
+    const baseRow: TableRowData = {
+      brandName: equipment.brandName,
+      modelName: equipment.modelName,
+      type: equipment.type,
+      accessoryName: "-",
+      dimensions: equipment.dimensions || "-",
+      bodyWeight: equipment.bodyWeight || "-",
+      maxSafeLoad: equipment.maxSafeLoad || "-",
+      maxLiftingHeight: equipment.maxLiftingHeight || "-",
+      operatingMethod: equipment.operatingMethod || "-",
+      originalEquipment: equipment
+    };
+
+    if (!equipment.accessories || equipment.accessories.length === 0) {
+      // 악세서리가 없으면 기본 모델만 표시
+      return [baseRow];
+    }
+
+    // 악세서리가 있으면 각 악세서리 row 생성
+    const accessoryRows = equipment.accessories.map((accessory) => ({
+      brandName: equipment.brandName,
+      modelName: equipment.modelName,
+      type: equipment.type,
+      accessoryName: accessory.accessoryName,
+      accessoryType: accessory.accessoryType, // 필터링을 위해 추가
+      dimensions: accessory.dimensions || "-",
+      bodyWeight: accessory.bodyWeight || "-",
+      maxSafeLoad: accessory.maxSafeLoad || "-",
+      maxLiftingHeight: accessory.maxLiftingHeight || "-",
+      operatingMethod: equipment.operatingMethod || "-",
+      originalEquipment: equipment
+    }));
+
+    // 필터가 있으면 해당 악세서리 row만 반환
+    if (accessoryFilter) {
+      if (accessoryFilter === "base_jib") {
+        // 기본 + 보조붐: 기본 모델과 jib 악세서리만
+        const jibRows = accessoryRows.filter((row) => row.accessoryType === "jib");
+        return [baseRow, ...jibRows];
+      } else {
+        // 다른 타입: 해당 악세서리만
+        return accessoryRows.filter((row) => row.accessoryType === accessoryFilter);
+      }
+    }
+
+    // 필터가 없으면 기본 모델 + 모든 악세서리
+    return [baseRow, ...accessoryRows];
+  });
 
   // 데이터가 변경되면 1페이지로 리셋
   useEffect(() => {
     setCurrentPage(1);
-  }, [data.length]);
+  }, [expandedData.length]);
 
-  // 페이지네이션 계산
-  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+  // 페이지네이션 계산 (확장된 데이터 기준)
+  const totalPages = Math.ceil(expandedData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentData = data.slice(startIndex, endIndex);
+  const currentData = expandedData.slice(startIndex, endIndex);
 
   // 상세페이지로 이동
-  const handleRowClick = (equipment: Equipment) => {
-    if (!equipment.type) return;
+  const handleRowClick = (rowData: TableRowData) => {
+    if (!rowData.type) return;
 
-    const type = equipment.type;
-    const brand = equipment.brandName.toLowerCase();
-    const model = equipment.modelName.toLowerCase();
+    const type = rowData.type;
+    const brand = rowData.brandName.toLowerCase();
+    const model = rowData.modelName.toLowerCase();
 
     router.push(`/equipment/${type}/${brand}/${model}`);
   };
@@ -66,6 +133,7 @@ export function EquipmentTable({ data }: { data: Equipment[] }) {
             <TableRow className="bg-muted/50">
               <TableHead className="pl-4 font-semibold whitespace-nowrap">제작사</TableHead>
               <TableHead className="font-semibold whitespace-nowrap">모델명</TableHead>
+              <TableHead className="font-semibold whitespace-nowrap">악세서리</TableHead>
               <TableHead className="font-semibold whitespace-nowrap">치수 (LxWxH)</TableHead>
               <TableHead className="font-semibold whitespace-nowrap">차체 무게</TableHead>
               <TableHead className="font-semibold whitespace-nowrap">최대 안전하중</TableHead>
@@ -74,26 +142,20 @@ export function EquipmentTable({ data }: { data: Equipment[] }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentData.map((equipment: Equipment, index: number) => (
+            {currentData.map((rowData: TableRowData, index: number) => (
               <TableRow
                 key={index}
                 className="hover:bg-muted/30 cursor-pointer transition-colors"
-                onClick={() => handleRowClick(equipment)}
+                onClick={() => handleRowClick(rowData)}
               >
-                <TableCell className="pl-4 font-medium whitespace-nowrap">{equipment.brandName}</TableCell>
-                <TableCell className="whitespace-nowrap">
-                  {equipment.modelName}
-                  {equipment.accessories && equipment.accessories.length > 0 && (
-                    <span className="text-muted-foreground ml-1 text-xs">
-                      ({equipment.accessories.map((acc) => acc.accessoryName).join(", ")})
-                    </span>
-                  )}
-                </TableCell>
-                <TableCell className="text-sm whitespace-nowrap">{equipment.dimensions || "-"}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.bodyWeight || "-"}</TableCell>
-                <TableCell className="font-medium whitespace-nowrap">{equipment.maxSafeLoad || "-"}</TableCell>
-                <TableCell className="whitespace-nowrap">{equipment.maxLiftingHeight || "-"}</TableCell>
-                <TableCell className="pr-4 whitespace-nowrap">{equipment.operatingMethod || "-"}</TableCell>
+                <TableCell className="pl-4 font-medium whitespace-nowrap">{rowData.brandName}</TableCell>
+                <TableCell className="whitespace-nowrap">{rowData.modelName}</TableCell>
+                <TableCell className="text-sm whitespace-nowrap">{rowData.accessoryName}</TableCell>
+                <TableCell className="text-sm whitespace-nowrap">{rowData.dimensions}</TableCell>
+                <TableCell className="whitespace-nowrap">{rowData.bodyWeight}</TableCell>
+                <TableCell className="font-medium whitespace-nowrap">{rowData.maxSafeLoad}</TableCell>
+                <TableCell className="whitespace-nowrap">{rowData.maxLiftingHeight}</TableCell>
+                <TableCell className="pr-4 whitespace-nowrap">{rowData.operatingMethod}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -104,7 +166,7 @@ export function EquipmentTable({ data }: { data: Equipment[] }) {
       {totalPages > 1 && (
         <div className="flex items-center justify-between border-t px-4 py-2">
           <p className="text-muted-foreground text-sm">
-            총 <span className="text-foreground font-semibold">{data.length}</span>개의 장비
+            총 <span className="text-foreground font-semibold">{expandedData.length}</span>개의 항목
           </p>
           <Pagination className="mx-0 w-auto justify-normal">
             <PaginationContent>

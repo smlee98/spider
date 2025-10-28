@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -11,13 +12,15 @@ type EquipmentFilters = {
   maxWeight: number;
   minLoad: number;
   minHeight: number;
+  accessoryType: string;
 };
 
 export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters: EquipmentFilters) => void }) {
   const initialFilters = {
     maxWeight: 0,
     minLoad: 0,
-    minHeight: 0
+    minHeight: 0,
+    accessoryType: "base_jib"
   };
 
   const [filters, setFilters] = useState(initialFilters);
@@ -39,6 +42,25 @@ export function EquipmentFilters({ onFilterChange }: { onFilterChange: (filters:
       </CardHeader>
       <CardContent className="p-6">
         <div className="flex flex-col gap-6">
+          <div className="space-y-3">
+            <Label htmlFor="accessoryType" className="text-sm font-medium">
+              악세서리 타입
+            </Label>
+            <Select
+              value={filters.accessoryType}
+              onValueChange={(value) => setFilters({ ...filters, accessoryType: value })}
+            >
+              <SelectTrigger id="accessoryType" className="w-full">
+                <SelectValue placeholder="악세서리 타입 선택" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="base_jib">기본 + 보조붐</SelectItem>
+                <SelectItem value="grapple">집게</SelectItem>
+                <SelectItem value="glass">유리흡착기</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="space-y-3">
             <Label htmlFor="maxWeight" className="text-sm font-medium">
               최대 차체 무게

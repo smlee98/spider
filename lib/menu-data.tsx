@@ -58,7 +58,7 @@ export const menuData: MenuItem[] = [
       },
       {
         id: "etc",
-        title: "기타 장비",
+        title: "기타 장비 (집게, 유리흡착기 등)",
         href: "/equipment/etc"
       }
     ]

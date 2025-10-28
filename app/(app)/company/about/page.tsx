@@ -21,7 +21,8 @@ export default function AboutPage() {
               <p>저희 대명거미크레인 홈페이지를 방문해 주셔서 대단히 감사합니다.</p>
               <p>
                 저희 대명거미크레인는 다년간 크레인 임대 업계에 몸담고 축적된 노하우를 바탕으로 고객 여러분께 조금이나마
-                보탬이 되고자 오프라인 시장에서 보다 발전한 온라인 시장으로의 진출을위해 홈페이지를 오픈하게 되었습니다.
+                보탬이 되고자 오프라인 시장에서 보다 발전한 온라인 시장으로의 진출을 위해 홈페이지를 오픈하게
+                되었습니다.
               </p>
               <p>
                 오프라인의 풍부한 경험을 바탕으로 온라인이라는 빠른 장점을 가진 홈페이지와 결합으로 더욱 발전된 모습을
@@ -38,7 +39,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <Image src="/company/about/img001.png" width={470} height={470} alt="about" />
+          <Image src="/company/about/about2.png" width={520} height={520} alt="about" className="rotate-[-1.5deg]" />
         </div>
       </Container>
       <Separator />

@@ -17,18 +17,16 @@ export default function Home() {
             베테랑 기사들을 보유하고 있습니다.
           </h1>
         </div>
-        <div className="absolute top-24 right-8 z-10 flex flex-col justify-end gap-4">
+        <div className="absolute top-24 z-10 flex w-full items-start justify-between gap-4 px-8">
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo-platform.png" alt="logo-platform" className="h-6 w-auto lg:h-14" />
+              <img src="/logo.png" alt="logo" className="h-8 w-auto invert lg:h-24" />
             </picture>
-            <span className="tracking-widest">공식딜러</span>
           </div>
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo-befard.png" alt="logo-befard" className="h-6 w-auto lg:h-14" />
+              <img src="/logo-dealer-white.png" alt="logo-dealer" className="h-8 w-auto lg:h-12" />
             </picture>
-            <span className="tracking-widest">공식딜러</span>
           </div>
         </div>
         <div className="absolute bottom-24 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
@@ -46,7 +44,7 @@ export default function Home() {
           muted
           playsInline
         >
-          <source src="intro.mp4" type="video/mp4" />
+          <source src="/intro.mp4" type="video/mp4" />
         </video>
       </div>
       <Separator />

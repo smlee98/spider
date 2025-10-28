@@ -59,7 +59,7 @@ export default function SpiderPage() {
   return (
     <Container>
       <div className="flex flex-col gap-6">
-        <h1 className="text-foreground text-3xl font-black md:text-4xl">기타 장비</h1>
+        <h1 className="text-foreground text-3xl font-black md:text-4xl">기타 장비 (집게, 유리흡착기 등)</h1>
         <div className="grid gap-8 md:gap-10">
           {equipments.map((equipment, index) => (
             <EquipmentCard key={index} equipment={equipment} />

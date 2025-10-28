@@ -560,7 +560,7 @@ export const cranes: CraneType[] = [
                 powerSupply: "7.7kW 220VAC 50Hz",
                 additionalOptions: "",
                 accessoryName: "JIB500GR",
-                accessoryType: "jib"
+                accessoryType: "grapple"
               }
             ],
             description:
@@ -1248,42 +1248,42 @@ export const cranes: CraneType[] = [
             isTechnicalData: false,
             description:
               "픽&캐리에 특화된 BEFARD XM 800은 무선 조종 방식의 크레인으로 자국을 남기지 않는 트랙을 기본으로 탑재하여 실내외 어디에서나 작업할 수 있습니다. 배터리로 움직이기 때문에 친환경적인 것은 물론이고 픽&캐리가 아닌 보다 무거운 물건의 인양이 필요한 순간엔 트랙의 앞에 있는 확장 기능이 달린 아우트리거가 제 몫을 다 해줄 겁니다."
-          },
-          {
-            modelName: "XGR800",
-            dimensions: "2800 x 930 x 1600mm",
-            bodyWeight: "1600kg",
-            dryWeight: "",
-            counterWeight: "616kg\n(5kg x 40장)\n(16kg x 26장)",
-            maxSafeLoad: "800kg",
-            maxLiftingHeight: "5.5m",
-            maxLiftingLength: "3.7m",
-            maxHeightTipLoadWinch: "",
-            maxLengthTipLoadWinch: "",
-            maxHeightTipLoadHook: "350kg",
-            maxLengthTipLoadHook: "420kg",
-            workingAngle: "0° ~ 65°\n(↑95° ↓90°)\n(← 90° 90°→)",
-            hoistingSpeed: "",
-            slewingAngle: "",
-            slewingSpeed: "",
-            winchLength: "",
-            winchDiameter: "",
-            outriggerExtensionDimensions: "",
-            maxOutriggerLoad: "",
-            trackDimensions: "930mm",
-            speed: "2.2km/h",
-            climbingAbility: "25°",
-            groundPressure: "",
-            operatingMethod: "리튬 배터리",
-            powerType: "230V 50Hz",
-            powerPack: "",
-            powerSupply: "",
-            additionalOptions: "",
-            isBrochure: false,
-            isTechnicalData: false,
-            description:
-              "유리 조립 로봇 BEFARD XGR 및 XGRe는 무거운 유리와 창문을 조립하는 데 사용되는 캐터필러 방식의 매니퓰레이터입니다. 최대 5.55m 범위의 확장 장치를 장착할 수 있습니다. 기본으로 무선 조종 장치가 장착되어 있어 주행 및 기계 작동을 모두 지원합니다. 트랙 섀시를 사용하여 까다로운 건설 환경에서도 작업이 가능합니다."
           }
+          // {
+          //   modelName: "XGR800",
+          //   dimensions: "2800 x 930 x 1600mm",
+          //   bodyWeight: "1600kg",
+          //   dryWeight: "",
+          //   counterWeight: "616kg\n(5kg x 40장)\n(16kg x 26장)",
+          //   maxSafeLoad: "800kg",
+          //   maxLiftingHeight: "5.5m",
+          //   maxLiftingLength: "3.7m",
+          //   maxHeightTipLoadWinch: "",
+          //   maxLengthTipLoadWinch: "",
+          //   maxHeightTipLoadHook: "350kg",
+          //   maxLengthTipLoadHook: "420kg",
+          //   workingAngle: "0° ~ 65°\n(↑95° ↓90°)\n(← 90° 90°→)",
+          //   hoistingSpeed: "",
+          //   slewingAngle: "",
+          //   slewingSpeed: "",
+          //   winchLength: "",
+          //   winchDiameter: "",
+          //   outriggerExtensionDimensions: "",
+          //   maxOutriggerLoad: "",
+          //   trackDimensions: "930mm",
+          //   speed: "2.2km/h",
+          //   climbingAbility: "25°",
+          //   groundPressure: "",
+          //   operatingMethod: "리튬 배터리",
+          //   powerType: "230V 50Hz",
+          //   powerPack: "",
+          //   powerSupply: "",
+          //   additionalOptions: "",
+          //   isBrochure: false,
+          //   isTechnicalData: false,
+          //   description:
+          //     "유리 조립 로봇 BEFARD XGR 및 XGRe는 무거운 유리와 창문을 조립하는 데 사용되는 캐터필러 방식의 매니퓰레이터입니다. 최대 5.55m 범위의 확장 장치를 장착할 수 있습니다. 기본으로 무선 조종 장치가 장착되어 있어 주행 및 기계 작동을 모두 지원합니다. 트랙 섀시를 사용하여 까다로운 건설 환경에서도 작업이 가능합니다."
+          // }
         ]
       },
       {
