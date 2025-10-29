@@ -108,7 +108,7 @@ export function MobileNav({ user }: { user?: User }) {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="flex h-dvh w-dvw flex-col px-0">
+      <SheetContent side="right" className="z-[100] flex h-dvh w-dvw flex-col px-0">
         <SheetHeader className="px-6 pb-0">
           <SheetTitle>
             <MobileLink href="/" className="dark:invert" onOpenChange={setOpen}>
