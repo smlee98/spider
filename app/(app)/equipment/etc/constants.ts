@@ -3,7 +3,7 @@ export const equipments = [
     category: "유리흡착기",
     manufacturer: "Hoeflon",
     model: "VL500",
-    image: "industrial-glass-suction-lifting-device",
+    image: "vl500",
     specs: [
       { label: "무게", value: "40kg" },
       { label: "확장 무게패드", value: "52kg" },
@@ -17,7 +17,7 @@ export const equipments = [
     category: "무선 조종 대차",
     manufacturer: "Hoeflon",
     model: "TC1",
-    image: "industrial-wireless-remote-control-cart",
+    image: "tc1",
     specs: [
       { label: "무게", value: "40kg" },
       { label: "치수 (LxWxH)", value: "1450mm x 800mm x 420mm" },
@@ -29,9 +29,9 @@ export const equipments = [
     category: "무선 조종 후크",
     manufacturer: "Ludwig system",
     model: "Ludwig Hook",
-    image: "industrial-wireless-remote-control-lifting-hook",
+    image: "ludwig",
     specs: [
-      { label: "무게", value: "40kg" },
+      { label: "무게", value: "2.8kg" },
       { label: "치수 (LxWxH)", value: "102mm x 199mm x 120mm" },
       { label: "최대 인양 무게", value: "2000kg" },
       { label: "무선 제어 가능 거리", value: "50m" },
@@ -42,7 +42,7 @@ export const equipments = [
     category: "무선 조종 후크",
     manufacturer: "Ludwig system",
     model: "Ludwig Hook XL",
-    image: "industrial-heavy-duty-wireless-lifting-hook",
+    image: "ludwig",
     specs: [
       { label: "무게", value: "6.8kg" },
       { label: "치수 (LxWxH)", value: "179mm x 154mm x 249mm" },
@@ -55,7 +55,7 @@ export const equipments = [
     category: "자동 수평 조절 장치",
     manufacturer: "Ganterud Lifting Solutions",
     model: "Ganterud L5 Pro",
-    image: "industrial-automatic-leveling-lifting-device",
+    image: "ganterud_l5",
     specs: [
       { label: "무게", value: "126kg" },
       { label: "치수 (LxWxH)", value: "495mm x 503mm x 638mm" },

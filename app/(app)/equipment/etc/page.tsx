@@ -20,12 +20,12 @@ export default function SpiderPage() {
   const EquipmentCard = ({ equipment }: Equipment) => {
     return (
       <Card className="overflow-hidden py-0">
-        <div className="grid gap-6 md:grid-cols-[400px_1fr] lg:grid-cols-[500px_1fr]">
+        <div className="grid gap-x-6 md:grid-cols-[400px_1fr] lg:grid-cols-[500px_1fr]">
           {/* Image Section */}
-          <div className="bg-secondary relative aspect-[3/2] md:aspect-auto md:min-h-[400px]">
-            <picture>
+          <div className="bg-secondary relative md:min-h-[400px]">
+            <picture className="">
               <img
-                src={`/equipment/etc/${equipment.image}.jpg`}
+                src={`/equipment/etc/${equipment.image}.png`}
                 alt={`${equipment.manufacturer} ${equipment.model}`}
                 className="object-cover"
               />
