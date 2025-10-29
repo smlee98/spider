@@ -136,12 +136,12 @@ export default function EquipmentTypePage() {
             )}
           </div>
         </CardHeader>
-        <CardContent className="bg-muted flex aspect-square items-center justify-center">
+        <CardContent className="bg-muted flex aspect-square items-center justify-center p-6">
           <picture>
             <img
               src={`/equipment/${equipment.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
               alt={`${equipment.brandName}/${equipment.modelName}`}
-              className="h-auto max-h-[420px] w-full max-w-full"
+              className="object-cover"
             />
           </picture>
         </CardContent>
