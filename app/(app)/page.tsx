@@ -11,18 +11,18 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <div className="relative -mt-16 min-h-dvh overflow-hidden">
-        <div className="absolute flex size-full flex-col items-center justify-center gap-8 p-6 lg:gap-16">
+        {/* <div className="absolute flex size-full flex-col items-center justify-center gap-8 p-6 lg:gap-16">
           <h1 className="text-center text-3xl leading-snug font-bold tracking-tight text-pretty break-keep text-white sm:text-4xl md:text-5xl lg:text-7xl">
             철저한 안전 교육으로 사고 예방에 최선을 다하며 <br className="hidden md:block" /> 국내 최대의 크레인과
             베테랑 기사들을 보유하고 있습니다.
           </h1>
-        </div>
-        <div className="absolute top-24 z-10 flex w-full items-start justify-between gap-4 px-8">
-          <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
+        </div> */}
+        <div className="absolute top-24 right-0 z-10 flex items-start gap-4 px-8">
+          {/* <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
               <img src="/logo.png" alt="logo" className="h-8 w-auto invert lg:h-24" />
             </picture>
-          </div>
+          </div> */}
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
               <img src="/logo-dealer-white.png" alt="logo-dealer" className="h-8 w-auto lg:h-12" />
@@ -33,7 +33,7 @@ export default function Home() {
           <Animations variant="scrollDown" className="size-4! text-white lg:size-8!" />
           <span className="text-white">Scroll</span>
         </div>
-        <div className="absolute inset-0 -z-10 size-full min-w-full bg-black/70 select-none" />
+        <div className="absolute inset-0 -z-10 size-full min-w-full bg-black/50 select-none" />
         <video
           width="1920"
           height="960"
