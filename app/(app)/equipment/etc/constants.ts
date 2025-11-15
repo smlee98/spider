@@ -1,5 +1,19 @@
 export const equipments = [
   {
+    category: "집게",
+    manufacturer: "Hoeflon",
+    model: "MC1200",
+    image: "mc1200",
+    specs: [
+      { label: "무게", value: "340kg" },
+      { label: "최대 안전하중", value: "1250kg" },
+      { label: "상하 작업 각도", value: "상 103° ~ 하 100°" },
+      { label: "좌우 작업 각도", value: "좌 45° ~ 우 50°" },
+      { label: "회전 각도", value: "360°" },
+      { label: "인양 최대직경", value: "500mm 이하" }
+    ]
+  },
+  {
     category: "유리흡착기",
     manufacturer: "Hoeflon",
     model: "VL500",
