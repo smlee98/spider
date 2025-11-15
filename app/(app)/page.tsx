@@ -17,12 +17,12 @@ export default function Home() {
             베테랑 기사들을 보유하고 있습니다.
           </h1>
         </div> */}
-        <div className="absolute top-24 right-0 z-10 flex items-start gap-4 px-8">
-          {/* <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
+        <div className="absolute top-24 z-10 flex w-full items-start justify-between gap-4 px-8">
+          <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo.png" alt="logo" className="h-8 w-auto invert lg:h-24" />
+              <img src="/logo.png" alt="logo" className="h-8 w-auto invert lg:h-12" />
             </picture>
-          </div> */}
+          </div>
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
               <img src="/logo-dealer-white.png" alt="logo-dealer" className="h-8 w-auto lg:h-12" />
@@ -33,7 +33,6 @@ export default function Home() {
           <Animations variant="scrollDown" className="size-4! text-white lg:size-8!" />
           <span className="text-white">Scroll</span>
         </div>
-        <div className="absolute inset-0 -z-10 size-full min-w-full bg-black/50 select-none" />
         <video
           width="1920"
           height="960"
