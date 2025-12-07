@@ -48,7 +48,7 @@ export const menuData: MenuItem[] = [
         id: "boom-lift",
         title: "굴절식 고소작업대",
         href: "/equipment/boom-lift",
-        description: "Cela"
+        description: "Platform Basket · Cela"
       },
       {
         id: "crawler",

@@ -21,7 +21,10 @@ import { cranes, craneType, dictionaries, type Equipment } from "../../../consta
 
 export default function EquipmentDetailPage() {
   const router = useRouter();
-  const { type: typeParam, brand: brandParam, id: modelParam } = useParams();
+  const params = useParams();
+  const typeParam = params.type as string;
+  const brandParam = decodeURIComponent(params.brand as string);
+  const modelParam = decodeURIComponent(params.id as string);
   const [selectedAccessoryIndex, setSelectedAccessoryIndex] = useState<number>(-1);
 
   // menuData에서 해당 경로를 가진 메뉴 아이템 찾기
