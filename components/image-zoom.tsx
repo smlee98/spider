@@ -65,7 +65,7 @@ export function ImageZoom({ src, alt, className, zoomLevel = 2.5, magnifierSize 
     const yPercent = (mousePosition.y / height) * 100;
 
     return {
-      backgroundImage: `url(${src})`,
+      backgroundImage: `url("${src}")`,
       backgroundSize: `${width * zoomLevel}px ${height * zoomLevel}px`,
       backgroundPosition: `${xPercent}% ${yPercent}%`,
       backgroundRepeat: "no-repeat"
