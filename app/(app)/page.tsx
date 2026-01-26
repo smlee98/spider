@@ -102,10 +102,10 @@ export default function Home() {
               <CardContent className="p-8">
                 <div className="mb-6 flex items-start gap-4">
                   <picture className="size-16 shrink-0 overflow-hidden rounded-xl">
-                    <img src="/icon-befard.png" alt="icon-befard" />
+                    <img src="/icon-ruthmann.png" alt="icon-ruthmann" />
                   </picture>
                   <div>
-                    <h2 className="mb-2 text-2xl font-bold">Befard</h2>
+                    <h2 className="mb-2 text-2xl font-bold">Ruthmann Steiger</h2>
                     <Badge variant="outline" className="gap-1">
                       <CheckCircle2 className="h-3 w-3" />
                       공식 딜러
@@ -113,8 +113,8 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-muted-foreground mb-6 text-balance break-keep">
-                  Befard의 정품을 공급하는 공식 인증 딜러입니다. 모든 제품은 정식 유통 경로를 통해 공급되며, 품질을
-                  보증합니다.
+                  Ruthmann Steiger의 정품을 공급하는 공식 인증 딜러입니다. 모든 제품은 정식 유통 경로를 통해 공급되며,
+                  품질을 보증합니다.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-2 text-sm">
