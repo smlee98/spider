@@ -80,7 +80,8 @@ export function CommunityPostForm({
   const typeMap = {
     spider: "거미크레인",
     crawler: "크롤러 크레인",
-    "boom-lift": "굴절식 고소작업대"
+    "boom-lift": "굴절식 고소작업대",
+    "high-boom-lift": "초고소작업대"
   };
 
   return (

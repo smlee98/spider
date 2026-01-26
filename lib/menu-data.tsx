@@ -51,6 +51,12 @@ export const menuData: MenuItem[] = [
         description: "Platform Basket · Cela"
       },
       {
+        id: "high-boom-lift",
+        title: "초고소작업대",
+        href: "/equipment/high-boom-lift",
+        description: "Ruthmann Steiger"
+      },
+      {
         id: "crawler",
         title: "크롤러 크레인",
         href: "/equipment/crawler",

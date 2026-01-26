@@ -67,7 +67,7 @@ export function Construction() {
           <CarouselContent>
             {features.map((feature, index) => (
               <CarouselItem key={index} className="relative overflow-hidden">
-                <img src={feature.image} alt={feature.title} className="aspect-video w-full rounded-xl object-cover" />
+                <img src={encodeURI(feature.image)} alt={feature.title} className="aspect-video w-full rounded-xl object-cover" />
                 <div className="absolute top-0 left-4 z-10 size-full rounded-xl bg-[radial-gradient(100%_33%_at_left_bottom,rgba(0,0,0,0.65)_0%,rgba(255,255,255,0))]"></div>
                 <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center justify-center gap-1 text-white lg:bottom-8">
                   <h2
