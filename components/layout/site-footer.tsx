@@ -37,20 +37,27 @@ export function SiteFooter() {
           </div>
 
           {/* 섹션 인라인 */}
-          <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-4 lg:gap-20">
+          <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-5 lg:gap-20">
             {menuData.map((item) => (
               <div key={item.id}>
                 <h3 className="mb-4 text-sm font-semibold text-white">
                   {item.icon?.type === "image" ? (
-                    <picture>
-                      <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
-                    </picture>
+                    item.href ? (
+                      <a href={item.href} className="flex items-center gap-x-1.5">
+                        <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
+                        <ArrowUpRight className="size-4 shrink-0" />
+                      </a>
+                    ) : (
+                      <picture>
+                        <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
+                      </picture>
+                    )
                   ) : showArrowMenus.includes(item.id) ? (
                     <a
                       href={item.href || "#"}
                       className="flex items-center gap-x-1.5 text-sm leading-6 font-semibold text-white"
                     >
-                      {item.title} <ArrowUpRight className="size-4" />
+                      {item.title} <ArrowUpRight className="size-4 shrink-0" />
                     </a>
                   ) : (
                     item.title

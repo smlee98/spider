@@ -58,7 +58,13 @@ export function MainNav({ user }: { user?: User }) {
                 ) : (
                   <NavigationMenuLink className="px-4 font-medium" asChild>
                     <Link href={item.href || "#"} target={item.target}>
-                      {item.title}
+                      {item.icon?.type === "image" ? (
+                        <picture>
+                          <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
+                        </picture>
+                      ) : (
+                        item.title
+                      )}
                     </Link>
                   </NavigationMenuLink>
                 )}
@@ -147,7 +153,13 @@ export function MobileNav({ user }: { user?: User }) {
                   </Accordion>
                 ) : (
                   <MobileLink href={item.href || "#"} onOpenChange={setOpen} target={item.target}>
-                    {item.title}
+                    {item.icon?.type === "image" ? (
+                      <picture>
+                        <img src={item.icon.src} alt={item.icon.alt} className={item.icon.className} />
+                      </picture>
+                    ) : (
+                      item.title
+                    )}
                   </MobileLink>
                 )}
               </li>

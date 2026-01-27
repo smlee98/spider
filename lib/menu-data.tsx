@@ -115,6 +115,17 @@ export const menuData: MenuItem[] = [
         description: "도로/철도 겸용 자가 추진식 리프트"
       }
     ]
+  },
+  {
+    id: "ruthmann",
+    title: "Ruthmann",
+    href: "/ruthmann",
+    icon: {
+      type: "image",
+      src: "/logo-ruthmann.png",
+      alt: "ruthmann",
+      className: "h-6 w-auto"
+    }
   }
 ];
 
