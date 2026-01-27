@@ -23,9 +23,12 @@ export default function Home() {
               <img src="/logo.png" alt="logo" className="h-8 w-auto invert lg:h-12" />
             </picture>
           </div>
-          <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
+          <div className="flex items-center gap-4 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo-dealer-white.png" alt="logo-dealer" className="h-8 w-auto lg:h-12" />
+              <img src="/authorized-dealer.png" alt="authorized-dealer" className="h-8 w-auto lg:h-12" />
+            </picture>
+            <picture>
+              <img src="/official-dealer.png" alt="official-dealer" className="h-8 w-auto lg:h-12" />
             </picture>
           </div>
         </div>
