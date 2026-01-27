@@ -56,13 +56,13 @@ export default function RuthmannPage() {
       {/* 헤더 */}
       <div className="relative flex h-64 items-center justify-center bg-gradient-to-b from-[#f08a00] to-[#c97300]">
         <div className="absolute inset-0 bg-[url('/equipment/disegno.svg')] bg-cover bg-center opacity-10" />
-        <div className="z-10 flex flex-col items-center gap-4">
+        <div className="z-10 flex flex-col items-center gap-4 text-center">
           <h1 className="text-4xl font-black tracking-tight text-white">RUTHMANN</h1>
           <p className="text-lg font-medium text-white/90">STEIGER® - Truck-Mounted Aerial Work Platforms</p>
         </div>
       </div>
 
-      <Container>
+      <Container className="max-w-(--breakpoint-xl)">
         <div className="flex flex-col gap-12">
           {/* 소개 섹션 */}
           <div className="mx-auto max-w-4xl text-center">
@@ -79,7 +79,7 @@ export default function RuthmannPage() {
           </div>
 
           {/* 제품 그리드 */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {steigerProducts.map((product) => (
               <Link key={product.modelName} href={`/ruthmann/${product.modelName.toLowerCase()}`} className="group">
                 <Card className="h-full gap-0 overflow-hidden py-0 transition-all group-hover:ring-2 group-hover:ring-[#f08a00] hover:shadow-lg">

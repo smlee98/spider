@@ -20,7 +20,8 @@ const steigerProducts = {
       "/ruthmann/t700hf/gallery-3.jpg",
       "/ruthmann/t700hf/gallery-4.jpg"
     ],
-    workingDiagram: "/ruthmann/t700hf/working-diagram.png",
+    workingDiagramSide: "/ruthmann/t700hf/working-diagram-side.png",
+    workingDiagramTop: "/ruthmann/t700hf/working-diagram-top.jpg",
     features: [
       "70 m working height",
       "41 m outreach, 24.6 m upper boom outreach",
@@ -97,6 +98,7 @@ const steigerProducts = {
     tagline: "SKY performance",
     image: "/equipment/Ruthmann Steiger/T900HF/T900HF.png",
     gallery: ["/ruthmann/t900hf/gallery-1.jpg"],
+    dualConceptPhoto: "/ruthmann/t900hf/crane-photo.jpg",
     skyPerformance: "/ruthmann/t900hf/sky-performance.jpg",
     heightPerformance: "/ruthmann/t900hf/height-performance.jpg",
     dualConcept: true,
@@ -138,6 +140,7 @@ const steigerProducts = {
     tagline: "The difference maker",
     image: "/equipment/Ruthmann Steiger/T1000HF/T1000HF.png",
     gallery: ["/ruthmann/t1000hf/gallery-1.jpg", "/ruthmann/t1000hf/gallery-2.jpg", "/ruthmann/t1000hf/gallery-3.jpg"],
+    dualConceptPhoto: "/ruthmann/t1000hf/crane-photo.jpg",
     skyPerformance: "/ruthmann/t1000hf/sky-performance.jpg",
     heightPerformance: "/ruthmann/t1000hf/height-performance.jpg",
     brochure: "/ruthmann/t1000hf/brochure.pdf",
@@ -192,7 +195,7 @@ export default function RuthmannDetailPage() {
         </div>
       </div>
 
-      <Container>
+      <Container className="max-w-(--breakpoint-xl)">
         <div className="flex flex-col gap-12">
           {/* 뒤로가기 버튼 */}
           <div className="flex items-center justify-between">
@@ -266,80 +269,109 @@ export default function RuthmannDetailPage() {
               {"dualConceptDescription" in product && (
                 <p className="text-muted-foreground">{product.dualConceptDescription}</p>
               )}
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {"skyPerformance" in product && product.skyPerformance && (
+              {/* T1000HF: 3개 이미지 나란히 (사진 + SKY + HEIGHT) */}
+              {"dualConceptPhoto" in product && product.dualConceptPhoto && (
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <Card className="flex flex-col gap-0 overflow-hidden py-0">
-                    <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-4">
-                      <h3 className="text-center text-lg font-semibold">SKY Performance Mode</h3>
-                      <div className="flex aspect-[4/3] items-center justify-center">
+                    <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                      <div className="flex aspect-[3/4] flex-1 items-center justify-center overflow-hidden rounded-lg">
                         <img
-                          src={product.skyPerformance}
-                          alt="SKY Performance Mode"
-                          className="h-full w-full rounded-lg object-contain"
+                          src={product.dualConceptPhoto}
+                          alt="T1000HF in action"
+                          className="h-full w-full object-cover"
                         />
                       </div>
                     </CardContent>
                   </Card>
-                )}
-                {"heightPerformance" in product && product.heightPerformance && (
-                  <Card className="flex flex-col gap-0 overflow-hidden py-0">
-                    <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-4">
-                      <h3 className="text-center text-lg font-semibold">HEIGHT Performance Mode</h3>
-                      <div className="flex aspect-[4/3] items-center justify-center">
-                        <img
-                          src={product.heightPerformance}
-                          alt="HEIGHT Performance Mode"
-                          className="h-full w-full rounded-lg object-contain"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-                {"workingDiagramSky" in product && product.workingDiagramSky && (
-                  <Card className="flex flex-col gap-0 overflow-hidden py-0">
-                    <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-4">
-                      <h3 className="text-center text-lg font-semibold">Working Diagram (SKY)</h3>
-                      <div className="flex aspect-[4/3] items-center justify-center">
-                        <img
-                          src={product.workingDiagramSky}
-                          alt="Working Diagram SKY"
-                          className="h-full w-full rounded-lg object-contain"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-                {"workingDiagramHeight" in product && product.workingDiagramHeight && (
-                  <Card className="flex flex-col gap-0 overflow-hidden py-0">
-                    <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-4">
-                      <h3 className="text-center text-lg font-semibold">Working Diagram (HEIGHT)</h3>
-                      <div className="flex aspect-[4/3] items-center justify-center">
-                        <img
-                          src={product.workingDiagramHeight}
-                          alt="Working Diagram HEIGHT"
-                          className="h-full w-full rounded-lg object-contain"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
+                  {"skyPerformance" in product && product.skyPerformance && (
+                    <Card className="flex flex-col gap-0 overflow-hidden py-0">
+                      <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                        <div className="flex aspect-[3/4] flex-1 items-center justify-center bg-white">
+                          <img
+                            src={product.skyPerformance}
+                            alt="SKY Performance Mode"
+                            className="h-full w-full rounded-lg object-fill"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                  {"heightPerformance" in product && product.heightPerformance && (
+                    <Card className="flex flex-col gap-0 overflow-hidden py-0">
+                      <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                        <div className="flex aspect-[3/4] flex-1 items-center justify-center bg-white">
+                          <img
+                            src={product.heightPerformance}
+                            alt="HEIGHT Performance Mode"
+                            className="h-full w-full rounded-lg object-fill"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              )}
+              {/* T750HF: workingDiagram 2개 그리드 */}
+              {!("dualConceptPhoto" in product) && (
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  {"workingDiagramSky" in product && product.workingDiagramSky && (
+                    <Card className="flex flex-col gap-0 overflow-hidden pb-0">
+                      <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                        <div className="flex aspect-[4/3] flex-1 items-center justify-center bg-white">
+                          <img
+                            src={product.workingDiagramSky}
+                            alt="Working Diagram SKY"
+                            className="h-full w-full rounded-lg object-fill"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                  {"workingDiagramHeight" in product && product.workingDiagramHeight && (
+                    <Card className="flex flex-col gap-0 overflow-hidden pb-0">
+                      <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                        <div className="flex aspect-[4/3] flex-1 items-center justify-center bg-white">
+                          <img
+                            src={product.workingDiagramHeight}
+                            alt="Working Diagram HEIGHT"
+                            className="h-full w-full rounded-lg object-fill"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Working Diagram (T700HF) */}
-          {"workingDiagram" in product && product.workingDiagram && (
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold">Working Diagram</h2>
+          {/* Working Diagram (T700HF) - 2개 나란히 */}
+          {"workingDiagramSide" in product && product.workingDiagramSide && (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Card className="flex flex-col gap-0 overflow-hidden py-0">
-                <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-4">
-                  <img
-                    src={product.workingDiagram}
-                    alt="Working Diagram"
-                    className="max-h-[500px] w-full object-contain"
-                  />
+                <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                  <div className="flex aspect-[4/3] flex-1 items-center justify-center bg-white">
+                    <img
+                      src={product.workingDiagramSide}
+                      alt="Working Diagram - Side View"
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
                 </CardContent>
               </Card>
+              {"workingDiagramTop" in product && product.workingDiagramTop && (
+                <Card className="flex flex-col gap-0 overflow-hidden py-0">
+                  <CardContent className="bg-muted flex flex-1 flex-col gap-4 p-0">
+                    <div className="flex aspect-[4/3] flex-1 items-center justify-center bg-white">
+                      <img
+                        src={product.workingDiagramTop}
+                        alt="Working Diagram - Top View"
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           )}
 
