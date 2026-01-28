@@ -37,7 +37,7 @@ export function SiteFooter() {
           </div>
 
           {/* 섹션 인라인 */}
-          <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-5 lg:gap-20">
+          <div className="grid w-full grid-cols-1 gap-6 md:col-span-2 md:grid-cols-3 lg:gap-20">
             {menuData.map((item) => (
               <div key={item.id}>
                 <h3 className="mb-4 text-sm font-semibold text-white">

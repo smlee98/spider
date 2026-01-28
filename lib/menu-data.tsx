@@ -54,7 +54,7 @@ export const menuData: MenuItem[] = [
         id: "high-boom-lift",
         title: "초고소작업대",
         href: "/equipment/high-boom-lift",
-        description: "Ruthmann Steiger"
+        description: "STEIGER® | RUTHMANN"
       },
       {
         id: "crawler",
@@ -124,7 +124,7 @@ export const menuData: MenuItem[] = [
       type: "image",
       src: "/logo-ruthmann.png",
       alt: "ruthmann",
-      className: "h-6 w-auto"
+      className: "h-5 w-auto"
     }
   }
 ];

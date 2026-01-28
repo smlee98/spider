@@ -20,16 +20,22 @@ export default function Home() {
         <div className="absolute top-24 z-10 flex w-full items-start justify-between gap-4 px-8">
           <div className="flex flex-col items-center gap-1 text-lg font-semibold text-white">
             <picture>
-              <img src="/logo.png" alt="logo" className="h-8 w-auto invert lg:h-12" />
+              <img src="/logo.png" alt="logo" className="h-8 w-auto shrink-0 invert lg:h-12" />
             </picture>
           </div>
-          <div className="flex items-center gap-4 text-lg font-semibold text-white">
-            <picture>
-              <img src="/authorized-dealer.png" alt="authorized-dealer" className="h-8 w-auto lg:h-12" />
-            </picture>
-            <picture>
-              <img src="/official-dealer.png" alt="official-dealer" className="h-8 w-auto lg:h-12" />
-            </picture>
+          <div className="flex flex-col items-end gap-4 text-lg font-semibold text-white lg:flex-row">
+            <div className="flex flex-col items-end select-none lg:items-center">
+              <picture>
+                <img src="/logo-platform.png" alt="logo-platform" className="h-6 w-auto lg:h-7" />
+              </picture>
+              <span className="text-sm whitespace-nowrap lg:text-lg">Authorized Dealer</span>
+            </div>
+            <div className="flex flex-col items-end select-none lg:items-center">
+              <picture>
+                <img src="/logo-ruthmann.png" alt="logo-ruthmann" className="h-4 w-auto lg:h-5" />
+              </picture>
+              <span className="text-sm whitespace-nowrap lg:text-lg">Official Dealer</span>
+            </div>
           </div>
         </div>
         <div className="absolute bottom-24 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
@@ -108,7 +114,7 @@ export default function Home() {
                     <img src="/icon-ruthmann.png" alt="icon-ruthmann" />
                   </picture>
                   <div>
-                    <h2 className="mb-2 text-2xl font-bold">Ruthmann Steiger</h2>
+                    <h2 className="mb-2 text-2xl font-bold">STEIGER® | RUTHMANN</h2>
                     <Badge variant="outline" className="gap-1">
                       <CheckCircle2 className="h-3 w-3" />
                       공식 딜러
@@ -116,8 +122,8 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-muted-foreground mb-6 text-balance break-keep">
-                  Ruthmann Steiger의 정품을 공급하는 공식 인증 딜러입니다. 모든 제품은 정식 유통 경로를 통해 공급되며,
-                  품질을 보증합니다.
+                  STEIGER® | RUTHMANN의 정품을 공급하는 공식 인증 딜러입니다. 모든 제품은 정식 유통 경로를 통해
+                  공급되며, 품질을 보증합니다.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-2 text-sm">
