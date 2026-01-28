@@ -66,7 +66,7 @@ export default function RuthmannPage() {
         <div className="flex flex-col gap-12">
           {/* 소개 섹션 */}
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="mb-6 text-3xl font-bold">RUTHMANN STEIGER®</h2>
+            <h2 className="mb-6 text-3xl font-bold">STEIGER® | RUTHMANN</h2>
             <p className="text-muted-foreground mb-4 text-lg leading-relaxed text-balance">
               We like to compare our company principles to those of a mountain climber. Dedication, intelligence,
               perseverance, and goal orientation will safely get us to the top of the mountain. The key to success is

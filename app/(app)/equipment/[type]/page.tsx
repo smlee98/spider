@@ -48,12 +48,14 @@ export default function EquipmentTypePage() {
     notFound();
   }
 
-  // 모든 장비를 하나의 배열로 합치기 (브랜드 정보 포함)
+  // 모든 장비를 하나의 배열로 합치기 (브랜드 정보 포함, isHidden 제외)
   const allEquipments = typeData.brands.flatMap((brand) =>
-    brand.equipments.map((equipment) => ({
-      ...equipment,
-      brandName: brand.brandName
-    }))
+    brand.equipments
+      .filter((equipment) => !equipment.isHidden)
+      .map((equipment) => ({
+        ...equipment,
+        brandName: brand.brandName
+      }))
   );
 
   // 정렬 함수
@@ -109,7 +111,7 @@ export default function EquipmentTypePage() {
         <CardHeader className="gap-0 border-b !p-4">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
-              <Badge>{equipment.brandName}</Badge>
+              <Badge>{equipment.brandName === "Ruthmann Steiger" ? "STEIGER® | RUTHMANN" : equipment.brandName}</Badge>
               <CardTitle className="text-lg">{equipment.modelName}</CardTitle>
             </div>
             {equipment.accessories && equipment.accessories.length > 0 ? (
@@ -136,7 +138,7 @@ export default function EquipmentTypePage() {
             )}
           </div>
         </CardHeader>
-        <CardContent className="bg-muted flex aspect-square items-center justify-center p-6">
+        <CardContent className="bg-muted relative flex aspect-square items-center justify-center p-6">
           <picture>
             <img
               src={`/equipment/${equipment.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
@@ -144,6 +146,13 @@ export default function EquipmentTypePage() {
               className="object-cover"
             />
           </picture>
+          {equipment.comingSoon && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/25">
+              <span className="rounded-lg bg-orange-500 px-4 py-2 text-lg font-bold text-white">
+                {equipment.comingSoon}
+              </span>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="gap-0 p-0!">
           <div className="grid w-full grid-cols-3 divide-x border-t">
@@ -183,11 +192,16 @@ export default function EquipmentTypePage() {
             <div className="max-w-full overflow-x-auto">
               <TabsList>
                 <TabsTrigger value="all">전체 ({allEquipments.length})</TabsTrigger>
-                {sortedBrands.map((brand) => (
-                  <TabsTrigger key={brand.brandName} value={brand.brandName}>
-                    {brand.brandName} ({brand.equipments.length})
-                  </TabsTrigger>
-                ))}
+                {sortedBrands.map((brand) => {
+                  const visibleCount = brand.equipments.filter((e) => !e.isHidden).length;
+                  if (visibleCount === 0) return null;
+                  return (
+                    <TabsTrigger key={brand.brandName} value={brand.brandName}>
+                      {brand.brandName === "Ruthmann Steiger" ? "STEIGER® | RUTHMANN" : brand.brandName} (
+                      {visibleCount})
+                    </TabsTrigger>
+                  );
+                })}
               </TabsList>
             </div>
             {activeTab === "all" && (
@@ -218,15 +232,19 @@ export default function EquipmentTypePage() {
           </TabsContent>
 
           {/* 브랜드별 탭 */}
-          {sortedBrands.map((brand) => (
-            <TabsContent key={brand.brandName} value={brand.brandName}>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                {brand.equipments.map((equipment) => (
-                  <EquipmentCard key={equipment.modelName} equipment={{ ...equipment, brandName: brand.brandName }} />
-                ))}
-              </div>
-            </TabsContent>
-          ))}
+          {sortedBrands.map((brand) => {
+            const visibleEquipments = brand.equipments.filter((e) => !e.isHidden);
+            if (visibleEquipments.length === 0) return null;
+            return (
+              <TabsContent key={brand.brandName} value={brand.brandName}>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  {visibleEquipments.map((equipment) => (
+                    <EquipmentCard key={equipment.modelName} equipment={{ ...equipment, brandName: brand.brandName }} />
+                  ))}
+                </div>
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </div>
     </Container>

@@ -143,7 +143,9 @@ export default function EquipmentDetailPage() {
           <div className="flex flex-col gap-6">
             <div className="flex items-end justify-between gap-4">
               <div className="flex flex-col">
-                <h4 className="text-muted-foreground font-semibold">{brand.brandName}</h4>
+                <h4 className="text-muted-foreground font-semibold">
+                  {brand.brandName === "Ruthmann Steiger" ? "STEIGER® | RUTHMANN" : brand.brandName}
+                </h4>
                 <h1 className="text-foreground text-3xl font-black md:text-4xl">{equipment.modelName}</h1>
               </div>
               <Button variant="outline" onClick={() => router.back()}>
@@ -177,12 +179,21 @@ export default function EquipmentDetailPage() {
             )}
 
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-              <ImageZoom
-                src={`/equipment/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
-                alt={`${brand.brandName}/${equipment.modelName}`}
-                className="w-full"
-                zoomLevel={3.5}
-              />
+              <div className="group relative">
+                <ImageZoom
+                  src={`/equipment/${brand.brandName}/${equipment.modelName}/${equipment.modelName}.png`}
+                  alt={`${brand.brandName}/${equipment.modelName}`}
+                  className="w-full"
+                  zoomLevel={3.5}
+                />
+                {equipment.comingSoon && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-black/25 transition-opacity group-hover:opacity-0">
+                    <span className="rounded-lg bg-orange-500 px-6 py-3 text-xl font-bold text-white">
+                      {equipment.comingSoon}
+                    </span>
+                  </div>
+                )}
+              </div>
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 [&>[data-slot='card']]:flex-1">
                 <Card className="col-span-full">

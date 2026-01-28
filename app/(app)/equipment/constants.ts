@@ -106,6 +106,8 @@ export type Equipment = {
   isTechnicalData: boolean;
   accessories?: Accessory[];
   description?: string;
+  isHidden?: boolean; // 목록에서 숨김
+  comingSoon?: string; // 입고 예정 표시 (예: "10월 입고 예정")
 };
 
 export type Brand = {
@@ -2030,7 +2032,8 @@ export const cranes: CraneType[] = [
             isBrochure: false,
             isTechnicalData: false,
             description:
-              "HF 시리즈의 검증된 하이플렉스(highflex) 기능은 T700HF를 모든 상황에 적합한 다목적 장비로 만들어줍니다. 작업 바스켓은 440°로 회전할 수 있기에 파이프라인이나 지붕 구조물과 같은 장애물 뒤에서 최적의 작업이 가능합니다. 작업 바스켓과 연결된 2m 길이의 붐대는 상하로 220°까지 움직이기에 작업 바스켓을 세운 상태에서 아래로 작업하거나 위로 작업할 수 있는 유연한 활용성을 제공합니다."
+              "HF 시리즈의 검증된 하이플렉스(highflex) 기능은 T700HF를 모든 상황에 적합한 다목적 장비로 만들어줍니다. 작업 바스켓은 440°로 회전할 수 있기에 파이프라인이나 지붕 구조물과 같은 장애물 뒤에서 최적의 작업이 가능합니다. 작업 바스켓과 연결된 2m 길이의 붐대는 상하로 220°까지 움직이기에 작업 바스켓을 세운 상태에서 아래로 작업하거나 위로 작업할 수 있는 유연한 활용성을 제공합니다.",
+            isHidden: true
           },
           {
             modelName: "T750HF",
@@ -2065,7 +2068,8 @@ export const cranes: CraneType[] = [
             isBrochure: false,
             isTechnicalData: false,
             description:
-              "HF 시리즈의 검증된 하이플렉스(highflex) 기능은 T750HF를 모든 상황에 적합한 다목적 장비로 만들어줍니다. T700HF에서 한 걸음 더 나아가 75m의 최대 작업 높이와 42.2m의 최대 작업 길이를 자랑합니다. 작업 바스켓은 440°로 회전할 수 있기에 파이프라인이나 지붕 구조물과 같은 장애물 뒤에서 최적의 작업이 가능합니다."
+              "HF 시리즈의 검증된 하이플렉스(highflex) 기능은 T750HF를 모든 상황에 적합한 다목적 장비로 만들어줍니다. T700HF에서 한 걸음 더 나아가 75m의 최대 작업 높이와 42.2m의 최대 작업 길이를 자랑합니다. 작업 바스켓은 440°로 회전할 수 있기에 파이프라인이나 지붕 구조물과 같은 장애물 뒤에서 최적의 작업이 가능합니다.",
+            isHidden: true
           },
           {
             modelName: "T900HF",
@@ -2100,7 +2104,8 @@ export const cranes: CraneType[] = [
             isBrochure: false,
             isTechnicalData: false,
             description:
-              "STEIGER® T900HF는 DRS(Dynamic Reach System)과 혁신적인 듀얼 컨셉을 탑재했습니다. T900HF는 현재 트럭 탑재형 작업 플랫폼 부문에서 90m급 대형 장비 중 가장 뛰어난 유연성을 자랑하며, 최대 길이는 42m에 달합니다. 루트만의 특징이라고 할 수 있는 가벼움과 컴팩트함, 그리고 튼튼함은 항상 지켜지고 있습니다."
+              "STEIGER® T900HF는 DRS(Dynamic Reach System)과 혁신적인 듀얼 컨셉을 탑재했습니다. T900HF는 현재 트럭 탑재형 작업 플랫폼 부문에서 90m급 대형 장비 중 가장 뛰어난 유연성을 자랑하며, 최대 길이는 42m에 달합니다. 루트만의 특징이라고 할 수 있는 가벼움과 컴팩트함, 그리고 튼튼함은 항상 지켜지고 있습니다.",
+            isHidden: true
           },
           {
             modelName: "T1000HF",
@@ -2135,7 +2140,8 @@ export const cranes: CraneType[] = [
             isBrochure: false,
             isTechnicalData: false,
             description:
-              "STEIGER® T1000HF는 최대 100미터의 작업 높이와 최대 39미터의 작업 길이를 자랑하며 일반적인 100m 초고소작업대에 비해서 10미터 더 넓은 작업 공간을 제공합니다. 총중량 53톤 이상의 표준 섀시를 기반으로 제작된 STEIGER® T1000HF는 유사 모델보다 10톤 정도 가벼우며 전체 길이도 16.35m에 불과합니다."
+              "STEIGER® T1000HF는 최대 100미터의 작업 높이와 최대 39미터의 작업 길이를 자랑하며 일반적인 100m 초고소작업대에 비해서 10미터 더 넓은 작업 공간을 제공합니다. 총중량 53톤 이상의 표준 섀시를 기반으로 제작된 STEIGER® T1000HF는 유사 모델보다 10톤 정도 가벼우며 전체 길이도 16.35m에 불과합니다.",
+            comingSoon: "10월 입고 예정"
           }
         ]
       }
