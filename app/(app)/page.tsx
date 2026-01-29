@@ -24,18 +24,12 @@ export default function Home() {
             </picture>
           </div>
           <div className="flex flex-col items-end gap-4 text-lg font-semibold text-white lg:flex-row">
-            <div className="flex flex-col items-end select-none lg:items-center">
-              <picture>
-                <img src="/logo-platform.png" alt="logo-platform" className="h-6 w-auto lg:h-7" />
-              </picture>
-              <span className="text-sm whitespace-nowrap lg:text-lg">Authorized Dealer</span>
-            </div>
-            <div className="flex flex-col items-end select-none lg:items-center">
-              <picture>
-                <img src="/logo-ruthmann.png" alt="logo-ruthmann" className="h-4 w-auto lg:h-5" />
-              </picture>
-              <span className="text-sm whitespace-nowrap lg:text-lg">Official Dealer</span>
-            </div>
+            <picture>
+              <img src="/authorized-dealer.png" alt="authorized-dealer" className="h-8 w-auto lg:h-10" />
+            </picture>
+            <picture>
+              <img src="/official-dealer.png" alt="official-dealer" className="h-6 w-auto lg:h-8" />
+            </picture>
           </div>
         </div>
         <div className="absolute bottom-24 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
