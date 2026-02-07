@@ -1850,7 +1850,7 @@ export const cranes: CraneType[] = [
             bodyWeight: "6800kg",
             dryWeight: "",
             counterWeight: "",
-            maxSafeLoad: "230kg",
+            maxSafeLoad: "300kg",
             maxLiftingHeight: "30.4m",
             maxLiftingLength: "15.6m",
             maxHeightTipLoadWinch: "",
