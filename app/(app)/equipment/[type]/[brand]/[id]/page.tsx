@@ -7,15 +7,14 @@ import { ImageZoom } from "@/components/image-zoom";
 import Container from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getMenuById } from "@/lib/menu-data";
 import { Post, User } from "@prisma/client";
 import { format } from "date-fns";
 import { ArrowLeft, BookText, CloudDownload, Cog, ImageOff, Quote, Ruler } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { cranes, craneType, dictionaries, type Equipment } from "../../../constants";
 
@@ -25,7 +24,7 @@ export default function EquipmentDetailPage() {
   const typeParam = params.type as string;
   const brandParam = decodeURIComponent(params.brand as string);
   const modelParam = decodeURIComponent(params.id as string);
-  const [selectedAccessoryIndex, setSelectedAccessoryIndex] = useState<number>(-1);
+  const [specImages, setSpecImages] = useState<string[]>([]);
 
   // menuData에서 해당 경로를 가진 메뉴 아이템 찾기
   const equipmentMenu = getMenuById("equipment");
@@ -52,69 +51,28 @@ export default function EquipmentDetailPage() {
     notFound();
   }
 
-  // 현재 표시할 데이터 결정: 악세서리가 선택되었으면 해당 악세서리 데이터, 아니면 기본 데이터
-  const currentData =
-    selectedAccessoryIndex >= 0 && equipment.accessories?.[selectedAccessoryIndex]
-      ? equipment.accessories[selectedAccessoryIndex]
-      : equipment;
-
   // 악세서리가 있는지 확인
   const hasAccessories = equipment.accessories && equipment.accessories.length > 0;
 
-  // 숫자 추출 함수
-  const extractNumber = (value: string): number => {
-    if (!value) return 0;
-    const match = value.match(/[-]?\d+(\.\d+)?/);
-    return match ? parseFloat(match[0]) : 0;
-  };
-
-  // 값 비교 후 색상 클래스 반환 (카드용)
-  const getValueColor = (currentValue: string, field: keyof Equipment): string => {
-    // 기본 탭일 때는 항상 검정색
-    if (selectedAccessoryIndex === -1) {
-      return "";
-    }
-
-    // 항상 기본 탭(equipment)과 비교
-    const currentNum = extractNumber(currentValue);
-    const baseNum = extractNumber(equipment[field] as string);
-
-    if (currentNum > baseNum) {
-      return "text-green-600";
-    } else if (currentNum < baseNum) {
-      return "text-red-600";
-    }
-    return "";
-  };
-
-  // 증감값 계산 및 표시 (테이블용)
-  const getValueDiff = (
-    currentValue: string,
-    field: keyof Equipment
-  ): { diff: number; absDiff: number; unit: string } | null => {
-    // 기본 탭일 때는 증감 표시 안 함
-    if (selectedAccessoryIndex === -1) {
-      return null;
-    }
-
-    // 항상 기본 탭(equipment)과 비교
-    const currentNum = extractNumber(currentValue);
-    const baseNum = extractNumber(equipment[field] as string);
-
-    if (currentNum === baseNum) {
-      return null;
-    }
-
-    // 소수점 둘째자리에서 반올림
-    const diff = Math.round((currentNum - baseNum) * 100) / 100;
-    const absDiff = Math.abs(diff);
-
-    // 단위 추출 (kg, m 등)
-    const unitMatch = currentValue.match(/[a-zA-Z가-힣]+/);
-    const unit = unitMatch ? unitMatch[0] : "";
-
-    return { diff, absDiff, unit };
-  };
+  // 제원표 이미지 로드
+  useEffect(() => {
+    const loadSpecImages = async () => {
+      const images: string[] = [];
+      for (let i = 1; i <= 6; i++) {
+        const imgPath = `/equipment/${brand.brandName}/${equipment.modelName}/spec/${i}.jpg`;
+        try {
+          const res = await fetch(imgPath, { method: "HEAD" });
+          if (res.ok) {
+            images.push(imgPath);
+          }
+        } catch {
+          // 이미지가 없으면 무시
+        }
+      }
+      setSpecImages(images);
+    };
+    loadSpecImages();
+  }, [brand.brandName, equipment.modelName]);
 
   // HTML 콘텐츠에서 첫 번째 이미지 URL 추출
   function extractFirstImage(htmlContent: string): string | null {
@@ -136,6 +94,76 @@ export default function EquipmentDetailPage() {
     fetcher
   );
 
+  // 테이블에 표시할 필드 목록
+  const specFields: { category: string; fields: { key: keyof Equipment; label: string }[] }[] = [
+    {
+      category: "제원",
+      fields: [
+        { key: "dimensions", label: dictionaries.dimensions },
+        { key: "bodyWeight", label: dictionaries.bodyWeight },
+        { key: "dryWeight", label: dictionaries.dryWeight },
+        { key: "counterWeight", label: dictionaries.counterWeight },
+        { key: "maxSafeLoad", label: dictionaries.maxSafeLoad }
+      ]
+    },
+    {
+      category: "작업 제원",
+      fields: [
+        { key: "maxLiftingHeight", label: dictionaries.maxLiftingHeight },
+        { key: "maxLiftingLength", label: dictionaries.maxLiftingLength },
+        { key: "maxHeightTipLoadWinch", label: dictionaries.maxHeightTipLoadWinch },
+        { key: "maxLengthTipLoadWinch", label: dictionaries.maxLengthTipLoadWinch },
+        { key: "maxHeightTipLoadHook", label: dictionaries.maxHeightTipLoadHook },
+        { key: "maxLengthTipLoadHook", label: dictionaries.maxLengthTipLoadHook },
+        { key: "workingAngle", label: dictionaries.workingAngle },
+        { key: "hoistingSpeed", label: dictionaries.hoistingSpeed }
+      ]
+    },
+    {
+      category: "선회",
+      fields: [
+        { key: "slewingAngle", label: dictionaries.slewingAngle },
+        { key: "slewingSpeed", label: dictionaries.slewingSpeed }
+      ]
+    },
+    {
+      category: "와이어",
+      fields: [
+        { key: "winchLength", label: dictionaries.winchLength },
+        { key: "winchDiameter", label: dictionaries.winchDiameter }
+      ]
+    },
+    {
+      category: "아웃트리거",
+      fields: [
+        { key: "outriggerExtensionDimensions", label: dictionaries.outriggerExtensionDimensions },
+        { key: "maxOutriggerLoad", label: dictionaries.maxOutriggerLoad }
+      ]
+    },
+    {
+      category: "트랙",
+      fields: [
+        { key: "trackDimensions", label: dictionaries.trackDimensions },
+        { key: "speed", label: dictionaries.speed },
+        { key: "climbingAbility", label: dictionaries.climbingAbility },
+        { key: "groundPressure", label: dictionaries.groundPressure }
+      ]
+    },
+    {
+      category: "엔진",
+      fields: [
+        { key: "operatingMethod", label: dictionaries.operatingMethod },
+        { key: "powerType", label: dictionaries.powerType },
+        { key: "powerPack", label: dictionaries.powerPack },
+        { key: "powerSupply", label: dictionaries.powerSupply }
+      ]
+    },
+    {
+      category: "추가 옵션",
+      fields: [{ key: "additionalOptions", label: dictionaries.additionalOptions }]
+    }
+  ];
+
   return (
     <div className="flex flex-col">
       <Container>
@@ -153,30 +181,6 @@ export default function EquipmentDetailPage() {
                 뒤로가기
               </Button>
             </div>
-
-            {hasAccessories && (
-              <Tabs
-                defaultValue="-1"
-                value={selectedAccessoryIndex.toString()}
-                onValueChange={(value) => setSelectedAccessoryIndex(Number(value))}
-              >
-                <TabsList>
-                  <TabsTrigger value="-1" className="flex-1">
-                    기본
-                  </TabsTrigger>
-                  {equipment.accessories?.map((accessory, index) => (
-                    <TabsTrigger key={index} value={index.toString()} className="flex-1">
-                      <div className="flex items-center gap-1">
-                        <span>{accessory.accessoryName}</span>
-                        <span className="text-muted-foreground">
-                          ({craneType[accessory.accessoryType as keyof typeof craneType]})
-                        </span>
-                      </div>
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </Tabs>
-            )}
 
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
               <div className="group relative">
@@ -201,10 +205,8 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.dimensions}</span>
-                        <span
-                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.dimensions || "", "dimensions")}`}
-                        >
-                          {currentData.dimensions || "-"}
+                        <span className="text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl">
+                          {equipment.dimensions || "-"}
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
@@ -218,10 +220,8 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.maxSafeLoad}</span>
-                        <span
-                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.maxSafeLoad || "", "maxSafeLoad")}`}
-                        >
-                          {currentData.maxSafeLoad || "-"}
+                        <span className="text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl">
+                          {equipment.maxSafeLoad || "-"}
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
@@ -235,10 +235,8 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.maxLiftingHeight}</span>
-                        <span
-                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.maxLiftingHeight || "", "maxLiftingHeight")}`}
-                        >
-                          {currentData.maxLiftingHeight || "-"}
+                        <span className="text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl">
+                          {equipment.maxLiftingHeight || "-"}
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
@@ -252,10 +250,8 @@ export default function EquipmentDetailPage() {
                     <div className="flex size-full items-center justify-between">
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.maxLiftingLength}</span>
-                        <span
-                          className={`text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl ${getValueColor(currentData.maxLiftingLength || "", "maxLiftingLength")}`}
-                        >
-                          {currentData.maxLiftingLength || "-"}
+                        <span className="text-2xl font-semibold tabular-nums transition-colors @[250px]/card:text-3xl">
+                          {equipment.maxLiftingLength || "-"}
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
@@ -270,7 +266,7 @@ export default function EquipmentDetailPage() {
                       <div className="flex size-full flex-col justify-center">
                         <span className="text-muted-foreground text-sm">{dictionaries.operatingMethod}</span>
                         <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                          {currentData.operatingMethod || "-"}
+                          {equipment.operatingMethod || "-"}
                         </span>
                       </div>
                       <div className="bg-primary/10 text-primary flex size-16 shrink-0 items-center justify-center rounded-lg">
@@ -293,595 +289,67 @@ export default function EquipmentDetailPage() {
               </div>
             </div>
           </div>
+
+          {/* 제원표 이미지 섹션 */}
+          {specImages.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-semibold">제원표</h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {specImages.map((imgPath, index) => (
+                  <Card key={imgPath} className="gap-0 overflow-hidden py-0">
+                    <CardContent className="px-0">
+                      <img src={imgPath} alt={`제원표 ${index + 1}`} className="w-full max-w-full" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl font-semibold">기술 정보</h2>
-            <Card className="gap-0 py-0">
+            <Card className="gap-0 overflow-hidden py-0">
               <CardContent className="px-0">
                 <Table>
+                  <TableHeader className="bg-muted hover:bg-muted">
+                    <TableRow className="divide-x font-semibold">
+                      <TableHead className="px-6 text-center font-semibold">구분</TableHead>
+                      <TableHead className="px-6 font-semibold">항목</TableHead>
+                      <TableHead className="px-6 font-semibold">기본</TableHead>
+                      {hasAccessories &&
+                        equipment.accessories?.map((accessory, index) => (
+                          <TableHead key={index} className="px-6 font-semibold">
+                            {accessory.accessoryName}
+                            <span className="text-muted-foreground ml-1">
+                              ({craneType[accessory.accessoryType as keyof typeof craneType]})
+                            </span>
+                          </TableHead>
+                        ))}
+                    </TableRow>
+                  </TableHeader>
                   <TableBody className="[&>[data-slot='table-row']]:hover:bg-transparent">
-                    {/* 1. 치수 (LxWxH) */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={5}>
-                        제원
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.dimensions}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.dimensions || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.dimensions || "", "dimensions");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 2. 차체 무게 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.bodyWeight}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.bodyWeight || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.bodyWeight || "", "bodyWeight");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 3. 건조 무게 (드라이 웨이트) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.dryWeight}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.dryWeight || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.dryWeight || "", "dryWeight");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 4. 카운터 웨이트 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.counterWeight}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.counterWeight || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.counterWeight || "", "counterWeight");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 5. 최대 안전하중 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxSafeLoad}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxSafeLoad || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxSafeLoad || "", "maxSafeLoad");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 6. 최대 인양높이 */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={8}>
-                        작업 제원
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLiftingHeight}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxLiftingHeight || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxLiftingHeight || "", "maxLiftingHeight");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 7. 최대 인양길이 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLiftingLength}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxLiftingLength || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxLiftingLength || "", "maxLiftingLength");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 8. 최대 높이 끝단 하중 (윈치) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxHeightTipLoadWinch}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxHeightTipLoadWinch || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxHeightTipLoadWinch || "", "maxHeightTipLoadWinch");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 9. 최대 길이 끝단 하중 (윈치) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLengthTipLoadWinch}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxLengthTipLoadWinch || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxLengthTipLoadWinch || "", "maxLengthTipLoadWinch");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 10. 최대 높이 끝단 하중 (후크)(집게)(패드) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxHeightTipLoadHook}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxHeightTipLoadHook || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxHeightTipLoadHook || "", "maxHeightTipLoadHook");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 11. 최대 길이 끝단 하중 (후크)(집게)(패드) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxLengthTipLoadHook}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxLengthTipLoadHook || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxLengthTipLoadHook || "", "maxLengthTipLoadHook");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 12. 작업 각도 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.workingAngle}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.workingAngle || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.workingAngle || "", "workingAngle");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 13. 권상 속도 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.hoistingSpeed}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.hoistingSpeed || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.hoistingSpeed || "", "hoistingSpeed");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 14. 선회 각도 */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={2}>
-                        선회
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.slewingAngle}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.slewingAngle || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.slewingAngle || "", "slewingAngle");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 15. 선회 속도 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.slewingSpeed}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.slewingSpeed || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.slewingSpeed || "", "slewingSpeed");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 16. 윈치 길이 */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={2}>
-                        와이어
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.winchLength}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.winchLength || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.winchLength || "", "winchLength");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 17. 윈치 두께 (⌀ = 직경) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.winchDiameter}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.winchDiameter || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.winchDiameter || "", "winchDiameter");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 18. 아웃트리거 확장 치수 */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={2}>
-                        아웃트리거
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">
-                        {dictionaries.outriggerExtensionDimensions}
-                      </TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.outriggerExtensionDimensions || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(
-                              currentData.outriggerExtensionDimensions || "",
-                              "outriggerExtensionDimensions"
-                            );
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 19. 최대 아웃트리거 하중 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.maxOutriggerLoad}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.maxOutriggerLoad || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.maxOutriggerLoad || "", "maxOutriggerLoad");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 20. 트랙 치수(확장) */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={4}>
-                        트랙
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.trackDimensions}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.trackDimensions || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.trackDimensions || "", "trackDimensions");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 21. 속력 1단, (2단) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.speed}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.speed || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.speed || "", "speed");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 22. 등판 능력 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.climbingAbility}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.climbingAbility || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.climbingAbility || "", "climbingAbility");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 23. 접지압 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.groundPressure}</TableCell>
-                      <TableCell className="px-6">
-                        <div className="flex items-center gap-2">
-                          <span>{currentData.groundPressure || "-"}</span>
-                          {(() => {
-                            const diff = getValueDiff(currentData.groundPressure || "", "groundPressure");
-                            if (diff) {
-                              return (
-                                <span
-                                  className={`text-sm font-medium ${diff.diff > 0 ? "text-green-600" : "text-red-600"}`}
-                                >
-                                  ({diff.diff > 0 ? "▲" : "▼"}
-                                  {diff.absDiff})
-                                </span>
-                              );
-                            }
-                            return null;
-                          })()}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {/* 24. 작동방식 */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold" rowSpan={4}>
-                        엔진
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.operatingMethod}</TableCell>
-                      <TableCell className="px-6">{currentData.operatingMethod || "-"}</TableCell>
-                    </TableRow>
-                    {/* 25. 엔진/배터리 (HP : 마력) */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.powerType}</TableCell>
-                      <TableCell className="px-6">{currentData.powerType || "-"}</TableCell>
-                    </TableRow>
-                    {/* 26. 파워팩 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.powerPack}</TableCell>
-                      <TableCell className="px-6">{currentData.powerPack || "-"}</TableCell>
-                    </TableRow>
-                    {/* 27. 사용 전원 */}
-                    <TableRow>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.powerSupply}</TableCell>
-                      <TableCell className="px-6">{currentData.powerSupply || "-"}</TableCell>
-                    </TableRow>
-                    {/* 28. 추가 옵션 */}
-                    <TableRow>
-                      <TableCell className="text-primary border-r px-6 text-center text-base font-semibold">
-                        추가 옵션
-                      </TableCell>
-                      <TableCell className="text-muted-foreground px-6">{dictionaries.additionalOptions}</TableCell>
-                      <TableCell className="px-6">{currentData.additionalOptions || "-"}</TableCell>
-                    </TableRow>
+                    {specFields.map((categoryGroup) =>
+                      categoryGroup.fields.map((field, fieldIndex) => (
+                        <TableRow key={`${categoryGroup.category}-${field.key}`} className="divide-x">
+                          {fieldIndex === 0 && (
+                            <TableCell
+                              className="text-primary border-r px-6 text-center text-base font-semibold"
+                              rowSpan={categoryGroup.fields.length}
+                            >
+                              {categoryGroup.category}
+                            </TableCell>
+                          )}
+                          <TableCell className="text-muted-foreground px-6">{field.label}</TableCell>
+                          <TableCell className="px-6">{(equipment[field.key] as string) || "-"}</TableCell>
+                          {hasAccessories &&
+                            equipment.accessories?.map((accessory, accIndex) => (
+                              <TableCell key={accIndex} className="px-6">
+                                {(accessory[field.key as keyof typeof accessory] as string) || "-"}
+                              </TableCell>
+                            ))}
+                        </TableRow>
+                      ))
+                    )}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -914,7 +382,7 @@ export default function EquipmentDetailPage() {
                               <span className="line-clamp-1 flex-1 font-semibold">{post?.title}</span>
                             </div>
                           </CardTitle>
-                          <CardDescription>{format(post?.createdAt, "yyyy-MM-dd")}</CardDescription>
+                          <CardDescription suppressHydrationWarning>{format(new Date(post?.createdAt), "yyyy-MM-dd")}</CardDescription>
                         </CardHeader>
                       </Card>
                     </Link>
